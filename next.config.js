@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: "export",
+  // Removed static export for Heroku server deployment
   images: {
     unoptimized: true,
   },
