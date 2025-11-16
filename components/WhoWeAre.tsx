@@ -50,7 +50,17 @@ export default function MinimalCallToAction() {
       };
 
       window.addEventListener("scroll", handleScroll, { passive: true });
-      handleScroll(); // Initial check
+      // Initial check - ensure text is visible on load
+      setTimeout(() => {
+        handleScroll();
+        // On mobile, show all letters immediately if section is in view
+        if (sectionRef.current) {
+          const rect = sectionRef.current.getBoundingClientRect();
+          if (rect.top < window.innerHeight && rect.bottom > 0) {
+            setVisibleLetters(text.length);
+          }
+        }
+      }, 100);
 
       return () => {
         window.removeEventListener("scroll", handleScroll);
@@ -60,7 +70,7 @@ export default function MinimalCallToAction() {
     const defaultClasses = "font-light leading-tight tracking-tight";
     const combinedClasses = className
       ? `${defaultClasses} ${className}`
-      : `text-3xl lg:text-4xl xl:text-5xl ${defaultClasses}`;
+      : `text-2xl sm:text-3xl lg:text-4xl xl:text-5xl ${defaultClasses}`;
 
     return (
       <h2 ref={headingRef} className={combinedClasses}>
@@ -108,7 +118,7 @@ export default function MinimalCallToAction() {
     <section
       ref={sectionRef}
       id="who-we-are"
-      className="relative overflow-hidden pt-24 lg:pt-32 pb-12 lg:pb-16"
+      className="relative bg-white overflow-hidden pt-32 sm:pt-24 lg:pt-32 pb-12 lg:pb-16"
       style={{ marginTop: "-200px" }}
     >
       {/* Beautiful orange gradient effects */}
@@ -122,7 +132,7 @@ export default function MinimalCallToAction() {
 
       <div className="max-w-7xl mx-auto px-[5%] relative z-10">
         {/* Main Content Section */}
-        <div className="pt-8 lg:pt-12">
+        <div className="pt-12 sm:pt-8 lg:pt-12">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 lg:gap-32 items-center">
             {/* Left Section: Text Content */}
             <div className="space-y-8">

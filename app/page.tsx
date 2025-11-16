@@ -38,24 +38,13 @@ export default function Home() {
 
         <FlippedCardStack />
 
-        <WhoWeAre image="/image/pendoluim.png" imageAlt="Pendulum ornament" />
+        <WhoWeAre />
 
         <ExploreOurWork />
 
         <OurImpactStories />
 
-        <StatsCounter
-          title="Our Impact & Achievements"
-          description="Driving innovation and excellence in science and technology"
-          counters={[
-            { title: "Projects", value: 100 },
-            { title: "Partners", value: 100 },
-            { title: "Awards", value: 100 },
-            { title: "Publications", value: 100 },
-            { title: "Grants", value: 100 },
-            { title: "Impact", value: 100 },
-          ]}
-        />
+        <StatsCounter />
 
         <LatestNews />
         <InstagramFeed />

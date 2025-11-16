@@ -26,8 +26,12 @@ export default function FlippedCardStack() {
 
   return (
     <section
-      className="relative w-full z-20 overflow-hidden"
-      style={{ marginTop: "-200px", paddingTop: 0 }}
+      className="relative w-full z-20 overflow-hidden bg-white lg:bg-transparent"
+      style={{
+        marginTop: "-200px",
+        paddingTop: "80px",
+        paddingBottom: "60px",
+      }}
     >
       {/* Beautiful orange gradient effects */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
@@ -38,15 +42,15 @@ export default function FlippedCardStack() {
         <div className="absolute bottom-1/3 left-1/3 w-[350px] h-[350px] bg-[#EC601B]/7 rounded-full blur-3xl"></div>
       </div>
 
-      <div className="relative max-w-7xl mx-auto px-[5%] z-10">
+      <div className="relative max-w-7xl mx-auto px-[5%] z-10 py-4 sm:py-6 lg:py-8">
         <div
-          className="relative flex items-center justify-center gap-4"
-          style={{ minHeight: "400px", perspective: "1000px" }}
+          className="relative flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-4 lg:gap-4"
+          style={{ minHeight: "280px", perspective: "1000px" }}
         >
           {cards.map((card, index) => (
             <motion.div
               key={index}
-              className="relative cursor-pointer"
+              className="relative cursor-pointer w-full sm:w-auto"
               style={{
                 zIndex: flippedIndex === index ? 30 : 20 - index,
                 transformStyle: "preserve-3d",
@@ -67,7 +71,7 @@ export default function FlippedCardStack() {
               onMouseLeave={() => setFlippedIndex(null)}
             >
               <motion.div
-                className="relative w-64 h-48 shadow-2xl"
+                className="relative w-full max-w-[280px] sm:w-56 md:w-64 h-40 sm:h-44 md:h-48 shadow-2xl mx-auto"
                 style={{
                   transformStyle: "preserve-3d",
                 }}

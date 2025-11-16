@@ -101,7 +101,7 @@ export default function InstagramFeed() {
     <motion.section
       ref={sectionRef}
       id="instagram-feed"
-      className="relative pt-24 lg:pt-32 pb-32 lg:pb-40 overflow-hidden"
+      className="relative bg-white pt-24 lg:pt-32 pb-32 lg:pb-40 overflow-hidden"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.6 }}

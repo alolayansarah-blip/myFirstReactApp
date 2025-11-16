@@ -13,6 +13,7 @@ git commit -m "Initial commit"
 ## Step 2: Push to GitHub
 
 1. **Create a new repository on GitHub:**
+
    - Go to https://github.com/new
    - Name it (e.g., `my-first-react-app`)
    - Don't initialize with README
@@ -41,6 +42,7 @@ git commit -m "Initial commit"
 ### Option B: Via Vercel CLI
 
 1. **Install Vercel CLI:**
+
    ```bash
    npm install -g vercel
    ```
@@ -64,4 +66,3 @@ git commit -m "Initial commit"
 - Your site will be live at: `https://your-app.vercel.app`
 - Every time you push to GitHub, Vercel auto-deploys
 - Share the URL with anyone!
-

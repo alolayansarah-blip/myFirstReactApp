@@ -172,7 +172,7 @@ export default function ExploreOurWork() {
     <motion.section
       ref={sectionRef}
       id="explore-our-work"
-      className="relative overflow-hidden pb-0 m-0"
+      className="relative bg-white overflow-hidden pb-0 m-0"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.6 }}
