@@ -113,7 +113,7 @@ export default function FlippedCardStack() {
                 </div>
 
                 {/* Text */}
-                <h3 className="relative z-10 text-gray-900 group-hover:text-white text-[18px] font-medium font-roboto leading-[1.3] transition-colors duration-300">
+                <h3 className="relative z-10 text-gray-900 group-hover:text-white text-[18px] font-light font-roboto leading-[1.3] transition-colors duration-300">
                   {card.front}
                 </h3>
 
