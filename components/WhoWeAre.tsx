@@ -224,7 +224,7 @@ export default function MinimalCallToAction() {
           >
             <div className="relative rounded-2xl overflow-hidden shadow-2xl aspect-[4/3]">
               <img
-                src="/image/who4.png"
+                src="/image/who5.png"
                 alt="KFAS Building"
                 className="w-full h-full object-cover"
               />
