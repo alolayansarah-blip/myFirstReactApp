@@ -21,7 +21,7 @@ export default function FlippedCardStack() {
       backgroundImage: "/image/Grants.jpg",
       icon: (
         <svg
-          className="w-10 h-10"
+          className="w-8 h-8"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -40,7 +40,7 @@ export default function FlippedCardStack() {
       backgroundImage: "/image/Learning.png",
       icon: (
         <svg
-          className="w-12 h-12"
+          className="w-8 h-8"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -55,11 +55,11 @@ export default function FlippedCardStack() {
       ),
     },
     {
-      front: "Scientific mission and fellowahip support",
-      backgroundImage: "/image/Scientific.png",
+      front: "Our Publications",
+      backgroundImage: "/image/Pub.png",
       icon: (
         <svg
-          className="w-12 h-12"
+          className="w-8 h-8"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -99,41 +99,60 @@ export default function FlippedCardStack() {
               }}
             >
               <motion.div
-                className="relative bg-white rounded-2xl p-6 w-full max-w-[240px] min-h-[240px] flex flex-col items-center justify-center text-center border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden"
+                className="relative bg-gradient-to-br from-[#EC601B] to-[#F7911E] rounded-none p-6 w-full max-w-[300px] min-h-[180px] flex flex-col items-center justify-between text-center shadow-xl hover:shadow-2xl transition-all duration-500 overflow-hidden border border-white/10"
                 whileHover={{
-                  scale: 1.02,
-                  y: isMobile ? 0 : -8,
-                  transition: { duration: 0.3 },
+                  scale: 1.05,
+                  y: isMobile ? 0 : -12,
+                  transition: { duration: 0.4, ease: "easeOut" },
                 }}
                 whileTap={{
-                  scale: 0.98,
+                  scale: 0.97,
                 }}
               >
                 {/* Background Image - appears on hover */}
                 {card.backgroundImage && (
-                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                  <motion.div
+                    className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700"
+                    initial={false}
+                  >
                     <img
                       src={card.backgroundImage}
                       alt=""
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-cover scale-110 group-hover:scale-100 transition-transform duration-700"
                     />
-                    {/* Subtle overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-br from-[#EC601B]/80 via-[#EC601B]/70 to-[#EC601B]/90"></div>
-                  </div>
+                    {/* Gradient overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-[#EC601B]/85 via-[#EC601B]/75 to-[#F7911E]/85"></div>
+                  </motion.div>
                 )}
 
-                {/* Icon */}
-                <div className="relative z-10 mb-4 text-[#EC601B] group-hover:text-white transition-colors duration-300">
-                  {card.icon}
+                {/* Decorative top accent */}
+                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-white/30 to-transparent"></div>
+
+                {/* Content wrapper */}
+                <div className="relative z-10 flex flex-col items-center justify-center flex-1 space-y-4">
+                  {/* Icon with background circle */}
+                  <div className="relative">
+                    <div className="absolute inset-0 bg-white/20 rounded-full blur-xl group-hover:bg-white/30 transition-all duration-300"></div>
+                    <div className="relative w-16 h-16 rounded-full bg-white/15 backdrop-blur-sm flex items-center justify-center border border-white/20 group-hover:bg-white/25 group-hover:border-white/30 transition-all duration-300">
+                      <div className="text-white group-hover:scale-110 transition-transform duration-300">
+                        {card.icon}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Text */}
+                  <h3 className="text-white text-[15px] font-medium font-roboto leading-[1.4] px-2 group-hover:text-white/95 transition-all duration-300">
+                    {card.front}
+                  </h3>
                 </div>
 
-                {/* Text */}
-                <h3 className="relative z-10 text-gray-900 group-hover:text-white text-[18px] font-light font-roboto leading-[1.3] transition-colors duration-300">
-                  {card.front}
-                </h3>
+                {/* Bottom accent line on hover */}
+                <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-white/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 
-                {/* Subtle accent line */}
-                <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#EC601B] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                {/* Shine effect on hover */}
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700">
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent transform -skew-x-12 translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-1000"></div>
+                </div>
               </motion.div>
             </motion.div>
           ))}

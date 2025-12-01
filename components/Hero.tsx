@@ -60,8 +60,8 @@ export default function Hero({
       ref={sectionRef}
       className={`relative min-h-screen flex items-center justify-center overflow-hidden ${className}`}
     >
-      {/* Video Background (Desktop) / Image Background (Mobile) */}
-      {!isMobile && video && (
+      {/* Video Background */}
+      {video && (
         <motion.div
           className="absolute inset-0 z-0"
           initial={{ scale: 1.1 }}
@@ -87,24 +87,6 @@ export default function Hero({
             style={{
               background: `radial-gradient(circle at ${mousePosition.x}% ${mousePosition.y}%, rgba(236, 96, 27, 0.1) 0%, rgba(0, 0, 0, 0.3) 70%, rgba(0, 0, 0, 0.5) 100%)`,
             }}
-          />
-          {/* Additional overlay for depth - black overlay */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/40 to-black/60" />
-        </motion.div>
-      )}
-
-      {/* Image Background (Mobile) */}
-      {isMobile && (
-        <motion.div
-          className="absolute inset-0 z-0"
-          initial={{ scale: 1.1 }}
-          animate={{ scale: 1 }}
-          transition={{ duration: 2, ease: "easeOut" }}
-        >
-          <img
-            src="/image/who4.png"
-            alt="Hero background"
-            className="absolute inset-0 w-full h-full object-cover"
           />
           {/* Additional overlay for depth - black overlay */}
           <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/40 to-black/60" />
@@ -154,8 +136,8 @@ export default function Hero({
         />
       </div>
 
-      {/* Floating particles - Desktop only */}
-      {!isMobile && video && (
+      {/* Floating particles */}
+      {video && (
         <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
           {particles.map((particle) => (
             <motion.div

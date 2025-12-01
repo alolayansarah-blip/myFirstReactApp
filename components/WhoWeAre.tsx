@@ -5,7 +5,9 @@ import { motion } from "framer-motion";
 
 export default function MinimalCallToAction() {
   const [isVisible, setIsVisible] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   // Animated Heading Component - Scroll-based
   const AnimatedHeading = ({
@@ -150,6 +152,54 @@ export default function MinimalCallToAction() {
     };
   }, []);
 
+  // Handle video play/pause events and show first frame
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const handlePlay = () => setIsPlaying(true);
+    const handlePause = () => setIsPlaying(false);
+
+    // Show a visible frame when video is ready
+    const handleLoadedData = () => {
+      if (video.readyState >= 2 && !isPlaying) {
+        video.currentTime = 0.1;
+      }
+    };
+
+    const handleCanPlay = () => {
+      if (video.readyState >= 2 && !isPlaying) {
+        video.currentTime = 0.1;
+      }
+    };
+
+    const handleSeeked = () => {
+      // Ensure frame is displayed after seeking
+      if (!isPlaying) {
+        video.pause();
+      }
+    };
+
+    video.addEventListener("play", handlePlay);
+    video.addEventListener("pause", handlePause);
+    video.addEventListener("loadeddata", handleLoadedData);
+    video.addEventListener("canplay", handleCanPlay);
+    video.addEventListener("seeked", handleSeeked);
+
+    // If video is already loaded, show a frame
+    if (video.readyState >= 2 && !isPlaying) {
+      video.currentTime = 0.1;
+    }
+
+    return () => {
+      video.removeEventListener("play", handlePlay);
+      video.removeEventListener("pause", handlePause);
+      video.removeEventListener("loadeddata", handleLoadedData);
+      video.removeEventListener("canplay", handleCanPlay);
+      video.removeEventListener("seeked", handleSeeked);
+    };
+  }, [isPlaying]);
+
   return (
     <section
       ref={sectionRef}
@@ -163,11 +213,12 @@ export default function MinimalCallToAction() {
         <div className="absolute bottom-1/4 left-0 w-[500px] h-[500px] bg-gradient-radial from-[#FFAB40]/4 via-[#F7911E]/2 to-transparent rounded-full blur-3xl"></div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-[5%] relative z-10 space-y-16 lg:space-y-20">
-        {/* First Container: Title (Left) and Description (Right) */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
-          {/* Left: Main Title */}
-          <div className="space-y-4">
+      <div className="max-w-7xl mx-auto px-[5%] relative z-10">
+        {/* Two Container Layout: Left (Content) and Right (Video) */}
+        <div className="grid grid-cols-1 lg:grid-cols-[3fr_2fr] gap-12 lg:gap-16 items-start">
+          {/* Left Container: Content */}
+          <div className="space-y-8">
+            {/* Who We Are Title */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
@@ -177,10 +228,12 @@ export default function MinimalCallToAction() {
                 ease: [0.25, 0.46, 0.45, 0.94],
               }}
             >
-              <p className="text-sm lg:text-base font-medium text-white bg-[#7DC0F1] uppercase tracking-wider mb-0 px-3 py-1.5 rounded inline-block">
+              <p className="text-sm lg:text-base font-medium text-[#EC601B] uppercase tracking-wider mb-0">
                 Who We Are
               </p>
             </motion.div>
+
+            {/* Main Title */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
@@ -192,147 +245,192 @@ export default function MinimalCallToAction() {
             >
               <AnimatedHeading text="Our vision and mission for the 2025-2026 Strategy:" />
             </motion.div>
+
+            {/* Paragraph */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+              transition={{
+                duration: 0.8,
+                delay: 0.5,
+                ease: [0.25, 0.46, 0.45, 0.94],
+              }}
+            >
+              <p className="text-[1.125rem] text-gray-700 leading-[2.125rem] font-normal tracking-normal">
+                The Foundation's efforts toward fostering STI to address
+                national challenges first began through the pledge made by the
+                private sector shareholding companies to fund the Foundation
+                based on a set percentage of their annual profits — currently at
+                one percent — as well as through the incorporation of a unique
+                governance modality, in which the Board of Directors is chaired
+                and appointed by the Amir of the State of Kuwait.
+              </p>
+            </motion.div>
+
+            {/* Vision and Mission Icon Boxes */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+              transition={{
+                duration: 0.8,
+                delay: 0.7,
+                ease: [0.25, 0.46, 0.45, 0.94],
+              }}
+              className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-8"
+            >
+              {/* Vision Icon Box */}
+              <div className="group">
+                <div className="flex items-start gap-4">
+                  <div className="flex-shrink-0">
+                    <div className="group-hover:scale-110 transition-transform duration-300">
+                      <svg
+                        className="w-8 h-8 text-[#EC601B]"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                        />
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                        />
+                      </svg>
+                    </div>
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="text-xl font-bold text-gray-900 mb-2">
+                      Vision
+                    </h3>
+                    <p className="text-sm text-gray-600 leading-relaxed">
+                      Our vision is to advance science, technology, and
+                      innovation for a{" "}
+                      <span className="font-medium text-[#EC601B]">
+                        resilient, thriving, and sustainable future
+                      </span>
+                      .
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Mission Icon Box */}
+              <div className="group">
+                <div className="flex items-start gap-4">
+                  <div className="flex-shrink-0">
+                    <div className="group-hover:scale-110 transition-transform duration-300">
+                      <svg
+                        className="w-8 h-8 text-[#EC601B]"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M13 10V3L4 14h7v7l9-11h-7z"
+                        />
+                      </svg>
+                    </div>
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="text-xl font-bold text-gray-900 mb-2">
+                      Mission
+                    </h3>
+                    <p className="text-sm text-gray-600 leading-relaxed">
+                      Our mission is to pursue{" "}
+                      <span className="font-medium text-[#F7911E]">
+                        scientific excellence to tackle national challenges
+                      </span>{" "}
+                      through a prominent science, technology, and innovation
+                      model.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
           </div>
 
-          {/* Right: Description */}
+          {/* Right Container: Video */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-            transition={{
-              duration: 0.8,
-              delay: 0.5,
-              ease: [0.25, 0.46, 0.45, 0.94],
-            }}
-          >
-            <p className="text-base lg:text-lg text-gray-700 leading-relaxed font-light">
-              The Foundation's efforts toward fostering STI to address national
-              challenges first began through the pledge made by the private
-              sector shareholding companies to fund the Foundation based on a
-              set percentage of their annual profits — currently at one percent
-              — as well as through the incorporation of a unique governance
-              modality, in which the Board of Directors is chaired and appointed
-              by the Amir of the State of Kuwait. Read More...
-            </p>
-          </motion.div>
-        </div>
-
-        {/* Second Container: Image (Left) and Vision/Mission (Right) */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          {/* Left: Image with bottom overlay */}
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            animate={isVisible ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
+            initial={{ opacity: 0, x: 50 }}
+            animate={isVisible ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
             transition={{
               duration: 0.8,
               delay: 0.6,
               ease: [0.25, 0.46, 0.45, 0.94],
             }}
-            className="relative"
+            className="relative group sticky top-24"
           >
             <div className="relative rounded-2xl overflow-hidden shadow-2xl aspect-[4/3]">
-              <img
-                src="/image/who5.png"
-                alt="KFAS Building"
+              <video
+                ref={videoRef}
+                src="/image/bendoluim.mp4"
                 className="w-full h-full object-cover"
+                loop
+                muted
+                playsInline
+                preload="auto"
+                onLoadedData={(e) => {
+                  // Seek to a small time value to show an actual frame (not black)
+                  const video = e.currentTarget;
+                  if (video.readyState >= 2) {
+                    video.currentTime = 0.1;
+                  }
+                }}
+                onCanPlay={(e) => {
+                  // Ensure frame is displayed when video can play
+                  const video = e.currentTarget;
+                  if (!isPlaying && video.readyState >= 2) {
+                    video.currentTime = 0.1;
+                  }
+                }}
               />
               {/* Bottom overlay with color #7DC0F1 */}
               <div className="absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-t from-[#7DC0F1]/20 to-transparent pointer-events-none"></div>
+
+              {/* Play/Pause Button */}
+              <button
+                onClick={() => {
+                  if (videoRef.current) {
+                    if (isPlaying) {
+                      videoRef.current.pause();
+                    } else {
+                      videoRef.current.play();
+                    }
+                    setIsPlaying(!isPlaying);
+                  }
+                }}
+                className="absolute inset-0 flex items-center justify-center transition-opacity duration-300 hover:opacity-80"
+                aria-label={isPlaying ? "Pause video" : "Play video"}
+              >
+                {isPlaying ? (
+                  <svg
+                    className="w-12 h-12 md:w-14 md:h-14 text-white drop-shadow-lg transition-transform duration-300 hover:scale-110"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z" />
+                  </svg>
+                ) : (
+                  <svg
+                    className="w-12 h-12 md:w-14 md:h-14 text-white drop-shadow-lg transition-transform duration-300 hover:scale-110 ml-1"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M8 5v14l11-7z" />
+                  </svg>
+                )}
+              </button>
             </div>
           </motion.div>
-
-          {/* Right: Vision and Mission with background #7DC0F1 */}
-          <div className="space-y-6 bg-[#7DC0F1] rounded-2xl p-8 lg:p-10">
-            {/* Vision */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-              transition={{
-                duration: 0.8,
-                delay: 0.8,
-                ease: [0.25, 0.46, 0.45, 0.94],
-              }}
-              className="space-y-4"
-            >
-              <div className="flex items-center gap-4">
-                <div className="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center">
-                  <svg
-                    className="w-5 h-5 text-white"
-                    fill="none"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                    <path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                  </svg>
-                </div>
-                <AnimatedHeading
-                  text="Our Vision"
-                  className="text-xl lg:text-2xl font-medium text-white"
-                />
-              </div>
-              <motion.p
-                initial={{ opacity: 0, y: 10 }}
-                animate={
-                  isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }
-                }
-                transition={{ duration: 0.6, delay: 1.0 }}
-                className="text-base lg:text-lg text-white/90 leading-relaxed font-light"
-              >
-                Our vision is to advance science, technology, and innovation for
-                a resilient, thriving, and sustainable future.
-              </motion.p>
-            </motion.div>
-
-            {/* Divider */}
-            <div className="h-px bg-white/20"></div>
-
-            {/* Mission */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-              transition={{
-                duration: 0.8,
-                delay: 1.0,
-                ease: [0.25, 0.46, 0.45, 0.94],
-              }}
-              className="space-y-4"
-            >
-              <div className="flex items-center gap-4">
-                <div className="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center">
-                  <svg
-                    className="w-5 h-5 text-white"
-                    fill="none"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                </div>
-                <AnimatedHeading
-                  text="Our Mission"
-                  className="text-xl lg:text-2xl font-medium text-white"
-                />
-              </div>
-              <motion.p
-                initial={{ opacity: 0, y: 10 }}
-                animate={
-                  isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }
-                }
-                transition={{ duration: 0.6, delay: 1.2 }}
-                className="text-base lg:text-lg text-white/90 leading-relaxed font-light"
-              >
-                Our mission is to pursue scientific excellence to tackle
-                national challenges through a prominent science, technology, and
-                innovation model.
-              </motion.p>
-            </motion.div>
-          </div>
         </div>
       </div>
     </section>

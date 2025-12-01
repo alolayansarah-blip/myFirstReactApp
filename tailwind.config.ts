@@ -14,8 +14,17 @@ const config: Config = {
       },
       fontFamily: {
         roboto: ["var(--font-roboto)", "sans-serif"],
-        
+
         poppins: ["var(--font-poppins)", "sans-serif"],
+      },
+      animation: {
+        shimmer: "shimmer 2s infinite",
+      },
+      keyframes: {
+        shimmer: {
+          "0%": { transform: "translateX(-100%)" },
+          "100%": { transform: "translateX(100%)" },
+        },
       },
     },
   },
