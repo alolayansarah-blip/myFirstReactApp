@@ -102,7 +102,7 @@ export default function Hero({
           transition={{ duration: 2, ease: "easeOut" }}
         >
           <img
-            src="/image/bendoluim.png"
+            src="/image/who4.png"
             alt="Hero background"
             className="absolute inset-0 w-full h-full object-cover"
           />
@@ -199,7 +199,7 @@ export default function Hero({
           <img
             src="/image/TimelessEn.png"
             alt="Timeless Legacy - Innovative Future"
-            className="w-auto h-52 sm:h-64 md:h-80 lg:h-96 xl:h-[28rem] 2xl:h-[32rem] object-contain drop-shadow-[0_4px_12px_rgba(0,0,0,0.5)]"
+            className="w-auto h-40 sm:h-64 md:h-80 lg:h-96 xl:h-[28rem] 2xl:h-[32rem] object-contain drop-shadow-[0_4px_12px_rgba(0,0,0,0.5)]"
           />
         </div>
       </motion.div>
@@ -219,7 +219,7 @@ export default function Hero({
           <img
             src="/image/TimelessAr.png"
             alt="إرث راسخ - مستقبل مبتكر"
-            className="w-auto h-52 sm:h-64 md:h-80 lg:h-96 xl:h-[28rem] 2xl:h-[32rem] object-contain drop-shadow-[0_4px_12px_rgba(0,0,0,0.5)]"
+            className="w-auto h-40 sm:h-64 md:h-80 lg:h-96 xl:h-[28rem] 2xl:h-[32rem] object-contain drop-shadow-[0_4px_12px_rgba(0,0,0,0.5)]"
           />
         </div>
       </motion.div>

@@ -74,6 +74,13 @@ export default function MinimalCallToAction() {
       ? `${defaultClasses} ${className}`
       : `text-[40px] ${defaultClasses}`;
 
+    // Extract text color from className or default to black
+    const textColorClass = className?.includes("text-white")
+      ? "text-white"
+      : className?.includes("text-")
+      ? className.match(/text-\S+/)?.[0] || "text-black"
+      : "text-black";
+
     // Split text into words to prevent breaking within words
     const words = text.split(" ");
     let currentIndex = 0;
@@ -101,7 +108,7 @@ export default function MinimalCallToAction() {
                 return (
                   <span
                     key={letterIndex}
-                    className="inline-block transition-colors duration-200 text-black"
+                    className={`inline-block transition-colors duration-200 ${textColorClass}`}
                   >
                     {letter}
                   </span>
