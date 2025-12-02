@@ -2,7 +2,8 @@
 const nextConfig = {
   // Removed static export for Heroku server deployment
   images: {
-    unoptimized: true,
+    unoptimized: false, // Enable image optimization for better performance
+    formats: ["image/avif", "image/webp"],
   },
   eslint: {
     // Warning: This allows production builds to successfully complete even if
@@ -14,6 +15,10 @@ const nextConfig = {
     // your project has type errors.
     ignoreBuildErrors: false,
   },
+  // Performance optimizations
+  compress: true,
+  poweredByHeader: false,
+  reactStrictMode: true,
 };
 
 module.exports = nextConfig;

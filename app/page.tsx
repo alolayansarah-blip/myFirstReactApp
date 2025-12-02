@@ -1,14 +1,37 @@
+import dynamic from "next/dynamic";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Hero from "@/components/Hero";
-import WhoWeAre from "@/components/WhoWeAre";
-import StatsCounter from "@/components/StatsCounter";
-import SocialShareMenu from "@/components/SocialShareMenu";
-import FlippedCardStack from "@/components/FlippedCardStack";
-import ExploreOurWork from "@/components/ExploreOurWork";
-import LogoShowcase from "@/components/LogoShowcase";
-import OurImpactStories from "@/components/OurImpactStories";
-import InstagramFeed from "@/components/InstagramFeed";
+
+// Lazy load components below the fold for better performance
+const FlippedCardStack = dynamic(
+  () => import("@/components/FlippedCardStack"),
+  {
+    loading: () => <div className="min-h-[400px]" />,
+  }
+);
+const WhoWeAre = dynamic(() => import("@/components/WhoWeAre"), {
+  loading: () => <div className="min-h-[400px]" />,
+});
+const StatsCounter = dynamic(() => import("@/components/StatsCounter"), {
+  loading: () => <div className="min-h-[200px]" />,
+});
+const ExploreOurWork = dynamic(() => import("@/components/ExploreOurWork"), {
+  loading: () => <div className="min-h-[400px]" />,
+});
+const LogoShowcase = dynamic(() => import("@/components/LogoShowcase"), {
+  loading: () => <div className="min-h-[200px]" />,
+});
+const OurImpactStories = dynamic(
+  () => import("@/components/OurImpactStories"),
+  {
+    loading: () => <div className="min-h-[400px]" />,
+  }
+);
+const InstagramFeed = dynamic(() => import("@/components/InstagramFeed"), {
+  loading: () => <div className="min-h-[400px]" />,
+});
+const SocialShareMenu = dynamic(() => import("@/components/SocialShareMenu"));
 
 export default function Home() {
   return (

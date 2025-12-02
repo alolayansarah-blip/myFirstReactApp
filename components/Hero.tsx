@@ -75,8 +75,8 @@ export default function Hero({
             playsInline
             poster={videoPoster}
             className="absolute inset-0 w-full h-full object-cover"
+            preload="metadata"
             onError={(e) => console.error("Video error:", e)}
-            onLoadedData={() => console.log("Video loaded successfully")}
           >
             <source src={video} type="video/mp4" />
             Your browser does not support the video tag.

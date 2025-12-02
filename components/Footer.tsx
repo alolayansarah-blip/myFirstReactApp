@@ -3,16 +3,14 @@
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { memo } from "react";
 
 interface FooterProps {
   logo?: string;
   logoText?: string;
 }
 
-export default function Footer({
-  logo = "/image/logo.png",
-  logoText = "KFAS",
-}: FooterProps) {
+function Footer({ logo = "/image/logo.png", logoText = "KFAS" }: FooterProps) {
   const currentYear = new Date().getFullYear();
 
   const footerLinks = [
@@ -195,3 +193,5 @@ export default function Footer({
     </footer>
   );
 }
+
+export default memo(Footer);

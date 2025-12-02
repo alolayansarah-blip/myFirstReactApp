@@ -1,15 +1,15 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, memo } from "react";
 import { motion } from "framer-motion";
 
-export default function MinimalCallToAction() {
+function MinimalCallToAction() {
   const [isVisible, setIsVisible] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
 
-  // Animated Heading Component - Scroll-based
+  // Animated Heading Component
   const AnimatedHeading = ({
     text,
     className = "",
@@ -17,59 +17,6 @@ export default function MinimalCallToAction() {
     text: string;
     className?: string;
   }) => {
-    const [visibleLetters, setVisibleLetters] = useState(0);
-    const headingRef = useRef<HTMLHeadingElement>(null);
-
-    useEffect(() => {
-      const handleScroll = () => {
-        if (!headingRef.current || !sectionRef.current) return;
-
-        const section = sectionRef.current;
-        const rect = section.getBoundingClientRect();
-        const windowHeight = window.innerHeight;
-
-        // Calculate scroll progress within the section
-        // Animation starts when section top enters viewport
-        // Animation completes when section top is at 30% of viewport
-        const sectionTop = rect.top;
-        const triggerPoint = windowHeight * 0.7; // Start animation when section is 70% down viewport
-        const endPoint = windowHeight * 0.3; // Complete when section is 30% down viewport
-
-        let progress = 0;
-        if (sectionTop <= triggerPoint && sectionTop >= endPoint) {
-          // Section is in the animation zone
-          progress = 1 - (sectionTop - endPoint) / (triggerPoint - endPoint);
-        } else if (sectionTop < endPoint) {
-          // Section has passed the animation zone
-          progress = 1;
-        } else {
-          // Section hasn't reached animation zone
-          progress = 0;
-        }
-
-        const totalLetters = text.length;
-        const lettersToShow = Math.round(progress * totalLetters);
-        setVisibleLetters(lettersToShow);
-      };
-
-      window.addEventListener("scroll", handleScroll, { passive: true });
-      // Initial check - ensure text is visible on load
-      setTimeout(() => {
-        handleScroll();
-        // On mobile, show all letters immediately if section is in view
-        if (sectionRef.current) {
-          const rect = sectionRef.current.getBoundingClientRect();
-          if (rect.top < window.innerHeight && rect.bottom > 0) {
-            setVisibleLetters(text.length);
-          }
-        }
-      }, 100);
-
-      return () => {
-        window.removeEventListener("scroll", handleScroll);
-      };
-    }, [text]);
-
     const defaultClasses =
       "font-montserrat font-medium leading-[1.2] tracking-tight";
     const combinedClasses = className
@@ -89,7 +36,6 @@ export default function MinimalCallToAction() {
 
     return (
       <h2
-        ref={headingRef}
         className={`${combinedClasses} break-normal whitespace-normal text-justify`}
         style={{ wordBreak: "normal", overflowWrap: "normal" }}
       >
@@ -173,18 +119,10 @@ export default function MinimalCallToAction() {
       }
     };
 
-    const handleSeeked = () => {
-      // Ensure frame is displayed after seeking
-      if (!isPlaying) {
-        video.pause();
-      }
-    };
-
     video.addEventListener("play", handlePlay);
     video.addEventListener("pause", handlePause);
     video.addEventListener("loadeddata", handleLoadedData);
     video.addEventListener("canplay", handleCanPlay);
-    video.addEventListener("seeked", handleSeeked);
 
     // If video is already loaded, show a frame
     if (video.readyState >= 2 && !isPlaying) {
@@ -196,7 +134,6 @@ export default function MinimalCallToAction() {
       video.removeEventListener("pause", handlePause);
       video.removeEventListener("loadeddata", handleLoadedData);
       video.removeEventListener("canplay", handleCanPlay);
-      video.removeEventListener("seeked", handleSeeked);
     };
   }, [isPlaying]);
 
@@ -218,18 +155,6 @@ export default function MinimalCallToAction() {
         <div className="grid grid-cols-1 lg:grid-cols-[3fr_2fr] gap-12 lg:gap-16 items-start">
           {/* Left Container: Content */}
           <div className="space-y-8">
-            {/* Who We Are Title */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-              transition={{
-                duration: 0.6,
-                delay: 0.2,
-                ease: [0.25, 0.46, 0.45, 0.94],
-              }}
-              className="group"
-            ></motion.div>
-
             {/* Main Title */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
@@ -291,7 +216,7 @@ export default function MinimalCallToAction() {
                     initial={{ opacity: 0 }}
                     animate={isVisible ? { opacity: 1 } : { opacity: 0 }}
                     transition={{ delay: 0.8, duration: 0.4 }}
-                    className="text-xl font-bold text-gray-900 mb-2"
+                    className="font-montserrat text-[1.125rem] leading-[2.125rem] font-medium tracking-normal text-gray-900 mb-2"
                   >
                     Vision
                   </motion.h3>
@@ -330,7 +255,7 @@ export default function MinimalCallToAction() {
                     initial={{ opacity: 0 }}
                     animate={isVisible ? { opacity: 1 } : { opacity: 0 }}
                     transition={{ delay: 0.9, duration: 0.4 }}
-                    className="text-xl font-bold text-gray-900 mb-2"
+                    className="font-montserrat text-[1.125rem] leading-[2.125rem] font-medium tracking-normal text-gray-900 mb-2"
                   >
                     Mission
                   </motion.h3>
@@ -371,7 +296,7 @@ export default function MinimalCallToAction() {
                 loop
                 muted
                 playsInline
-                preload="auto"
+                preload="metadata"
                 onLoadedData={(e) => {
                   // Seek to a small time value to show an actual frame (not black)
                   const video = e.currentTarget;
@@ -430,3 +355,5 @@ export default function MinimalCallToAction() {
     </section>
   );
 }
+
+export default memo(MinimalCallToAction);
