@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useRef, memo } from "react";
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 function MinimalCallToAction() {
   const [isVisible, setIsVisible] = useState(false);
@@ -191,7 +192,8 @@ function MinimalCallToAction() {
                 based on a set percentage of their annual profits — currently at
                 one percent — as well as through the incorporation of a unique
                 governance modality, in which the Board of Directors is chaired
-                and appointed by the Amir of the State of Kuwait.
+                and appointed by the Amir of the State of Kuwait. Read More{" "}
+                <Link href="/about">About</Link>
               </p>
             </motion.div>
 
