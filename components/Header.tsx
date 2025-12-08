@@ -8,9 +8,15 @@ interface HeaderProps {
   logo?: string;
   logoText?: string;
   navItems?: NavItem[];
+  forceWhiteBackground?: boolean;
 }
 
-function Header({ logo, logoText = "KFAS", navItems = [] }: HeaderProps) {
+function Header({
+  logo,
+  logoText = "KFAS",
+  navItems = [],
+  forceWhiteBackground = false,
+}: HeaderProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
@@ -188,7 +194,9 @@ function Header({ logo, logoText = "KFAS", navItems = [] }: HeaderProps) {
   return (
     <header
       className={`w-full fixed top-0 left-0 right-0 z-[100] transition-all duration-300 ${
-        isScrolled ? "bg-white" : "md:bg-transparent bg-white"
+        isScrolled || forceWhiteBackground
+          ? "bg-white shadow-sm"
+          : "md:bg-transparent bg-white"
       }`}
     >
       {/* Desktop Header */}
@@ -198,16 +206,20 @@ function Header({ logo, logoText = "KFAS", navItems = [] }: HeaderProps) {
           <Link href="/" className="flex items-center space-x-2">
             {logo ? (
               <img
-                src={isScrolled ? "/image/logo2.png" : logo}
+                src={
+                  isScrolled || forceWhiteBackground ? "/image/logo2.png" : logo
+                }
                 alt={logoText}
                 className={`w-auto transition-all duration-300 ${
-                  isScrolled ? "h-16" : "h-20"
+                  isScrolled || forceWhiteBackground ? "h-16" : "h-20"
                 }`}
               />
             ) : (
               <span
                 className={`font-bold transition-all duration-300 ${
-                  isScrolled ? "text-xl text-black" : "text-2xl text-white"
+                  isScrolled || forceWhiteBackground
+                    ? "text-xl text-black"
+                    : "text-2xl text-white"
                 }`}
               >
                 {logoText}
@@ -218,7 +230,7 @@ function Header({ logo, logoText = "KFAS", navItems = [] }: HeaderProps) {
           {/* Desktop Navigation */}
           <div
             className={`flex items-center transition-all duration-300 ${
-              isScrolled ? "space-x-2" : "space-x-1"
+              isScrolled || forceWhiteBackground ? "space-x-2" : "space-x-1"
             }`}
           >
             {defaultNavItems.map((item) => (
@@ -233,15 +245,21 @@ function Header({ logo, logoText = "KFAS", navItems = [] }: HeaderProps) {
                     className={`hover:bg-[#EC601B] font-medium transition-all duration-300 flex items-center cursor-pointer px-3 py-1 ${
                       openDropdown === item.href
                         ? "bg-[#EC601B] text-white"
-                        : isScrolled
+                        : isScrolled || forceWhiteBackground
                         ? "text-black hover:text-white"
                         : "text-white/90 hover:text-white"
-                    } ${isScrolled ? "text-[15px]" : "text-base"}`}
+                    } ${
+                      isScrolled || forceWhiteBackground
+                        ? "text-[15px]"
+                        : "text-base"
+                    }`}
                   >
                     {item.label}
                     <svg
                       className={`ml-1 transition-all duration-300 ${
-                        isScrolled ? "w-3 h-3" : "w-4 h-4"
+                        isScrolled || forceWhiteBackground
+                          ? "w-3 h-3"
+                          : "w-4 h-4"
                       }`}
                       fill="none"
                       strokeLinecap="round"
@@ -299,14 +317,14 @@ function Header({ logo, logoText = "KFAS", navItems = [] }: HeaderProps) {
             >
               <span
                 className={`uppercase transition-all duration-300 ${
-                  isScrolled ? "text-xs" : "text-sm"
+                  isScrolled || forceWhiteBackground ? "text-xs" : "text-sm"
                 }`}
               >
                 {currentLanguage}
               </span>
               <svg
                 className={`ml-1 transition-all duration-300 ${
-                  isScrolled ? "w-3 h-3" : "w-4 h-4"
+                  isScrolled || forceWhiteBackground ? "w-3 h-3" : "w-4 h-4"
                 }`}
                 fill="none"
                 strokeLinecap="round"
