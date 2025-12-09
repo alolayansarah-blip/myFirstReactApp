@@ -16,9 +16,9 @@ const WhoWeAre = dynamic(() => import("@/components/WhoWeAre"), {
 const StatsCounter = dynamic(() => import("@/components/StatsCounter"), {
   loading: () => <div className="min-h-[200px]" />,
 });
-const ExploreOurWork = dynamic(() => import("@/components/ExploreOurWork"), {
-  loading: () => <div className="min-h-[400px]" />,
-});
+// const ExploreOurWork = dynamic(() => import("@/components/ExploreOurWork"), {
+//   loading: () => <div className="min-h-[400px]" />,
+// });
 const LogoShowcase = dynamic(() => import("@/components/LogoShowcase"), {
   loading: () => <div className="min-h-[200px]" />,
 });
@@ -70,16 +70,13 @@ export default function Home() {
 
         <WhoWeAre />
         <StatsCounter />
-
-        <ExploreOurWork />
+        <InstagramFeed />
 
         {/* <LogoShowcase /> */}
 
         <OurImpactStories />
         <LogoShowcase />
         {/* <StatsCounter /> */}
-
-        <InstagramFeed />
       </main>
       <Footer logo="/image/logo.png" logoText="KFAS" />
     </>

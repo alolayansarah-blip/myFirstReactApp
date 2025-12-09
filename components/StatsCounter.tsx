@@ -1,13 +1,130 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
+import { motion } from "framer-motion";
 
 export default function MinimalCounterSection() {
-  const [counts, setCounts] = useState([0, 0, 0, 0, 0, 0]);
+  const [counts, setCounts] = useState([0, 0, 0, 0, 0, 0, 0]);
   const [hasAnimated, setHasAnimated] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
 
-  const counterValues = [1100, 1600, 3250, 26800, 950, 10000];
+  const stats = [
+    {
+      value: 1112,
+      label: "Researchers Profile",
+      icon: (
+        <svg
+          className="w-10 h-10"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          strokeWidth={1}
+        >
+          <circle cx="12" cy="7" r="4" />
+          <path d="M5.5 21a7.5 7.5 0 0113 0" />
+        </svg>
+      ),
+    },
+    {
+      value: 1652,
+      label: "Projects",
+      icon: (
+        <svg
+          className="w-10 h-10"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          strokeWidth={1}
+        >
+          <rect x="3" y="7" width="18" height="12" rx="1" />
+          <path d="M8 7V5a1 1 0 011-1h6a1 1 0 011 1v2" />
+        </svg>
+      ),
+    },
+    {
+      value: 3588,
+      label: "Research Outputs",
+      icon: (
+        <svg
+          className="w-10 h-10"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          strokeWidth={1}
+        >
+          <path d="M9 12h6M9 16h6M17 21H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+          <path d="M13 3v6h6" />
+        </svg>
+      ),
+    },
+    {
+      value: 97,
+      label: "Impact",
+      icon: (
+        <svg
+          className="w-10 h-10"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          strokeWidth={1}
+        >
+          <circle cx="12" cy="12" r="10" />
+          <circle cx="12" cy="12" r="6" />
+          <circle cx="12" cy="12" r="2" />
+        </svg>
+      ),
+    },
+    {
+      value: 379,
+      label: "Prizes",
+      icon: (
+        <svg
+          className="w-10 h-10"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          strokeWidth={1}
+        >
+          <path d="M8 21h8M12 17v4M17 4H7l1 7h8l1-7z" />
+          <path d="M7 4c0-1 1-2 5-2s5 1 5 2" />
+          <path d="M17 8h2a2 2 0 012 2v1a4 4 0 01-4 4h-1M7 8H5a2 2 0 00-2 2v1a4 4 0 004 4h1" />
+        </svg>
+      ),
+    },
+    {
+      value: 916,
+      label: "Equipments",
+      icon: (
+        <svg
+          className="w-10 h-10"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          strokeWidth={1}
+        >
+          <circle cx="12" cy="12" r="3" />
+          <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z" />
+        </svg>
+      ),
+    },
+    {
+      value: 111,
+      label: "Organization",
+      icon: (
+        <svg
+          className="w-10 h-10"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          strokeWidth={1}
+        >
+          <path d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16" />
+          <path d="M3 21h18" />
+          <path d="M9 7h1M9 11h1M9 15h1M14 7h1M14 11h1M14 15h1" />
+        </svg>
+      ),
+    },
+  ];
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -15,11 +132,10 @@ export default function MinimalCounterSection() {
         entries.forEach((entry) => {
           if (entry.isIntersecting && !hasAnimated) {
             setHasAnimated(true);
-            // Animate counters
-            counterValues.forEach((value, index) => {
+            stats.forEach((stat, index) => {
               const duration = 2000;
               const steps = 60;
-              const increment = value / steps;
+              const increment = stat.value / steps;
               const stepDuration = duration / steps;
 
               let currentStep = 0;
@@ -27,10 +143,10 @@ export default function MinimalCounterSection() {
                 currentStep++;
                 setCounts((prev) => {
                   const newCounts = [...prev];
-                  if (newCounts[index] < value) {
+                  if (newCounts[index] < stat.value) {
                     newCounts[index] = Math.min(
                       newCounts[index] + increment,
-                      value
+                      stat.value
                     );
                   }
                   return newCounts;
@@ -40,7 +156,7 @@ export default function MinimalCounterSection() {
                   clearInterval(timer);
                   setCounts((prev) => {
                     const newCounts = [...prev];
-                    newCounts[index] = value;
+                    newCounts[index] = stat.value;
                     return newCounts;
                   });
                 }
@@ -73,200 +189,89 @@ export default function MinimalCounterSection() {
   return (
     <section
       ref={sectionRef}
-      className="py-24 lg:py-32 relative overflow-hidden"
+      className="py-20 lg:py-28 relative overflow-hidden"
+      style={{
+        background:
+          "linear-gradient(135deg, #EC601B 0%, #F7911E 50%, #EC601B 100%)",
+      }}
     >
-      {/* Background Image with Parallax Effect */}
-      <div
-        className="absolute inset-0 opacity-40"
-        style={{
-          backgroundImage: "url('/image/banner3.webp')",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-          backgroundAttachment: "fixed",
-        }}
-      ></div>
-
-      {/* Transparent Gradient Overlay */}
-      <div
-        className="absolute inset-0"
-        style={{
-          background:
-            "linear-gradient(135deg, rgba(236, 96, 27, 0.75) 0%, rgba(247, 145, 30, 0.70) 50%, rgba(236, 96, 27, 0.75) 100%)",
-        }}
-      ></div>
-
-      {/* Animated gradient orbs for depth */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-white/10 rounded-full blur-3xl animate-pulse"></div>
+      {/* Decorative diagonal lines */}
+      <div className="absolute inset-0 opacity-10">
         <div
-          className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-white/10 rounded-full blur-3xl animate-pulse"
-          style={{ animationDelay: "1s" }}
+          className="absolute top-0 right-0 w-1/2 h-full"
+          style={{
+            background:
+              "linear-gradient(45deg, transparent 45%, rgba(255,255,255,0.1) 45%, rgba(255,255,255,0.1) 55%, transparent 55%)",
+            backgroundSize: "20px 20px",
+          }}
         ></div>
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-white/5 rounded-full blur-3xl"></div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-20 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 relative z-10">
-        {/* Left Text Content */}
-        <div className="flex flex-col justify-center">
-          <h3 className="text-3xl lg:text-4xl xl:text-5xl font-light tracking-tight leading-tight mb-6 text-white drop-shadow-[0_4px_12px_rgba(0,0,0,0.5)]">
-            50 years journey supporting science, technology, and innovation
-          </h3>
-          <div className="w-24 h-1 bg-gradient-to-r from-white/80 via-white/60 to-transparent rounded-full"></div>
-        </div>
+      {/* Corner accent */}
+      <div className="absolute bottom-0 right-0 w-64 h-64 opacity-20">
+        <div
+          className="absolute bottom-0 right-0 w-full h-full"
+          style={{
+            background:
+              "radial-gradient(circle at bottom right, rgba(255,255,255,0.3) 0%, transparent 70%)",
+          }}
+        ></div>
+      </div>
 
-        {/* Right Counters with Glassmorphism Cards */}
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-6 lg:gap-8">
-          {/* Counter Item 1 */}
-          <div
-            className="flex flex-col items-center text-center group"
-            style={{ animationDelay: "0.1s" }}
+      <div className="max-w-6xl mx-auto px-6 sm:px-8 lg:px-12 relative z-10">
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="text-center mb-16"
+        >
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="font-montserrat text-3xl sm:text-4xl lg:text-5xl text-white mb-6 leading-tight"
           >
-            <div className="transition-all duration-500 group-hover:scale-105 group-hover:-translate-y-2">
-              <div className="relative mb-4 flex justify-center">
-                {/* Main counter circle */}
-                <div
-                  className="relative w-24 h-24 lg:w-28 lg:h-28 rounded-full border-2 flex items-center justify-center text-2xl lg:text-3xl font-semibold transition-all duration-500 group-hover:rotate-6"
-                  style={{
-                    borderColor: "rgba(255, 255, 255, 0.5)",
-                    color: "#FFFFFF",
-                  }}
-                >
-                  <span className="relative z-10">
-                    {formatNumber(counts[0])}
-                  </span>
-                </div>
-              </div>
-              <p className="text-white text-base lg:text-lg font-medium group-hover:scale-105 transition-transform duration-300 drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)]">
-                Researcher Supported
-              </p>
-            </div>
-          </div>
+            50 Years Journey Supporting{" "}
+            <span className="font-bold">Science, Technology,</span> and{" "}
+            <span className="font-bold">Innovation</span>
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="text-white/70 max-w-3xl mx-auto text-base leading-relaxed"
+          >
+            The Kuwait Foundation for the Advancement of Sciences has been at
+            the forefront of scientific progress, funding research and
+            development programs that address Kuwait's national priorities.
+          </motion.p>
+        </motion.div>
 
-          {/* Counter Item 2 */}
-          <div
-            className="flex flex-col items-center text-center group"
-            style={{ animationDelay: "0.2s" }}
-          >
-            <div className="transition-all duration-500 group-hover:scale-105 group-hover:-translate-y-2">
-              <div className="relative mb-4 flex justify-center">
-                <div
-                  className="relative w-24 h-24 lg:w-28 lg:h-28 rounded-full border-2 flex items-center justify-center text-2xl lg:text-3xl font-semibold transition-all duration-500 group-hover:-rotate-6"
-                  style={{
-                    borderColor: "rgba(255, 255, 255, 0.5)",
-                    color: "#FFFFFF",
-                  }}
-                >
-                  <span className="relative z-10">
-                    {formatNumber(counts[1])}
-                  </span>
-                </div>
+        {/* Stats Grid */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-6 lg:gap-4">
+          {stats.map((stat, index) => (
+            <div
+              key={index}
+              className="flex flex-col items-center text-center group"
+            >
+              {/* Icon Circle */}
+              <div className="w-20 h-20 rounded-full border border-white/40 flex items-center justify-center text-white mb-5 group-hover:border-white group-hover:bg-white/10 transition-all duration-300">
+                {stat.icon}
               </div>
-              <p className="text-white text-base lg:text-lg font-medium group-hover:scale-105 transition-transform duration-300 drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)]">
-                Project Funded
-              </p>
-            </div>
-          </div>
 
-          {/* Counter Item 3 */}
-          <div
-            className="flex flex-col items-center text-center group"
-            style={{ animationDelay: "0.3s" }}
-          >
-            <div className="transition-all duration-500 group-hover:scale-105 group-hover:-translate-y-2">
-              <div className="relative mb-4 flex justify-center">
-                <div
-                  className="relative w-24 h-24 lg:w-28 lg:h-28 rounded-full border-2 flex items-center justify-center text-2xl lg:text-3xl font-semibold transition-all duration-500 group-hover:rotate-6"
-                  style={{
-                    borderColor: "rgba(255, 255, 255, 0.5)",
-                    color: "#FFFFFF",
-                  }}
-                >
-                  <span className="relative z-10">
-                    {formatNumber(counts[2])}
-                  </span>
-                </div>
+              {/* Number */}
+              <div className="text-3xl lg:text-4xl font-bold text-white mb-2">
+                {formatNumber(counts[index])}
               </div>
-              <p className="text-white text-base lg:text-lg font-medium group-hover:scale-105 transition-transform duration-300 drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)]">
-                Articles Published
-              </p>
-            </div>
-          </div>
 
-          {/* Counter Item 4 */}
-          <div
-            className="flex flex-col items-center text-center group"
-            style={{ animationDelay: "0.4s" }}
-          >
-            <div className="transition-all duration-500 group-hover:scale-105 group-hover:-translate-y-2">
-              <div className="relative mb-4 flex justify-center">
-                <div
-                  className="relative w-24 h-24 lg:w-28 lg:h-28 rounded-full border-2 flex items-center justify-center text-2xl lg:text-3xl font-semibold transition-all duration-500 group-hover:-rotate-6"
-                  style={{
-                    borderColor: "rgba(255, 255, 255, 0.5)",
-                    color: "#FFFFFF",
-                  }}
-                >
-                  <span className="relative z-10">
-                    {formatNumber(counts[3])}
-                  </span>
-                </div>
-              </div>
-              <p className="text-white text-base lg:text-lg font-medium group-hover:scale-105 transition-transform duration-300 drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)]">
-                Citations
-              </p>
+              {/* Label */}
+              <p className="text-white/80 text-sm font-medium">{stat.label}</p>
             </div>
-          </div>
-
-          {/* Counter Item 5 */}
-          <div
-            className="flex flex-col items-center text-center group"
-            style={{ animationDelay: "0.5s" }}
-          >
-            <div className="transition-all duration-500 group-hover:scale-105 group-hover:-translate-y-2">
-              <div className="relative mb-4 flex justify-center">
-                <div
-                  className="relative w-24 h-24 lg:w-28 lg:h-28 rounded-full border-2 flex items-center justify-center text-2xl lg:text-3xl font-semibold transition-all duration-500 group-hover:rotate-6"
-                  style={{
-                    borderColor: "rgba(255, 255, 255, 0.5)",
-                    color: "#FFFFFF",
-                  }}
-                >
-                  <span className="relative z-10">
-                    {formatNumber(counts[4])}
-                  </span>
-                </div>
-              </div>
-              <p className="text-white text-base lg:text-lg font-medium group-hover:scale-105 transition-transform duration-300 drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)]">
-                International Collaborations
-              </p>
-            </div>
-          </div>
-
-          {/* Counter Item 6 */}
-          <div
-            className="flex flex-col items-center text-center group"
-            style={{ animationDelay: "0.6s" }}
-          >
-            <div className="transition-all duration-500 group-hover:scale-105 group-hover:-translate-y-2">
-              <div className="relative mb-4 flex justify-center">
-                <div
-                  className="relative w-24 h-24 lg:w-28 lg:h-28 rounded-full border-2 flex items-center justify-center text-2xl lg:text-3xl font-semibold transition-all duration-500 group-hover:-rotate-6"
-                  style={{
-                    borderColor: "rgba(255, 255, 255, 0.5)",
-                    color: "#FFFFFF",
-                  }}
-                >
-                  <span className="relative z-10">
-                    {formatNumber(counts[5])}
-                  </span>
-                </div>
-              </div>
-              <p className="text-white text-base lg:text-lg font-medium group-hover:scale-105 transition-transform duration-300 drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)]">
-                Professional Trends
-              </p>
-            </div>
-          </div>
+          ))}
         </div>
       </div>
     </section>
