@@ -88,8 +88,8 @@ export default function Hero({
               background: `radial-gradient(circle at ${mousePosition.x}% ${mousePosition.y}%, rgba(236, 96, 27, 0.1) 0%, rgba(0, 0, 0, 0.3) 70%, rgba(0, 0, 0, 0.5) 100%)`,
             }}
           />
-          {/* Additional overlay for depth - black overlay */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/40 to-black/60" />
+          {/* Additional overlay for depth - navy overlay */}
+          <div className="absolute inset-0 bg-gradient-to-b from-[#1D2D44]/60 via-[#1D2D44]/50 to-[#1D2D44]/70" />
         </motion.div>
       )}
 

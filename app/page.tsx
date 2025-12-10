@@ -70,12 +70,11 @@ export default function Home() {
 
         <WhoWeAre />
         <StatsCounter />
-        <InstagramFeed />
-
-        {/* <LogoShowcase /> */}
-
         <OurImpactStories />
         <LogoShowcase />
+        <InstagramFeed />
+        <OurImpactStories />
+
         {/* <StatsCounter /> */}
       </main>
       <Footer logo="/image/logo.png" logoText="KFAS" />
