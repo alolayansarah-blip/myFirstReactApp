@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -9,7 +9,7 @@ import Footer from "@/components/Footer";
 export default function AboutKfasPage() {
   const [showBackToTop, setShowBackToTop] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
-  const sectionRef = useRef<HTMLElement>(null);
+  const sectionRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -165,7 +165,8 @@ export default function AboutKfasPage() {
                     }
                     transition={{ duration: 0.5, delay: 1.9 }}
                   >
-                    <span className="text-[#EC601B] font-semibold">S</span>ciences
+                    <span className="text-[#EC601B] font-semibold">S</span>
+                    ciences
                   </motion.span>
                 </motion.h1>
               </div>
