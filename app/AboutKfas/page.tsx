@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import Header from "@/components/Header";
@@ -8,6 +8,8 @@ import Footer from "@/components/Footer";
 
 export default function AboutKfasPage() {
   const [showBackToTop, setShowBackToTop] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -16,6 +18,32 @@ export default function AboutKfasPage() {
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setIsVisible(true);
+          }
+        });
+      },
+      {
+        threshold: 0.1,
+        rootMargin: "0px",
+      }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => {
+      if (sectionRef.current) {
+        observer.unobserve(sectionRef.current);
+      }
+    };
   }, []);
 
   const scrollToTop = () => {
@@ -51,6 +79,7 @@ export default function AboutKfasPage() {
           {/* Content */}
           <div className="relative z-10 max-w-6xl mx-auto px-6 sm:px-8 lg:px-12">
             <motion.div
+              ref={sectionRef}
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
@@ -64,15 +93,82 @@ export default function AboutKfasPage() {
                 className="h-[1px] bg-white/40 mx-auto mb-6"
               ></motion.div>
 
-              <h1 className="font-montserrat text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6">
-                About <span className="text-[#EC601B]">K</span>
-                <span className="text-[#EC601B]">F</span>
-                <span className="text-[#EC601B]">A</span>
-                <span className="text-[#EC601B]">S</span>
-              </h1>
-              <p className="text-white/80 text-lg max-w-2xl mx-auto">
-                Kuwait Foundation for the Advancement of Sciences
-              </p>
+              {/* Animated KFAS Title */}
+              <div className="relative overflow-hidden mb-6">
+                {/* Collapsed KFAS - shows first, then fades out */}
+                <motion.h1
+                  initial={{ opacity: 1, scale: 1 }}
+                  animate={
+                    isVisible
+                      ? { opacity: 0, scale: 0.8, height: 0 }
+                      : { opacity: 1, scale: 1 }
+                  }
+                  transition={{
+                    duration: 0.6,
+                    delay: 0.8,
+                    ease: [0.25, 0.46, 0.45, 0.94],
+                  }}
+                  className="font-montserrat text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white"
+                >
+                  <span className="text-[#EC601B]">K</span>
+                  <span className="text-[#EC601B]">F</span>
+                  <span className="text-[#EC601B]">A</span>
+                  <span className="text-[#EC601B]">S</span>
+                </motion.h1>
+
+                {/* Expanded Full Name - fades in after KFAS */}
+                <motion.h1
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={
+                    isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }
+                  }
+                  transition={{
+                    duration: 0.8,
+                    delay: 1.2,
+                    ease: [0.25, 0.46, 0.45, 0.94],
+                  }}
+                  className="font-montserrat text-2xl sm:text-3xl lg:text-4xl font-normal text-white tracking-tight leading-tight"
+                >
+                  <motion.span
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={
+                      isVisible ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }
+                    }
+                    transition={{ duration: 0.5, delay: 1.3 }}
+                  >
+                    <span className="text-[#EC601B] font-semibold">K</span>uwait{" "}
+                  </motion.span>
+                  <motion.span
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={
+                      isVisible ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }
+                    }
+                    transition={{ duration: 0.5, delay: 1.5 }}
+                  >
+                    <span className="text-[#EC601B] font-semibold">F</span>
+                    oundation for the{" "}
+                  </motion.span>
+                  <motion.span
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={
+                      isVisible ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }
+                    }
+                    transition={{ duration: 0.5, delay: 1.7 }}
+                  >
+                    <span className="text-[#EC601B] font-semibold">A</span>
+                    dvancement of{" "}
+                  </motion.span>
+                  <motion.span
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={
+                      isVisible ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }
+                    }
+                    transition={{ duration: 0.5, delay: 1.9 }}
+                  >
+                    <span className="text-[#EC601B] font-semibold">S</span>ciences
+                  </motion.span>
+                </motion.h1>
+              </div>
 
               {/* Small decorative line below subtitle */}
               <motion.div

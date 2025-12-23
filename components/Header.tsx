@@ -68,7 +68,7 @@ function Header({
             label: "About",
             href: "/about",
             children: [
-              { label: "Who We Are", href: "/about/who-we-are" },
+              { label: "Who We Are", href: "/AboutKfas" },
               { label: " Our History", href: "/about/history" },
               { label: " Our Strategy", href: "/about/strategy" },
               {
