@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, memo, useCallback } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import type { NavItem } from "@/types";
 
@@ -332,13 +333,13 @@ function Header({
               </svg>
             </button>
             {isLangDropdownOpen && (
-              <div className="absolute right-0 top-full mt-2 bg-black/90 backdrop-blur-md rounded-lg shadow-lg py-2 min-w-[120px] z-50">
+              <div className="absolute right-0 top-full mt-0 bg-[#EC601B] shadow-lg py-4 min-w-[200px] z-50">
                 <button
                   onClick={() => {
                     setCurrentLanguage("en");
                     setIsLangDropdownOpen(false);
                   }}
-                  className="w-full text-left px-4 py-2 text-white/90 hover:text-white hover:bg-white/10 transition-colors flex items-center space-x-2"
+                  className="w-full text-left px-6 py-3 text-white hover:bg-white/20 transition-colors flex items-center space-x-2 border-b border-white/50"
                 >
                   <span>🇬🇧</span>
                   <span>English</span>
@@ -348,7 +349,7 @@ function Header({
                     setCurrentLanguage("ar");
                     setIsLangDropdownOpen(false);
                   }}
-                  className="w-full text-left px-4 py-2 text-white/90 hover:text-white hover:bg-white/10 transition-colors flex items-center space-x-2"
+                  className="w-full text-left px-6 py-3 text-white hover:bg-white/20 transition-colors flex items-center space-x-2"
                 >
                   <span>🇰🇼</span>
                   <span>العربية</span>
@@ -360,15 +361,18 @@ function Header({
       </nav>
 
       {/* Mobile Header */}
-      <nav className="md:hidden w-full bg-white shadow-sm">
-        <div className="flex items-center justify-between px-4 py-3">
+      <nav className="md:hidden w-full bg-white shadow-md border-b border-gray-100">
+        <div className="flex items-center justify-between px-5 py-4">
           {/* Logo in Center */}
           <div className="flex-1" />
-          <Link href="/" className="flex items-center justify-center flex-1">
+          <Link
+            href="/"
+            className="flex items-center justify-center flex-1 transition-opacity hover:opacity-90"
+          >
             <img
               src="/image/logo2.png"
               alt={logoText}
-              className="h-20 w-auto"
+              className="h-16 w-auto transition-all duration-300"
             />
           </Link>
 
@@ -376,16 +380,16 @@ function Header({
           <div className="flex-1 flex items-center justify-end">
             {/* Hamburger Button */}
             <button
-              className="p-2 text-black"
+              className="p-2.5 rounded-lg text-gray-700 hover:text-[#EC601B] hover:bg-gray-50 transition-all duration-300 active:scale-95"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               aria-label="Toggle menu"
             >
               <svg
-                className="w-6 h-6"
+                className="w-6 h-6 transition-transform duration-300"
                 fill="none"
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                strokeWidth="2"
+                strokeWidth="2.5"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
               >
@@ -400,119 +404,158 @@ function Header({
         </div>
 
         {/* Mobile Navigation Menu */}
-        {isMenuOpen && (
-          <div className="bg-white border-t border-gray-200 px-4 pb-4">
-            {defaultNavItems.map((item) => (
-              <div key={item.href}>
-                {item.children ? (
-                  <>
-                    <button
-                      className="w-full flex items-center justify-between py-3 font-medium text-black hover:text-gray-700 transition-colors"
-                      onClick={() =>
-                        setOpenMobileDropdown(
-                          openMobileDropdown === item.href ? null : item.href
-                        )
-                      }
-                    >
-                      <span>{item.label}</span>
-                      <svg
-                        className={`w-4 h-4 transition-transform ${
-                          openMobileDropdown === item.href ? "rotate-180" : ""
-                        }`}
-                        fill="none"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path d="M19 9l-7 7-7-7" />
-                      </svg>
-                    </button>
-                    {openMobileDropdown === item.href && (
-                      <div className="pl-4 space-y-1 bg-gray-50 rounded-lg py-2">
-                        {item.children.map((child) => (
-                          <Link
-                            key={child.href}
-                            href={child.href}
-                            className="block py-2 px-3 font-medium text-black/70 hover:text-black hover:bg-gray-100 rounded transition-colors"
-                            onClick={() => {
-                              setIsMenuOpen(false);
-                              setOpenMobileDropdown(null);
-                            }}
+        <AnimatePresence>
+          {isMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.3 }}
+              className="bg-white border-t border-gray-100 shadow-lg"
+            >
+              <div className="px-5 py-4 space-y-1">
+                {defaultNavItems.map((item, index) => (
+                  <div key={item.href}>
+                    {item.children ? (
+                      <>
+                        <button
+                          className="w-full flex items-center justify-between py-3.5 px-2 font-semibold text-gray-800 hover:text-[#EC601B] hover:bg-gray-50 rounded-lg transition-all duration-300 group"
+                          onClick={() =>
+                            setOpenMobileDropdown(
+                              openMobileDropdown === item.href
+                                ? null
+                                : item.href
+                            )
+                          }
+                        >
+                          <span className="flex items-center gap-2">
+                            <span className="w-1 h-5 bg-[#EC601B] opacity-0 group-hover:opacity-100 rounded-full transition-opacity duration-300"></span>
+                            <span>{item.label}</span>
+                          </span>
+                          <svg
+                            className={`w-5 h-5 text-gray-400 transition-all duration-300 ${
+                              openMobileDropdown === item.href
+                                ? "rotate-180 text-[#EC601B]"
+                                : "group-hover:text-[#EC601B]"
+                            }`}
+                            fill="none"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
                           >
-                            {child.label}
-                          </Link>
-                        ))}
-                      </div>
+                            <path d="M19 9l-7 7-7-7" />
+                          </svg>
+                        </button>
+                        {openMobileDropdown === item.href && (
+                          <motion.div
+                            initial={{ opacity: 0, height: 0 }}
+                            animate={{ opacity: 1, height: "auto" }}
+                            exit={{ opacity: 0, height: 0 }}
+                            transition={{ duration: 0.2 }}
+                            className="ml-4 mt-1 space-y-0.5 bg-gray-50/50 rounded-lg py-2 border-l-2 border-[#EC601B]/30"
+                          >
+                            {item.children.map((child) => (
+                              <Link
+                                key={child.href}
+                                href={child.href}
+                                className="block py-2.5 px-4 font-medium text-gray-600 hover:text-[#EC601B] hover:bg-white rounded-md transition-all duration-300"
+                                onClick={() => {
+                                  setIsMenuOpen(false);
+                                  setOpenMobileDropdown(null);
+                                }}
+                              >
+                                {child.label}
+                              </Link>
+                            ))}
+                          </motion.div>
+                        )}
+                      </>
+                    ) : (
+                      <Link
+                        href={item.href}
+                        className="block py-3.5 px-2 font-semibold text-gray-800 hover:text-[#EC601B] hover:bg-gray-50 rounded-lg transition-all duration-300 group"
+                        onClick={() => setIsMenuOpen(false)}
+                      >
+                        <span className="flex items-center gap-2">
+                          <span className="w-1 h-5 bg-[#EC601B] opacity-0 group-hover:opacity-100 rounded-full transition-opacity duration-300"></span>
+                          <span>{item.label}</span>
+                        </span>
+                      </Link>
                     )}
-                  </>
-                ) : (
-                  <Link
-                    href={item.href}
-                    className="block py-3 font-medium text-black/90 hover:text-black transition-colors"
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    {item.label}
-                  </Link>
-                )}
-              </div>
-            ))}
-
-            {/* Language Switcher - Mobile */}
-            <div className="mt-4 pt-4 border-t border-gray-200">
-              <div className="relative">
-                <button
-                  onClick={() => setIsLangDropdownOpen(!isLangDropdownOpen)}
-                  className="w-full flex items-center justify-between py-3 font-medium text-black hover:text-gray-700 transition-colors"
-                  aria-label="Change language"
-                >
-                  <span className="flex items-center space-x-2">
-                    <span className="uppercase">{currentLanguage}</span>
-                    <span>Language</span>
-                  </span>
-                  <svg
-                    className={`w-4 h-4 transition-transform ${
-                      isLangDropdownOpen ? "rotate-180" : ""
-                    }`}
-                    fill="none"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path d="M19 9l-7 7-7-7" />
-                  </svg>
-                </button>
-                {isLangDropdownOpen && (
-                  <div className="pl-4 mt-2 space-y-1 bg-gray-50 rounded-lg py-2">
-                    <button
-                      onClick={() => {
-                        setCurrentLanguage("en");
-                        setIsLangDropdownOpen(false);
-                      }}
-                      className="w-full text-left py-2 px-3 font-medium text-black/70 hover:text-black hover:bg-gray-100 rounded transition-colors flex items-center space-x-2"
-                    >
-                      <span>🇬🇧</span>
-                      <span>English</span>
-                    </button>
-                    <button
-                      onClick={() => {
-                        setCurrentLanguage("ar");
-                        setIsLangDropdownOpen(false);
-                      }}
-                      className="w-full text-left py-2 px-3 font-medium text-black/70 hover:text-black hover:bg-gray-100 rounded transition-colors flex items-center space-x-2"
-                    >
-                      <span>🇰🇼</span>
-                      <span>العربية</span>
-                    </button>
                   </div>
-                )}
+                ))}
               </div>
-            </div>
-          </div>
-        )}
+
+              {/* Language Switcher - Mobile */}
+              <div className="mt-2 pt-4 border-t border-gray-100 px-5 pb-4">
+                <div className="relative">
+                  <button
+                    onClick={() => setIsLangDropdownOpen(!isLangDropdownOpen)}
+                    className="w-full flex items-center justify-between py-3.5 px-2 font-semibold text-gray-800 hover:text-[#EC601B] hover:bg-gray-50 rounded-lg transition-all duration-300 group"
+                    aria-label="Change language"
+                  >
+                    <span className="flex items-center gap-2">
+                      <span className="w-1 h-5 bg-[#EC601B] opacity-0 group-hover:opacity-100 rounded-full transition-opacity duration-300"></span>
+                      <span className="flex items-center space-x-2">
+                        <span className="uppercase text-sm">
+                          {currentLanguage}
+                        </span>
+                        <span>Language</span>
+                      </span>
+                    </span>
+                    <svg
+                      className={`w-5 h-5 text-gray-400 transition-all duration-300 ${
+                        isLangDropdownOpen
+                          ? "rotate-180 text-[#EC601B]"
+                          : "group-hover:text-[#EC601B]"
+                      }`}
+                      fill="none"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </button>
+                  {isLangDropdownOpen && (
+                    <motion.div
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: "auto" }}
+                      exit={{ opacity: 0, height: 0 }}
+                      transition={{ duration: 0.2 }}
+                      className="ml-4 mt-2 space-y-0.5 bg-[#EC601B] rounded-lg py-2 border-l-2 border-white/30"
+                    >
+                      <button
+                        onClick={() => {
+                          setCurrentLanguage("en");
+                          setIsLangDropdownOpen(false);
+                        }}
+                        className="w-full text-left py-3 px-4 font-medium text-white hover:bg-white/20 rounded-md transition-all duration-300 flex items-center space-x-2 border-b border-white/50"
+                      >
+                        <span className="text-lg">🇬🇧</span>
+                        <span>English</span>
+                      </button>
+                      <button
+                        onClick={() => {
+                          setCurrentLanguage("ar");
+                          setIsLangDropdownOpen(false);
+                        }}
+                        className="w-full text-left py-3 px-4 font-medium text-white hover:bg-white/20 rounded-md transition-all duration-300 flex items-center space-x-2"
+                      >
+                        <span className="text-lg">🇰🇼</span>
+                        <span>العربية</span>
+                      </button>
+                    </motion.div>
+                  )}
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </nav>
     </header>
   );
