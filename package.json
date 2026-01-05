@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev -H 0.0.0.0",
+    "dev": "next dev -H 0.0.0.0 -p 3001",
     "dev:tunnel": "lt --port 3000",
-    "dev:share": "ngrok http 3000",
+    "dev:share": "ngrok http 3001",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"

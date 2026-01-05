@@ -59,9 +59,9 @@ export default function AboutKfasPage() {
           {/* Background Image */}
           <div className="absolute inset-0">
             <img
-              src="/image/AboutKfasBanner.png"
+              src="/image/AboutKFASBanner2.jpg"
               alt="Who We Are"
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover object-[center_75%]"
             />
             {/* Lighter overlay */}
             <div className="absolute inset-0 bg-[#1D2D44]/60"></div>
