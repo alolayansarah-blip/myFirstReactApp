@@ -19,6 +19,20 @@ const nextConfig = {
   compress: true,
   poweredByHeader: false,
   reactStrictMode: true,
+  // Add headers to help with cache invalidation
+  async headers() {
+    return [
+      {
+        source: "/:path*",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=3600, must-revalidate",
+          },
+        ],
+      },
+    ];
+  },
 };
 
 module.exports = nextConfig;

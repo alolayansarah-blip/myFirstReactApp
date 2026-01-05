@@ -81,15 +81,6 @@ export default function Hero({
             <source src={video} type="video/mp4" />
             Your browser does not support the video tag.
           </video>
-          {/* Dynamic gradient overlay that follows mouse */}
-          <motion.div
-            className="absolute inset-0 opacity-40 transition-opacity duration-1000"
-            style={{
-              background: `radial-gradient(circle at ${mousePosition.x}% ${mousePosition.y}%, rgba(236, 96, 27, 0.1) 0%, rgba(0, 0, 0, 0.3) 70%, rgba(0, 0, 0, 0.5) 100%)`,
-            }}
-          />
-          {/* Additional overlay for depth - navy overlay */}
-          <div className="absolute inset-0 bg-gradient-to-b from-[#1D2D44]/60 via-[#1D2D44]/50 to-[#1D2D44]/70" />
         </motion.div>
       )}
 
