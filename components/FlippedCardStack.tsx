@@ -66,7 +66,7 @@ function CardItem({ title, index }: Card & { index: number }) {
 
 export default function FlippedCardStack() {
   return (
-    <section className="relative w-full bg-transparent pt-20 pb-24 -mt-32">
+    <section className="relative w-full bg-white md:bg-transparent pt-20 pb-24 -mt-32">
       <div className="mx-auto max-w-[800px] px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-0">
           {cards.map((card, index) => (

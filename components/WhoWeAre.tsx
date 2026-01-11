@@ -53,7 +53,7 @@ function WhoWeAre() {
     <section
       ref={sectionRef}
       id="who-we-are"
-      className="relative bg-white overflow-hidden py-20 sm:py-28 lg:py-36"
+      className="relative bg-white overflow-hidden pt-8 sm:pt-12 lg:pt-16 pb-20 sm:pb-28 lg:pb-36"
     >
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
