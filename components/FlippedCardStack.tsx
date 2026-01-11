@@ -1,134 +1,76 @@
 "use client";
 
 import React from "react";
-import { motion } from "framer-motion";
 
-export default function FlippedCardStack() {
-  const cards = [
-    {
-      title: "Research Grants",
-    },
-    {
-      title: "Learning and Development for Professionals",
-    },
-    {
-      title: "Our Publications",
-    },
-  ];
+const cards = [
+  {
+    title: "Research Grants",
+  },
+  {
+    title: "Learning and Development for Professionals",
+  },
+  {
+    title: "Our Publications",
+  },
+];
+
+type Card = (typeof cards)[number];
+
+function CardItem({ title, index }: Card & { index: number }) {
+  const getRoundedClasses = () => {
+    // Mobile: first and last cards get rounded corners
+    // Desktop: left card gets left rounded, right card gets right rounded
+    if (index === 0)
+      return "rounded-t-2xl md:rounded-t-none md:rounded-tl-2xl md:rounded-bl-2xl md:rounded-tr-none md:rounded-br-none";
+    if (index === 2) return "rounded-b-2xl md:rounded-b-none md:rounded-r-2xl";
+    return "";
+  };
+
+  const shadowClass = index === 0 ? "shadow-lg" : "";
+  const dividerClass =
+    index < cards.length - 1
+      ? "border-b border-white/20 md:border-b-0 md:border-r md:border-white/20"
+      : "";
 
   return (
-    <section
-      className="relative w-full z-20 overflow-hidden bg-[#FAFAFA]"
-      style={{
-        marginTop: "0px",
-        paddingTop: "30px",
-        paddingBottom: "60px",
-      }}
+    <div
+      className={`relative h-44 ${getRoundedClasses()} p-0 ${shadowClass} ${dividerClass} bg-orange-500 md:hover:bg-orange-300 md:hover:scale-105 transition-all duration-300 md:cursor-pointer`}
     >
-      {/* Science-themed Background Pattern - Connecting with WhoWeAre */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden opacity-[0.08]">
-        <svg
-          className="absolute inset-0 w-full h-full"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <defs>
-            <pattern
-              id="molecular-pattern-cards"
-              x="0"
-              y="0"
-              width="150"
-              height="150"
-              patternUnits="userSpaceOnUse"
-            >
-              {/* Molecular structure circles - larger */}
-              <circle cx="40" cy="40" r="3" fill="#EC601B" opacity="0.4" />
-              <circle cx="110" cy="40" r="3" fill="#EC601B" opacity="0.4" />
-              <circle cx="75" cy="75" r="3" fill="#EC601B" opacity="0.4" />
-              <circle cx="40" cy="110" r="3" fill="#EC601B" opacity="0.4" />
-              <circle cx="110" cy="110" r="3" fill="#EC601B" opacity="0.4" />
-              {/* Connection lines - thicker */}
-              <line
-                x1="40"
-                y1="40"
-                x2="75"
-                y2="75"
-                stroke="#EC601B"
-                strokeWidth="1"
-                opacity="0.3"
-              />
-              <line
-                x1="110"
-                y1="40"
-                x2="75"
-                y2="75"
-                stroke="#EC601B"
-                strokeWidth="1"
-                opacity="0.3"
-              />
-              <line
-                x1="40"
-                y1="110"
-                x2="75"
-                y2="75"
-                stroke="#EC601B"
-                strokeWidth="1"
-                opacity="0.3"
-              />
-              <line
-                x1="110"
-                y1="110"
-                x2="75"
-                y2="75"
-                stroke="#EC601B"
-                strokeWidth="1"
-                opacity="0.3"
-              />
-            </pattern>
-          </defs>
-          <rect
-            width="100%"
-            height="100%"
-            fill="url(#molecular-pattern-cards)"
-          />
-        </svg>
+      <div className="flex flex-col h-full p-3 md:p-4 text-center justify-center items-center">
+        <h3 className="text-white text-lg md:text-base font-semibold mb-2 md:mb-3 leading-snug md:leading-tight px-3 md:px-2 drop-shadow-lg [text-shadow:_2px_2px_4px_rgba(0,0,0,0.5)]">
+          {title}
+        </h3>
+
+        <div className="flex items-center justify-center text-white/80">
+          <span className="text-base md:text-xs mr-1 drop-shadow-md [text-shadow:_1px_1px_2px_rgba(0,0,0,0.4)]">
+            Read more
+          </span>
+          <svg
+            className="w-3 h-3 md:w-4 md:h-4"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M17 8l4 4m0 0l-4 4m4-4H3"
+            />
+          </svg>
+        </div>
       </div>
+    </div>
+  );
+}
 
-      <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 z-10">
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 lg:gap-3">
+export default function FlippedCardStack() {
+  return (
+    <section className="relative w-full bg-transparent pt-20 pb-24 -mt-32">
+      <div className="mx-auto max-w-[800px] px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-0">
           {cards.map((card, index) => (
-            <motion.div
-              key={index}
-              className="relative mx-auto"
-              initial={{ opacity: 0, y: 50, scale: 0.9 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              transition={{
-                duration: 0.6,
-                delay: index * 0.15,
-                ease: [0.25, 0.46, 0.45, 0.94],
-              }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-            >
-              <motion.div className="relative rounded-md overflow-hidden bg-[#EC601B] border-2 border-[#EC601B] shadow-xl p-6 flex flex-col justify-between w-[280px] h-[200px]">
-                {/* Subtle Pattern Overlay */}
-                <div className="absolute inset-0 opacity-10">
-                  <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.3)_1px,transparent_1px)] bg-[length:20px_20px]"></div>
-                </div>
-
-                {/* Content Container */}
-                <div className="relative z-10 flex flex-col h-full items-center justify-center text-center">
-                  {/* Title */}
-                  <motion.h3
-                    className="text-white text-lg font-light leading-tight tracking-tight"
-                    initial={{ opacity: 0, y: 10 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.2 + index * 0.1 }}
-                  >
-                    {card.title}
-                  </motion.h3>
-                </div>
-              </motion.div>
-            </motion.div>
+            <CardItem key={index} {...card} index={index} />
           ))}
         </div>
       </div>

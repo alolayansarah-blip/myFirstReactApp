@@ -40,30 +40,12 @@ export default function Home() {
       <SocialShareMenu />
       <main>
         <Hero
-          title={
-            <>
-              {/* <span className="text-white animate-title-left inline-block">
-                Timeless Legacy
-              </span>
-              <br />
-              <span className="text-white animate-title-right inline-block">
-                Innovative Future
-              </span> */}
-              {/* <span className="text-[white] animate-title-left inline-block">
-                Timeless Legacy
-              </span>
-              <br />
-              <span className="text-[white] animate-title-right inline-block">
-                Innovative Future
-              </span> */}
-            </>
-          }
-          //   subtitle="Modern Web Solutions"
-          //   description="A fast, modern website built with Next.js, TypeScript, and Tailwind CSS. Converted from WordPress to a static, high-performance site."
-          //   ctaText="Get Started"
-          //   ctaLink="/contact"
-          video="/videos/HeroVideo.mp4" // Add your video path here
-          videoPoster="/images/video-poster.jpg" // Optional: poster image
+          titleEn="Timeless Legacy|Innovative Future"
+          // titleAr="إرث راسخ"
+          // subtitle="KFAS"
+          // description="Kuwait Foundation for the Advancement of Sciences "
+          video="/videos/HeroVideo.mp4"
+          videoPoster="/images/video-poster.jpg"
         />
 
         <FlippedCardStack />
