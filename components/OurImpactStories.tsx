@@ -35,23 +35,24 @@ export default function OurImpactStories() {
 
   const news = [
     {
-      image: "/image/Impactstory1.png",
-      title: "KFAS Launches New Research Grant Program",
+      image: "/image/news1.jpeg",
+      title: "The ICTP SciFabLab Meets Kuwait",
       description:
-        "A new initiative to support emerging researchers in Kuwait with funding opportunities for innovative projects.",
-      date: "December 10, 2024",
+        "ICTP and the Kuwait Foundation for the Advancement of Sciences (KFAS) have been working together to support scientific development across the Middle East and Northern Africa since 1981. Their collaboration, which so far has focussed on supporting researchers and scholars, has recently expanded to include outreach activities in Kuwait.",
+      date: "January 10, 2026",
       link: "#",
     },
     {
-      image: "/image/ImpactStory2.png",
-      title: "Annual Science Conference 2024",
+      image: "/image/news2.jpeg",
+      title:
+        "KFAS signs a memorandum of understanding with the Mohammed Bin Rashid Space Centre to enhance cooperation in space sciences.",
       description:
-        "Join us for the biggest scientific gathering in Kuwait, featuring renowned speakers and groundbreaking research presentations.",
+        "The Kuwait Foundation for the Advancement of Sciences (KFAS) announced that it has signed a memorandum of understanding with the Mohammed Bin Rashid Space Centre (MBRSC), aiming to establish a strategic framework for cooperation in the fields of space sciences, scientific research, and the development of national capabilities in this vital sector.",
       date: "December 5, 2024",
       link: "#",
     },
     {
-      image: "/image/InstagramPost2.jpg",
+      image: "/image/news3.jpeg",
       title: "Innovation Workshop Success",
       description:
         "Over 200 participants joined our recent workshop on fostering innovation and entrepreneurship in the scientific community.",
