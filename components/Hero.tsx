@@ -119,13 +119,13 @@ export default function Hero({
       )}
 
       {/* Content */}
-      <div className="relative z-20 max-w-5xl px-6 sm:px-8 lg:px-12 text-left">
+      <div className="relative z-20 max-w-7xl mx-auto px-6 lg:px-8 text-left">
+        {" "}
         {subtitle && (
           <p className="text-sm tracking-[0.35em] uppercase text-white/90 mb-6 drop-shadow-lg">
             {subtitle}
           </p>
         )}
-
         {/* EN title – word by word */}
         {titleEn && (
           <h1 className="text-white text-5xl sm:text-6xl md:text-7xl font-light tracking-tight leading-tight drop-shadow-2xl [text-shadow:_2px_2px_8px_rgba(0,0,0,0.8)]">
@@ -152,7 +152,6 @@ export default function Hero({
             ))}
           </h1>
         )}
-
         {/* AR title – word by word */}
         {titleAr && (
           <h2
@@ -176,7 +175,6 @@ export default function Hero({
             ))}
           </h2>
         )}
-
         {description && (
           <motion.p
             initial={{ opacity: 0, y: prefersReducedMotion ? 0 : 20 }}
