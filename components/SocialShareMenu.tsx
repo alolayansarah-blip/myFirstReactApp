@@ -1,5 +1,7 @@
 "use client";
 
+import { motion } from "framer-motion";
+
 export default function SocialShareMenu() {
   const shareOnInstagram = () => {
     window.open(
@@ -22,9 +24,12 @@ export default function SocialShareMenu() {
   };
 
   return (
-    <nav
+    <motion.nav
       aria-label="Social Media Share"
       className="social_menu_side hidden md:block desktop_only"
+      initial={{ opacity: 0, x: 20 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ duration: 0.6, delay: 0.3, ease: "easeOut" }}
     >
       <ul className="social_menu social_share_menu flex flex-col gap-0">
         <li className="instagram first:rounded-t-sm">
@@ -91,6 +96,6 @@ export default function SocialShareMenu() {
           </a>
         </li>
       </ul>
-    </nav>
+    </motion.nav>
   );
 }
