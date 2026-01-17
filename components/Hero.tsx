@@ -74,6 +74,8 @@ export default function Hero({
       {/* Video Background */}
       <div className="absolute inset-0 z-0">
         <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-black/50 z-10" />
+        <div className="absolute inset-0 bg-[#488FCC]/20 z-10" />
+        <div className="absolute -top-32 -left-32 h-96 w-96 rounded-full bg-[#488FCC]/30 blur-3xl z-10" />
         {video && (
           <video
             ref={videoRef}
@@ -119,7 +121,7 @@ export default function Hero({
       )}
 
       {/* Content */}
-      <div className="relative z-20 max-w-7xl mx-auto px-6 lg:px-8 text-left">
+      <div className="relative z-20 w-full max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 text-left">
         {" "}
         {subtitle && (
           <p className="text-sm tracking-[0.35em] uppercase text-white/90 mb-6 drop-shadow-lg">
@@ -128,7 +130,7 @@ export default function Hero({
         )}
         {/* EN title – word by word */}
         {titleEn && (
-          <h1 className="text-white text-5xl sm:text-6xl md:text-7xl font-light tracking-tight leading-tight drop-shadow-2xl [text-shadow:_2px_2px_8px_rgba(0,0,0,0.8)]">
+          <h1 className="font-montserrat text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-white tracking-tight leading-tight drop-shadow-2xl [text-shadow:_3px_3px_10px_rgba(0,0,0,0.8)]">
             {splitLines(titleEn).map((line, lineIndex) => (
               <span key={`line-${lineIndex}`} className="block">
                 {splitWords(line.trim()).map((word, i) => (

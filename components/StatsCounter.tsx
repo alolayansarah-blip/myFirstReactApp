@@ -190,33 +190,12 @@ export default function MinimalCounterSection() {
     <section
       ref={sectionRef}
       className="py-20 lg:py-28 relative overflow-hidden"
-      style={{
-        background:
-          "linear-gradient(135deg, #EC601B 0%, #F7911E 50%, #EC601B 100%)",
-      }}
     >
-      {/* Decorative diagonal lines */}
-      <div className="absolute inset-0 opacity-10">
-        <div
-          className="absolute top-0 right-0 w-1/2 h-full"
-          style={{
-            background:
-              "linear-gradient(45deg, transparent 45%, rgba(255,255,255,0.1) 45%, rgba(255,255,255,0.1) 55%, transparent 55%)",
-            backgroundSize: "20px 20px",
-          }}
-        ></div>
-      </div>
-
-      {/* Corner accent */}
-      <div className="absolute bottom-0 right-0 w-64 h-64 opacity-20">
-        <div
-          className="absolute bottom-0 right-0 w-full h-full"
-          style={{
-            background:
-              "radial-gradient(circle at bottom right, rgba(255,255,255,0.3) 0%, transparent 70%)",
-          }}
-        ></div>
-      </div>
+      {/* Background image */}
+      <div className="absolute inset-0 bg-[url('/image/benduluim.png')] bg-cover bg-center bg-fixed" />
+      {/* Orange gradient overlay */}
+      <div className="absolute inset-0 bg-gradient-to-r from-[#488FCC]/95 via-[#488FCC]/85 to-[#488FCC]/95" />
+      {/* Corner logo */}
 
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 relative z-10">
         {/* Header */}
@@ -225,53 +204,49 @@ export default function MinimalCounterSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          className="text-center mb-16"
+          className="text-left"
         >
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="font-montserrat text-3xl sm:text-4xl lg:text-5xl text-white mb-6 leading-tight"
+            className="font-montserrat text-2xl sm:text-3xl lg:text-4xl text-white leading-tight drop-shadow-[0_3px_10px_rgba(0,0,0,0.45)]"
           >
-            50 Years Journey Supporting{" "}
-            <span className="font-bold">Science, Technology,</span> and{" "}
-            <span className="font-bold">Innovation</span>
+            50 Years Journey Supporting
+            <span className="block font-bold">
+              Science, Technology, and Innovation
+            </span>
           </motion.h2>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="text-white/70 max-w-3xl mx-auto text-base leading-relaxed"
-          >
-            The Kuwait Foundation for the Advancement of Sciences has been at
-            the forefront of scientific progress, funding research and
-            development programs that address Kuwait's national priorities.
-          </motion.p>
         </motion.div>
 
-        {/* Stats Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-6 lg:gap-4">
-          {stats.map((stat, index) => (
-            <div
-              key={index}
-              className="flex flex-col items-center text-center group"
-            >
-              {/* Icon Circle */}
-              <div className="w-20 h-20 rounded-full border border-white/40 flex items-center justify-center text-white mb-5 group-hover:border-white group-hover:bg-white/10 transition-all duration-300">
-                {stat.icon}
-              </div>
-
-              {/* Number */}
-              <div className="text-3xl lg:text-4xl font-bold text-white mb-2">
-                {formatNumber(counts[index])}
-              </div>
-
-              {/* Label */}
-              <p className="text-white/80 text-sm font-medium">{stat.label}</p>
-            </div>
-          ))}
+        {/* Stats Row */}
+        <div className="relative mt-10">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-7 gap-6">
+            {stats.map((stat, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 18 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.05 }}
+                className="group border border-white/30 px-5 py-5 text-left transition-all duration-300 hover:border-white/60 hover:bg-white/5"
+              >
+                <div className="mb-4 flex h-10 w-10 items-center justify-center text-white/90">
+                  {stat.icon}
+                </div>
+                <div className="mb-3">
+                  <div className="text-3xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-[#EAF3FF] via-white to-[#C7E0FF] drop-shadow-[0_2px_6px_rgba(0,0,0,0.25)]">
+                    {formatNumber(counts[index])}
+                  </div>
+                  <div className="mt-2 h-px w-10 bg-white/40" />
+                </div>
+                <p className="text-white/80 text-xs font-medium tracking-wide uppercase drop-shadow-[0_2px_6px_rgba(0,0,0,0.35)]">
+                  {stat.label}
+                </p>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </div>
     </section>
