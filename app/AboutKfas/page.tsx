@@ -1,15 +1,12 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
 export default function AboutKfasPage() {
   const [showBackToTop, setShowBackToTop] = useState(false);
-  const [isVisible, setIsVisible] = useState(false);
-  const sectionRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -18,32 +15,6 @@ export default function AboutKfasPage() {
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setIsVisible(true);
-          }
-        });
-      },
-      {
-        threshold: 0.1,
-        rootMargin: "0px",
-      }
-    );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    return () => {
-      if (sectionRef.current) {
-        observer.unobserve(sectionRef.current);
-      }
-    };
   }, []);
 
   const scrollToTop = () => {
@@ -55,316 +26,141 @@ export default function AboutKfasPage() {
       <Header logo="/image/logo2.png" forceWhiteBackground={true} />
       <main className="min-h-screen bg-white pt-20">
         {/* Hero Section with Banner */}
-        <section className="relative py-32 sm:py-40 lg:py-48 overflow-hidden">
-          {/* Background Image */}
+        <motion.section
+          className="relative overflow-hidden flex items-center"
+          initial={{ height: "70vh" }}
+          animate={{ height: "45vh" }}
+          transition={{ duration: 1, ease: "easeInOut" }}
+        >
           <div className="absolute inset-0">
             <img
               src="/image/AboutKFASBanner2.jpg"
               alt="Who We Are"
-              className="w-full h-full object-cover object-[center_75%]"
+              className="w-full h-full object-cover object-[center_80%]"
             />
-            {/* Lighter overlay */}
-            <div className="absolute inset-0 bg-[#1D2D44]/60"></div>
+            <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/40 to-black/50" />
           </div>
 
-          {/* Subtle Corner Lines - More Transparent */}
-          <div className="absolute top-12 left-12 w-16 h-16 border-l border-t border-white/20 z-20"></div>
-          <div className="absolute top-12 right-12 w-16 h-16 border-r border-t border-white/20 z-20"></div>
-          <div className="absolute bottom-28 left-12 w-16 h-16 border-l border-b border-white/20 z-20"></div>
-          <div className="absolute bottom-28 right-12 w-16 h-16 border-r border-b border-white/20 z-20"></div>
-
-          {/* Subtle gradient glow */}
-          <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-[#1D2D44]/30 to-transparent z-10"></div>
-
-          {/* Content */}
           <div className="relative z-10 max-w-6xl mx-auto px-6 sm:px-8 lg:px-12">
             <motion.div
-              ref={sectionRef}
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
-              className="text-center"
+              className="text-left"
             >
-              {/* Small decorative line above title */}
-              <motion.div
-                initial={{ width: 0 }}
-                animate={{ width: "60px" }}
-                transition={{ duration: 0.8, delay: 0.3 }}
-                className="h-[1px] bg-white/40 mx-auto mb-6"
-              ></motion.div>
-
-              {/* Animated KFAS Title */}
-              <div className="relative overflow-hidden mb-6">
-                {/* Collapsed KFAS - shows first, then fades out */}
-                <motion.h1
-                  initial={{ opacity: 1, scale: 1 }}
-                  animate={
-                    isVisible
-                      ? { opacity: 0, scale: 0.8, height: 0 }
-                      : { opacity: 1, scale: 1 }
-                  }
-                  transition={{
-                    duration: 0.6,
-                    delay: 0.8,
-                    ease: [0.25, 0.46, 0.45, 0.94],
-                  }}
-                  className="font-montserrat text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white"
-                >
-                  <span className="text-[#EC601B]">K</span>
-                  <span className="text-[#EC601B]">F</span>
-                  <span className="text-[#EC601B]">A</span>
-                  <span className="text-[#EC601B]">S</span>
-                </motion.h1>
-
-                {/* Expanded Full Name - fades in after KFAS */}
-                <motion.h1
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={
-                    isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }
-                  }
-                  transition={{
-                    duration: 0.8,
-                    delay: 1.2,
-                    ease: [0.25, 0.46, 0.45, 0.94],
-                  }}
-                  className="font-montserrat text-2xl sm:text-3xl lg:text-4xl font-normal text-white tracking-tight leading-tight"
-                >
-                  <motion.span
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={
-                      isVisible ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }
-                    }
-                    transition={{ duration: 0.5, delay: 1.3 }}
-                  >
-                    <span className="text-[#EC601B] font-semibold">K</span>uwait{" "}
-                  </motion.span>
-                  <motion.span
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={
-                      isVisible ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }
-                    }
-                    transition={{ duration: 0.5, delay: 1.5 }}
-                  >
-                    <span className="text-[#EC601B] font-semibold">F</span>
-                    oundation for the{" "}
-                  </motion.span>
-                  <motion.span
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={
-                      isVisible ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }
-                    }
-                    transition={{ duration: 0.5, delay: 1.7 }}
-                  >
-                    <span className="text-[#EC601B] font-semibold">A</span>
-                    dvancement of{" "}
-                  </motion.span>
-                  <motion.span
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={
-                      isVisible ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }
-                    }
-                    transition={{ duration: 0.5, delay: 1.9 }}
-                  >
-                    <span className="text-[#EC601B] font-semibold">S</span>
-                    ciences
-                  </motion.span>
-                </motion.h1>
+              <div className="inline-flex items-center gap-2 text-xs sm:text-sm uppercase tracking-[0.3em] text-white/70 mb-4">
+                <span className="text-white/60">About</span>
+                <span className="text-white/40">/</span>
+                <span className="text-white">Who We Are</span>
               </div>
-
-              {/* Small decorative line below subtitle */}
-              <motion.div
-                initial={{ width: 0 }}
-                animate={{ width: "60px" }}
-                transition={{ duration: 0.8, delay: 0.5 }}
-                className="h-[1px] bg-white/40 mx-auto mt-6"
-              ></motion.div>
+              <h1 className="font-montserrat text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-white tracking-tight leading-tight drop-shadow-2xl [text-shadow:_3px_3px_10px_rgba(0,0,0,0.8)] mb-6">
+                Who We Are
+              </h1>
             </motion.div>
           </div>
 
-          {/* Simple curved bottom */}
-          <div className="absolute bottom-0 left-0 right-0 z-20">
-            <svg
-              viewBox="0 0 1440 60"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              className="w-full h-auto"
-              preserveAspectRatio="none"
-            >
-              <path
-                d="M0 60L1440 60L1440 30C1440 30 1200 0 720 0C240 0 0 30 0 30L0 60Z"
-                fill="white"
-              />
-            </svg>
-          </div>
-        </section>
+          <div className="absolute bottom-0 left-0 right-0 z-20 h-10 bg-white" />
+        </motion.section>
 
-        {/* About KFAS Text Sections - Minimal Design */}
+        {/* About KFAS Text Sections */}
         <section className="py-20 sm:py-28 bg-white">
           <div className="max-w-5xl mx-auto px-6 sm:px-8 lg:px-12">
             <div className="space-y-12">
-              {/* First Text Container */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6 }}
-              >
-                <p className="text-gray-600 leading-[1.9] text-base">
-                  The Kuwait Foundation for the Advancement of Sciences (KFAS)
-                  is a private, non-profit organization established in December
-                  1976. Through cooperation with local and international
-                  partners, KFAS funds and implements research, training, and
-                  development programs that address Kuwait's national priorities
-                  in the fields of science, technology, and innovation, as well
-                  as operating specialized scientific centers. The programs
-                  target various segments within the innovation ecosystem. KFAS
-                  also actively engages the wider public to generate awareness
-                  and interest in the fields of science and technology. KFAS
-                  builds alliances across academia, government, the private
-                  sector, non-government organizations, and the broader
-                  community to diffuse knowledge and accelerate progress.
-                </p>
-              </motion.div>
+              <TextBlock delay={0}>
+                The Kuwait Foundation for the Advancement of Sciences (KFAS) is
+                a private, non-profit organization established in December 1976.
+                Through cooperation with local and international partners, KFAS
+                funds and implements research, training, and development
+                programs that address Kuwait's national priorities in the fields
+                of science, technology, and innovation, as well as operating
+                specialized scientific centers. The programs target various
+                segments within the innovation ecosystem. KFAS also actively
+                engages the wider public to generate awareness and interest in
+                the fields of science and technology. KFAS builds alliances
+                across academia, government, the private sector, non-government
+                organizations, and the broader community to diffuse knowledge
+                and accelerate progress.
+              </TextBlock>
 
-              {/* Second Text Container */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.1 }}
-              >
-                <p className="text-gray-600 leading-[1.9] text-base">
-                  Through its prestigious prizes, KFAS not only celebrates the
-                  remarkable contributions of Kuwaiti and Arab researchers but
-                  also reinforces its commitment to advancing science and
-                  technology. These prizes underscore KFAS's role in rewarding
-                  excellence, validating impactful research, inspiring future
-                  generations, and encouraging further contributions to Kuwait's
-                  scientific and technological landscape. KFAS is recognized as
-                  a leading player in Kuwait's scientific and technological
-                  accomplishments and advancements. The governance system of
-                  KFAS is structured to ensure effective oversight and
-                  management of its activities. It includes a Board of
-                  Directors, chaired and appointed by H.H. The Amir of the State
-                  of Kuwait, that is responsible for strategic decision-making,
-                  executive board committees focused on specific areas, and an
-                  executive management that handles day-to-day operations.
-                </p>
-              </motion.div>
+              <TextBlock delay={0.1}>
+                Through its prestigious prizes, KFAS not only celebrates the
+                remarkable contributions of Kuwaiti and Arab researchers but
+                also reinforces its commitment to advancing science and
+                technology. These prizes underscore KFAS's role in rewarding
+                excellence, validating impactful research, inspiring future
+                generations, and encouraging further contributions to Kuwait's
+                scientific and technological landscape. KFAS is recognized as a
+                leading player in Kuwait's scientific and technological
+                accomplishments and advancements. The governance system of KFAS
+                is structured to ensure effective oversight and management of
+                its activities. It includes a Board of Directors, chaired and
+                appointed by H.H. The Amir of the State of Kuwait, that is
+                responsible for strategic decision-making, executive board
+                committees focused on specific areas, and an executive
+                management that handles day-to-day operations.
+              </TextBlock>
 
-              {/* Vision and Mission Title */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-                className="pt-8 text-center"
-              >
-                <motion.h2
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.8, delay: 0.3 }}
-                  className="font-montserrat text-3xl sm:text-4xl lg:text-5xl font-bold text-[#EC601B]"
-                >
-                  Our Vision and Mission
-                </motion.h2>
-                <motion.div
-                  initial={{ width: 0 }}
-                  whileInView={{ width: "80px" }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: 0.5 }}
-                  className="h-1 bg-[#EC601B] mx-auto mt-6 rounded-full"
-                ></motion.div>
-              </motion.div>
-
-              {/* Timeline Display */}
-              <div className="relative pt-8">
-                {/* Timeline Line */}
-                <div className="absolute left-6 top-8 bottom-0 w-[2px] bg-[#EC601B]"></div>
-
-                {/* Vision - Timeline Item */}
-                <motion.div
-                  initial={{ opacity: 0, x: -30 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: 0.3 }}
-                  className="relative flex gap-8 pb-12"
-                >
-                  {/* Timeline Dot */}
-                  <div className="relative z-10 flex-shrink-0">
-                    <div className="w-12 h-12 rounded-full bg-[#EC601B] flex items-center justify-center shadow-lg">
-                      <svg
-                        className="w-6 h-6 text-white"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                        />
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
-                        />
-                      </svg>
+              {/* Vision and Mission Section */}
+              <div className="mt-10 rounded-2xl bg-gradient-to-br from-[#EC601B] via-[#E85818] to-[#D94A12] text-white p-10 sm:p-12 shadow-lg">
+                <div className="space-y-8">
+                  <div className="rounded-2xl bg-white/10 border border-white/15 p-8 sm:p-10 backdrop-blur-sm">
+                    <div className="flex flex-col gap-6 sm:flex-row sm:items-center">
+                      <div className="w-full sm:w-44 sm:shrink-0">
+                        <div className="rounded-2xl bg-white/20 border border-white/30 p-5 backdrop-blur-md">
+                          <img
+                            src="/image/1.png"
+                            alt="Vision graphic"
+                            className="w-full h-28 object-contain opacity-80"
+                          />
+                        </div>
+                      </div>
+                      <div className="flex-1">
+                        <motion.h3
+                          initial={{ opacity: 0, y: 16 }}
+                          whileInView={{ opacity: 1, y: 0 }}
+                          viewport={{ once: true }}
+                          transition={{ duration: 0.6 }}
+                          className="font-montserrat text-2xl sm:text-3xl font-bold"
+                        >
+                          Our Vision
+                        </motion.h3>
+                        <p className="mt-4 text-white/90 leading-relaxed">
+                          To advance science, technology, and innovation for a
+                          resilient, thriving, and sustainable future.
+                        </p>
+                      </div>
                     </div>
                   </div>
-                  {/* Content */}
-                  <div className="flex-1 pt-2">
-                    <h3 className="font-montserrat text-xl font-bold text-[#EC601B] mb-3">
-                      Our Vision
-                    </h3>
-                    <p className="text-gray-600 leading-relaxed">
-                      To advance science, technology, and innovation for a
-                      resilient, thriving, and sustainable future.
-                    </p>
-                  </div>
-                </motion.div>
-
-                {/* Mission - Timeline Item */}
-                <motion.div
-                  initial={{ opacity: 0, x: -30 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: 0.5 }}
-                  className="relative flex gap-8"
-                >
-                  {/* Timeline Dot */}
-                  <div className="relative z-10 flex-shrink-0">
-                    <div className="w-12 h-12 rounded-full bg-[#EC601B] flex items-center justify-center shadow-lg">
-                      <svg
-                        className="w-6 h-6 text-white"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M13 10V3L4 14h7v7l9-11h-7z"
-                        />
-                      </svg>
+                  <div className="rounded-2xl bg-white/10 border border-white/15 p-8 sm:p-10 backdrop-blur-sm">
+                    <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:flex-row-reverse">
+                      <div className="w-full sm:w-44 sm:shrink-0">
+                        <div className="rounded-2xl bg-white/20 border border-white/30 p-5 backdrop-blur-md">
+                          <img
+                            src="/image/2.png"
+                            alt="Mission graphic"
+                            className="w-full h-28 object-contain opacity-80"
+                          />
+                        </div>
+                      </div>
+                      <div className="flex-1">
+                        <motion.h3
+                          initial={{ opacity: 0, y: 16 }}
+                          whileInView={{ opacity: 1, y: 0 }}
+                          viewport={{ once: true }}
+                          transition={{ duration: 0.6, delay: 0.15 }}
+                          className="font-montserrat text-2xl sm:text-3xl font-bold"
+                        >
+                          Our Mission
+                        </motion.h3>
+                        <p className="mt-4 text-white/90 leading-relaxed">
+                          To pursue scientific excellence to tackle national
+                          challenges through a prominent science, technology,
+                          and innovation model.
+                        </p>
+                      </div>
                     </div>
                   </div>
-                  {/* Content */}
-                  <div className="flex-1 pt-2">
-                    <h3 className="font-montserrat text-xl font-bold text-[#EC601B] mb-3">
-                      Our Mission
-                    </h3>
-                    <p className="text-gray-600 leading-relaxed">
-                      To pursue scientific excellence to tackle national
-                      challenges through a prominent science, technology, and
-                      innovation model.
-                    </p>
-                  </div>
-                </motion.div>
+                </div>
               </div>
 
               {/* Strategic Direction Section */}
@@ -373,9 +169,9 @@ export default function AboutKfasPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.2 }}
-                className="mt-12"
+                className="mt-12 space-y-6"
               >
-                <p className="text-gray-600 leading-[1.9] text-base mb-6">
+                <p className="text-gray-600 leading-[1.9] text-base">
                   Driving our work is the premise that science creates
                   knowledge, technology accelerates progress, and innovation
                   shapes transformative solutions. During 2025–2029, we aim to
@@ -385,7 +181,7 @@ export default function AboutKfasPage() {
                   research, novel uses of technology, and expanded horizons in
                   knowledge transfers and human capacities.
                 </p>
-                <p className="text-gray-600 leading-[1.9] text-base mb-6">
+                <p className="text-gray-600 leading-[1.9] text-base">
                   All of our work will be aligned with our three pillars—robust
                   research ecosystem, viable innovation, and human ingenuity—and
                   each pillar will complement and produce synergies with the
@@ -397,7 +193,7 @@ export default function AboutKfasPage() {
                   diffusing knowledge and developing human capabilities and
                   potential.
                 </p>
-                <p className="text-gray-600 leading-[1.9] text-base mb-6">
+                <p className="text-gray-600 leading-[1.9] text-base">
                   We will pursue priority areas that address issues of
                   importance to Kuwait, particularly in the areas of
                   environment, energy, health, STEAM education, water and food
@@ -416,7 +212,7 @@ export default function AboutKfasPage() {
           </div>
         </section>
 
-        {/* Logos Section with Orange Background */}
+        {/* Logos Section */}
         <section className="py-16 bg-[#EC601B]">
           <div className="max-w-6xl mx-auto px-6 sm:px-8 lg:px-12">
             <motion.div
@@ -426,50 +222,9 @@ export default function AboutKfasPage() {
               transition={{ duration: 0.6 }}
               className="grid grid-cols-2 md:grid-cols-4 gap-8 items-center justify-items-center"
             >
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                transition={{ duration: 0.3 }}
-                className="bg-white/10 backdrop-blur-sm rounded-xl p-6 w-full flex items-center justify-center"
-              >
-                <img
-                  src="/image/logo3.png"
-                  alt="Partner Logo"
-                  className="h-24 w-auto object-contain filter brightness-0 invert"
-                />
-              </motion.div>
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                transition={{ duration: 0.3 }}
-                className="bg-white/10 backdrop-blur-sm rounded-xl p-6 w-full flex items-center justify-center"
-              >
-                <img
-                  src="/image/logo4.png"
-                  alt="Partner Logo"
-                  className="h-24 w-auto object-contain filter brightness-0 invert"
-                />
-              </motion.div>
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                transition={{ duration: 0.3 }}
-                className="bg-white/10 backdrop-blur-sm rounded-xl p-6 w-full flex items-center justify-center"
-              >
-                <img
-                  src="/image/logo5.png"
-                  alt="Partner Logo"
-                  className="h-24 w-auto object-contain filter brightness-0 invert"
-                />
-              </motion.div>
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                transition={{ duration: 0.3 }}
-                className="bg-white/10 backdrop-blur-sm rounded-xl p-6 w-full flex items-center justify-center"
-              >
-                <img
-                  src="/image/logo6.png"
-                  alt="Partner Logo"
-                  className="h-24 w-auto object-contain filter brightness-0 invert"
-                />
-              </motion.div>
+              {[3, 4, 5, 6].map((num) => (
+                <LogoCard key={num} src={`/image/logo${num}.png`} />
+              ))}
             </motion.div>
           </div>
         </section>
@@ -506,5 +261,111 @@ export default function AboutKfasPage() {
       </main>
       <Footer />
     </>
+  );
+}
+
+// Reusable Components
+function TextBlock({
+  children,
+  delay,
+}: {
+  children: React.ReactNode;
+  delay: number;
+}) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.6, delay }}
+    >
+      <p className="text-gray-600 leading-[1.9] text-base">{children}</p>
+    </motion.div>
+  );
+}
+
+function TimelineItem({
+  delay,
+  icon,
+  title,
+  content,
+  isLast = false,
+}: {
+  delay: number;
+  icon: "vision" | "mission";
+  title: string;
+  content: string;
+  isLast?: boolean;
+}) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, x: -30 }}
+      whileInView={{ opacity: 1, x: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.6, delay }}
+      className={`relative flex gap-8 ${!isLast ? "pb-12" : ""}`}
+    >
+      <div className="relative z-10 flex-shrink-0">
+        <div className="w-12 h-12 rounded-full bg-[#EC601B] flex items-center justify-center shadow-lg">
+          {icon === "vision" ? (
+            <svg
+              className="w-6 h-6 text-white"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+              />
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+              />
+            </svg>
+          ) : (
+            <svg
+              className="w-6 h-6 text-white"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M13 10V3L4 14h7v7l9-11h-7z"
+              />
+            </svg>
+          )}
+        </div>
+      </div>
+      <div className="flex-1 pt-2">
+        <h3 className="font-montserrat text-xl font-bold text-[#EC601B] mb-3">
+          {title}
+        </h3>
+        <p className="text-gray-600 leading-relaxed">{content}</p>
+      </div>
+    </motion.div>
+  );
+}
+
+function LogoCard({ src }: { src: string }) {
+  return (
+    <motion.div
+      whileHover={{ scale: 1.05 }}
+      transition={{ duration: 0.3 }}
+      className="bg-white/10 backdrop-blur-sm rounded-xl p-6 w-full flex items-center justify-center"
+    >
+      <img
+        src={src}
+        alt="Partner Logo"
+        className="h-24 w-auto object-contain filter brightness-0 invert"
+      />
+    </motion.div>
   );
 }

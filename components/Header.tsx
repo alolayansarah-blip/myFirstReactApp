@@ -71,7 +71,7 @@ function Header({
             href: "/about",
             children: [
               { label: "Who We Are", href: "/AboutKfas" },
-              { label: " Our History", href: "/about/history" },
+              { label: " Our History", href: "/OurHistory" },
               { label: " Our Strategy", href: "/about/strategy" },
               {
                 label: "Board of Directors",
