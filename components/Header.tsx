@@ -217,7 +217,7 @@ function Header({
               />
             ) : (
               <span
-                className={`font-bold transition-all duration-300 ${
+                className={`font-normal transition-all duration-300 ${
                   isScrolled || forceWhiteBackground
                     ? "text-xl text-black"
                     : "text-2xl text-white"
@@ -335,7 +335,7 @@ function Header({
             >
               {item.children ? (
                 <span
-                  className={`hover:bg-[#EC601B] font-medium transition-all duration-300 flex items-center cursor-pointer px-3 py-1 ${
+                  className={`hover:bg-[#EC601B] font-normal transition-all duration-300 flex items-center cursor-pointer px-3 py-1 whitespace-nowrap ${
                     openDropdown === item.href
                       ? "bg-[#EC601B] text-white"
                       : isScrolled || forceWhiteBackground
@@ -365,7 +365,7 @@ function Header({
               ) : (
                 <Link
                   href={item.href}
-                  className={`hover:bg-[#EC601B] font-medium transition-all duration-300 px-6 py-1 ${
+                  className={`hover:bg-[#EC601B] font-normal transition-all duration-300 px-6 py-1 whitespace-nowrap ${
                     isScrolled
                       ? "text-[15px] text-black hover:text-white"
                       : "text-base text-white/90 hover:text-white"
@@ -380,7 +380,7 @@ function Header({
                     <Link
                       key={child.href}
                       href={child.href}
-                      className={`block px-6 py-3 text-white hover:bg-white/20 transition-colors ${
+                      className={`block px-6 py-3 text-white hover:bg-white/20 transition-colors whitespace-nowrap ${
                         index < (item.children?.length ?? 0) - 1
                           ? "border-b border-white/50"
                           : ""
@@ -521,7 +521,7 @@ function Header({
                     {item.children ? (
                       <>
                         <button
-                          className="w-full flex items-center justify-between py-3.5 px-2 font-semibold text-gray-800 hover:text-[#EC601B] hover:bg-gray-50 rounded-lg transition-all duration-300 group"
+                          className="w-full flex items-center justify-between py-3.5 px-2 font-normal text-gray-800 hover:text-[#EC601B] hover:bg-gray-50 rounded-lg transition-all duration-300 group"
                           onClick={() =>
                             setOpenMobileDropdown(
                               openMobileDropdown === item.href
@@ -530,7 +530,7 @@ function Header({
                             )
                           }
                         >
-                          <span className="flex items-center gap-2">
+                          <span className="flex items-center gap-2 whitespace-nowrap">
                             <span className="w-1 h-5 bg-[#EC601B] opacity-0 group-hover:opacity-100 rounded-full transition-opacity duration-300"></span>
                             <span>{item.label}</span>
                           </span>
@@ -562,7 +562,7 @@ function Header({
                               <Link
                                 key={child.href}
                                 href={child.href}
-                                className="block py-2.5 px-4 font-medium text-gray-600 hover:text-[#EC601B] hover:bg-white rounded-md transition-all duration-300"
+                                className="block py-2.5 px-4 font-normal text-gray-600 hover:text-[#EC601B] hover:bg-white rounded-md transition-all duration-300 whitespace-nowrap"
                                 onClick={() => {
                                   setIsMenuOpen(false);
                                   setOpenMobileDropdown(null);
@@ -577,7 +577,7 @@ function Header({
                     ) : (
                       <Link
                         href={item.href}
-                        className="block py-3.5 px-2 font-semibold text-gray-800 hover:text-[#EC601B] hover:bg-gray-50 rounded-lg transition-all duration-300 group"
+                        className="block py-3.5 px-2 font-normal text-gray-800 hover:text-[#EC601B] hover:bg-gray-50 rounded-lg transition-all duration-300 group whitespace-nowrap"
                         onClick={() => setIsMenuOpen(false)}
                       >
                         <span className="flex items-center gap-2">
@@ -595,7 +595,7 @@ function Header({
                 <div className="relative">
                   <button
                     onClick={() => setIsLangDropdownOpen(!isLangDropdownOpen)}
-                    className="w-full flex items-center justify-between py-3.5 px-2 font-semibold text-gray-800 hover:text-[#EC601B] hover:bg-gray-50 rounded-lg transition-all duration-300 group"
+                    className="w-full flex items-center justify-between py-3.5 px-2 font-normal text-gray-800 hover:text-[#EC601B] hover:bg-gray-50 rounded-lg transition-all duration-300 group"
                     aria-label="Change language"
                   >
                     <span className="flex items-center gap-2">
@@ -636,7 +636,7 @@ function Header({
                           setCurrentLanguage("en");
                           setIsLangDropdownOpen(false);
                         }}
-                        className="w-full text-left py-3 px-4 font-medium text-white hover:bg-white/20 rounded-md transition-all duration-300 flex items-center space-x-2 border-b border-white/50"
+                        className="w-full text-left py-3 px-4 font-normal text-white hover:bg-white/20 rounded-md transition-all duration-300 flex items-center space-x-2 border-b border-white/50"
                       >
                         <span className="text-lg">🇬🇧</span>
                         <span>English</span>
@@ -646,7 +646,7 @@ function Header({
                           setCurrentLanguage("ar");
                           setIsLangDropdownOpen(false);
                         }}
-                        className="w-full text-left py-3 px-4 font-medium text-white hover:bg-white/20 rounded-md transition-all duration-300 flex items-center space-x-2"
+                        className="w-full text-left py-3 px-4 font-normal text-white hover:bg-white/20 rounded-md transition-all duration-300 flex items-center space-x-2"
                       >
                         <span className="text-lg">🇰🇼</span>
                         <span>العربية</span>

@@ -16,6 +16,7 @@ const config: Config = {
         roboto: ["var(--font-roboto)", "sans-serif"],
 
         poppins: ["var(--font-poppins)", "sans-serif"],
+        montserrat: ["var(--font-montserrat)", "sans-serif"],
       },
       animation: {
         shimmer: "shimmer 2s infinite",

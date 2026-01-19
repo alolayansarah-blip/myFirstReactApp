@@ -65,7 +65,7 @@ export default function OurImpactStories() {
     <motion.section
       ref={sectionRef}
       id="our-impact-stories"
-      className="relative bg-white pt-24 lg:pt-32 pb-32 lg:pb-40 m-0 overflow-hidden"
+      className="relative bg-white pt-24 lg:pt-32 pb-32 lg:pb-40 m-0 overflow-hidden font-poppins"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.6 }}
@@ -82,7 +82,7 @@ export default function OurImpactStories() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-20">
         {/* Header */}
         <motion.div
-          className="flex flex-col md:flex-row md:items-center md:justify-between mb-12 lg:mb-16 gap-6"
+          className="mb-10 lg:mb-12"
           initial={{ opacity: 0, y: 30 }}
           animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{
@@ -91,135 +91,94 @@ export default function OurImpactStories() {
             ease: [0.25, 0.46, 0.45, 0.94],
           }}
         >
-          {/* Left Side - Title and Subtitle */}
-          <div className="flex-1">
+          <div className="flex items-center justify-between">
             <motion.h2
-              className="text-3xl lg:text-4xl xl:text-5xl font-light text-gray-900 tracking-tight mb-4"
-              initial={{ opacity: 0, y: 20 }}
-              animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-              transition={{ duration: 0.8, delay: 0.3 }}
+              className="text-sm font-semibold tracking-[0.18em] text-gray-900 font-poppins uppercase"
+              initial={{ opacity: 0, y: 10 }}
+              animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
             >
-              Latest News
+              LATEST NEWS
             </motion.h2>
-            <motion.div
-              className="mb-4"
-              initial={{ opacity: 0, scaleX: 0 }}
-              animate={
-                isVisible
-                  ? { opacity: 1, scaleX: 1 }
-                  : { opacity: 0, scaleX: 0 }
-              }
-              transition={{ duration: 0.8, delay: 0.5 }}
-            >
-              <div className="w-20 h-px bg-gradient-to-r from-[#F26A21] to-transparent"></div>
-            </motion.div>
-            <motion.p
-              className="text-lg lg:text-xl text-gray-600 max-w-2xl font-light"
-              initial={{ opacity: 0, y: 20 }}
-              animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-              transition={{ duration: 0.8, delay: 0.6 }}
-            >
-              Stay updated with the latest announcements, events, and
-              achievements from KFAS.
-            </motion.p>
-          </div>
-
-          {/* Right Side - Read More Button */}
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={isVisible ? { opacity: 1, x: 0 } : { opacity: 0, x: 20 }}
-            transition={{ duration: 0.8, delay: 0.7 }}
-          >
             <motion.a
               href="#"
-              className="inline-flex items-center px-6 py-3 bg-[#F26A21] text-white font-semibold text-base rounded-lg hover:bg-[#EC601B] transition-colors duration-300 shadow-md hover:shadow-lg"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+              className="text-xs font-semibold tracking-[0.18em] text-gray-500 hover:text-gray-800 transition-colors font-poppins uppercase"
+              initial={{ opacity: 0, y: 10 }}
+              animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
             >
-              Read More
-              <svg
-                className="w-5 h-5 ml-2"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M9 5l7 7-7 7"
-                />
-              </svg>
+              VIEW ALL
             </motion.a>
-          </motion.div>
+          </div>
         </motion.div>
 
-        {/* News Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
-          {news.map((item, index) => (
-            <motion.a
-              key={index}
-              href={item.link}
-              className="group overflow-hidden rounded-2xl shadow-md hover:shadow-2xl transition-all duration-300 cursor-pointer block"
-              initial={{ opacity: 0, y: 50, scale: 0.95 }}
-              animate={
-                isVisible
-                  ? { opacity: 1, y: 0, scale: 1 }
-                  : { opacity: 0, y: 50, scale: 0.95 }
-              }
-              transition={{
-                duration: 0.6,
-                delay: 0.7 + index * 0.15,
-                ease: [0.25, 0.46, 0.45, 0.94],
-              }}
-              whileHover={{
-                y: -12,
-                transition: { duration: 0.3 },
-              }}
-            >
-              {/* Image Container */}
-              <div className="relative h-56 lg:h-64 overflow-hidden">
-                <img
-                  src={item.image}
-                  alt={item.title}
-                  className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                />
-                {/* Image overlay */}
-                <div className="absolute inset-0 bg-[#1D2D44]/20 group-hover:bg-[#1D2D44]/40 transition-colors duration-300"></div>
-                {/* Date badge */}
-                <div className="absolute top-4 left-4 px-3 py-1 bg-white/90 backdrop-blur-sm rounded-full">
-                  <span className="text-xs font-medium text-[#1D2D44]">
-                    {item.date}
-                  </span>
-                </div>
+        {/* News Layout */}
+        <div className="grid grid-cols-1 lg:grid-cols-[1.2fr_0.8fr] gap-10 lg:gap-14">
+          {/* Featured story */}
+          <motion.a
+            href={news[0]?.link}
+            className="group block"
+            initial={{ opacity: 0, y: 30 }}
+            animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+            transition={{ duration: 0.7, delay: 0.4 }}
+          >
+            <div className="relative aspect-[5/3] overflow-hidden rounded-md border border-gray-200">
+              <img
+                src={news[0]?.image}
+                alt={news[0]?.title}
+                className="absolute inset-0 w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-500"
+              />
+            </div>
+            <div className="mt-4">
+              <h3 className="text-xl font-semibold text-gray-900 mb-2 font-montserrat">
+                {news[0]?.title}
+              </h3>
+              <p className="text-sm text-gray-600 line-clamp-2">
+                {news[0]?.description}
+              </p>
+              <div className="mt-3 text-sm font-semibold text-[#EC601B] group-hover:text-[#D45417] transition-colors">
+                Read More
               </div>
-              {/* Content */}
-              <div className="p-6 bg-white">
-                <h3 className="text-lg lg:text-xl font-semibold text-[#1D2D44] mb-3 group-hover:text-[#EC601B] transition-colors duration-300">
-                  {item.title}
-                </h3>
-                <p className="text-sm text-gray-600 leading-relaxed line-clamp-2">
-                  {item.description}
-                </p>
-                <div className="mt-4 flex items-center text-[#EC601B] text-sm font-medium">
-                  <span>Read More</span>
-                  <svg
-                    className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M9 5l7 7-7 7"
-                    />
-                  </svg>
+            </div>
+          </motion.a>
+
+          {/* Side list */}
+          <div className="space-y-6">
+            {news.slice(1).map((item, index) => (
+              <motion.a
+                key={item.title}
+                href={item.link}
+                className="group flex items-start gap-4 border-b border-gray-200 pb-6 last:border-b-0 last:pb-0"
+                initial={{ opacity: 0, y: 20 }}
+                animate={
+                  isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }
+                }
+                transition={{
+                  duration: 0.6,
+                  delay: 0.55 + index * 0.15,
+                }}
+              >
+                <div className="flex-1">
+                  <h4 className="text-sm font-semibold text-gray-900 mb-1 group-hover:text-gray-700 transition-colors font-montserrat">
+                    {item.title}
+                  </h4>
+                  <p className="text-xs text-gray-500 line-clamp-2">
+                    {item.description}
+                  </p>
+                  <div className="mt-2 text-xs font-semibold text-[#EC601B] group-hover:text-[#D45417] transition-colors">
+                    Read More
+                  </div>
                 </div>
-              </div>
-            </motion.a>
-          ))}
+                <div className="w-20 h-16 shrink-0 overflow-hidden rounded-md border border-gray-200">
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    className="w-full h-full object-cover group-hover:scale-[1.05] transition-transform duration-500"
+                  />
+                </div>
+              </motion.a>
+            ))}
+          </div>
         </div>
       </div>
     </motion.section>

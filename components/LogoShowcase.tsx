@@ -97,13 +97,13 @@ export default function LogoShowcase() {
             className="w-full h-full object-cover object-top"
           />
           {/* Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-r from-[#1D2D44]/95 via-[#1D2D44]/85 to-[#1D2D44]/70"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-[#102033]/95 via-[#1D2D44]/85 to-[#1D2D44]/70"></div>
         </motion.div>
       </AnimatePresence>
 
       {/* Content Container */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center min-h-[550px]">
+        <div className="grid lg:grid-cols-[1.05fr_0.95fr] gap-12 lg:gap-16 items-center min-h-[550px]">
           {/* Left Side - Title & Info */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
@@ -124,6 +124,18 @@ export default function LogoShowcase() {
               Building the <span className="text-[#EC601B]">Future</span>{" "}
               Together
             </h2>
+            <p className="text-white/75 text-base lg:text-lg max-w-xl leading-relaxed">
+              Explore KFAS centers and partners shaping Kuwait’s science,
+              technology, and innovation ecosystem.
+            </p>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <button className="px-5 py-2 rounded-full bg-white text-[#1D2D44] text-sm font-semibold hover:bg-white/90 transition-colors">
+                Explore Centers
+              </button>
+              <button className="px-5 py-2 rounded-full border border-white/30 text-white text-sm font-semibold hover:bg-white/10 transition-colors">
+                View Partnerships
+              </button>
+            </div>
           </motion.div>
 
           {/* Right Side - Logos & Image Preview */}
@@ -134,7 +146,7 @@ export default function LogoShowcase() {
             className="relative"
           >
             {/* 4 Logos Grid */}
-            <div className="grid grid-cols-4 gap-4">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
               {partners.map((partner, index) => (
                 <motion.button
                   key={index}
@@ -144,7 +156,7 @@ export default function LogoShowcase() {
                   className={`relative p-4 rounded-xl transition-all duration-300 ${
                     activeIndex === index
                       ? "bg-white/20 shadow-xl shadow-[#EC601B]/30 border-2 border-[#EC601B]"
-                      : "bg-white/10 backdrop-blur-sm border-2 border-white/20 hover:bg-white/20"
+                      : "bg-white/10 border-2 border-white/20 hover:bg-white/15"
                   }`}
                   whileHover={{ y: -8 }}
                   whileTap={{ scale: 0.95 }}
@@ -176,8 +188,8 @@ export default function LogoShowcase() {
             </div>
 
             {/* Hint Text */}
-            <p className="text-center text-white/40 text-xs mt-4">
-              Click on a logo to view details
+            <p className="text-center text-white/50 text-xs mt-4">
+              Tap a logo to highlight the center
             </p>
           </motion.div>
         </div>
