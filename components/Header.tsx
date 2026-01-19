@@ -191,7 +191,9 @@ function Header({
   return (
     <header
       className={`w-full fixed top-0 left-0 right-0 z-[100] transition-all duration-300 ${
-        isScrolled || forceWhiteBackground ? "bg-[#EC601B]" : "bg-transparent"
+        isScrolled || forceWhiteBackground
+          ? "md:bg-white bg-transparent"
+          : "bg-transparent"
       }`}
     >
       {/* Desktop Header */}
@@ -453,54 +455,34 @@ function Header({
       </nav>
 
       {/* Mobile Header */}
-      <nav className="md:hidden w-full bg-transparent">
-        <div className="flex items-center justify-between px-5 py-4">
-          {/* Logo in Center */}
+      <nav className="md:hidden w-full bg-white shadow-sm">
+        <div
+          className="flex items-center justify-between px-5 py-4"
+          style={{ paddingTop: "env(safe-area-inset-top)" }}
+        >
+          {/* Logo (Left) */}
           <Link
             href="/"
-            className="flex items-center justify-start gap-3 transition-opacity hover:opacity-90"
+            className="flex items-center justify-start gap-2 transition-opacity hover:opacity-90"
           >
             <img
-              src="/image/logo.png"
+              src="/image/logo2.png"
               alt={logoText}
-              className="h-16 w-auto transition-all duration-300"
+              className="h-11 w-auto transition-all duration-300"
             />
-            {/* 50 Years Anniversary Logo - Mobile */}
-            <motion.div
-              className="relative flex items-center"
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{
-                opacity: 1,
-                scale: 1,
-                transition: { delay: 0.2, duration: 0.5 },
-              }}
-            >
-              <img
-                src="/image/50.png"
-                alt="50 Years"
-                className="h-12 w-auto transition-all duration-300"
-              />
-              {/* Subtle glow effect */}
-              <motion.div
-                className="absolute inset-0 bg-gradient-to-r from-yellow-400/20 via-yellow-500/30 to-yellow-400/20 rounded-full blur-lg -z-10"
-                animate={{
-                  opacity: [0.4, 0.7, 0.4],
-                  scale: [0.9, 1.1, 0.9],
-                }}
-                transition={{
-                  duration: 2,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }}
-              />
-            </motion.div>
+            <span className="h-8 w-px bg-gray-300" />
+            <img
+              src="/image/50_gold.png"
+              alt="50 Years"
+              className="h-9 w-auto transition-all duration-300"
+            />
           </Link>
 
           {/* Hamburger Menu on Right */}
           <div className="flex-1 flex items-center justify-end">
             {/* Hamburger Button */}
             <button
-              className="p-2.5 rounded-lg text-white hover:text-white/90 hover:bg-white/10 transition-all duration-300 active:scale-95"
+              className="p-2.5 rounded-lg text-gray-600 hover:text-gray-700 hover:bg-gray-50 transition-all duration-300 active:scale-95"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               aria-label="Toggle menu"
             >

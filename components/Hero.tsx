@@ -69,7 +69,7 @@ export default function Hero({
   return (
     <section
       ref={sectionRef}
-      className={`relative h-[92vh] md:h-[85vh] flex items-center justify-start overflow-hidden pt-20 md:pt-0 ${className}`}
+      className={`relative h-[130vh] md:h-[95vh] flex items-center justify-start overflow-hidden ${className}`}
     >
       {/* Video Background */}
       <div className="absolute inset-0 z-0">
@@ -130,13 +130,13 @@ export default function Hero({
         )}
         {/* EN title – word by word */}
         {titleEn && (
-          <h1 className="font-montserrat text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-white tracking-tight leading-tight drop-shadow-2xl [text-shadow:_3px_3px_10px_rgba(0,0,0,0.8)]">
+          <h1 className="font-montserrat text-5xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-white tracking-tight leading-[1.0] drop-shadow-2xl [text-shadow:_3px_3px_10px_rgba(0,0,0,0.8)]">
             {splitLines(titleEn).map((line, lineIndex) => (
               <span key={`line-${lineIndex}`} className="block">
                 {splitWords(line.trim()).map((word, i) => (
                   <motion.span
                     key={`en-${lineIndex}-${i}`}
-                    className="inline-block mr-3"
+                    className="block sm:inline-block sm:mr-3"
                     initial={{ opacity: 0, y: prefersReducedMotion ? 0 : 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{
