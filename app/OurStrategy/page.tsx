@@ -348,6 +348,99 @@ export default function OurStrategyPage() {
           </div>
         </section>
 
+        {/* Vision and Mission */}
+        <section className="py-16 bg-white">
+          <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+            <h2 className="text-2xl sm:text-3xl font-montserrat font-bold text-gray-900">
+              Vision and Mission
+            </h2>
+            <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="rounded-2xl border border-gray-200 p-6">
+                <motion.h3
+                  className="text-sm uppercase tracking-[0.2em] text-[#EC601B] font-semibold"
+                  initial={{ opacity: 0, y: 12 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5 }}
+                >
+                  Vision
+                </motion.h3>
+                <p className="mt-3 text-sm sm:text-base text-gray-700 leading-relaxed">
+                  Advance science, technology, and innovation for a resilient,
+                  thriving, and sustainable future.
+                </p>
+              </div>
+              <div className="rounded-2xl border border-gray-200 p-6">
+                <motion.h3
+                  className="text-sm uppercase tracking-[0.2em] text-[#EC601B] font-semibold"
+                  initial={{ opacity: 0, y: 12 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: 0.05 }}
+                >
+                  Mission
+                </motion.h3>
+                <p className="mt-3 text-sm sm:text-base text-gray-700 leading-relaxed">
+                  Pursue scientific excellence to tackle national challenges
+                  through a prominent science, technology, and innovation model.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* About KFAS */}
+        <section className="py-16 bg-white">
+          <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+            <div className="grid grid-cols-1 gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
+              <div className="space-y-6">
+                <h3 className="text-3xl sm:text-4xl lg:text-5xl font-montserrat font-bold text-[#7DC0F1]">
+                  About KFAS
+                </h3>
+                <p className="text-sm sm:text-base text-gray-700 leading-relaxed">
+                  The Kuwait Foundation for the Advancement of Sciences (KFAS) is
+                  a private, non-profit organization established in December 1976.
+                  KFAS funds and implements research, training, and development
+                  programs that address Kuwait’s national priorities in science,
+                  technology, and innovation, and operates specialized scientific
+                  centers.
+                </p>
+                <ul className="space-y-3 text-sm sm:text-base text-gray-700">
+                  <li>
+                    Builds alliances across academia, government, private sector,
+                    NGOs, and the broader community.
+                  </li>
+                  <li>
+                    Engages the public to generate awareness and interest in
+                    science and technology.
+                  </li>
+                  <li>Recognizes excellence through prestigious prizes and awards.</li>
+                  <li>
+                    Governance structure: Board of Directors, executive board
+                    committees, and executive management.
+                  </li>
+                </ul>
+                <div className="inline-block rounded-xl bg-[#7DC0F1] px-4 py-3 text-sm sm:text-base text-white">
+                  Read the full “About KFAS” section in the PDF
+                </div>
+              </div>
+              <motion.div
+                className="overflow-hidden rounded-2xl border border-gray-200 shadow-sm"
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+              >
+                <img
+                  src="/image/steam_photo.jpg"
+                  alt="KFAS STEAM programs"
+                  className="w-full h-full object-cover"
+                />
+              </motion.div>
+            </div>
+          </div>
+        </section>
+
         {/* Pillars */}
         <section className="py-16">
           <div className="max-w-7xl mx-auto px-6 lg:px-12">
