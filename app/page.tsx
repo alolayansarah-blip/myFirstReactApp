@@ -45,7 +45,6 @@ export default function Home() {
           // subtitle="KFAS"
           // description="Kuwait Foundation for the Advancement of Sciences "
           video="/videos/HeroVideo.mp4"
-          videoPoster="/image/banner3.webp"
         />
 
         <FlippedCardStack />

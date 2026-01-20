@@ -72,7 +72,7 @@ function Header({
             children: [
               { label: "Who We Are", href: "/AboutKfas" },
               { label: " Our History", href: "/OurHistory" },
-              { label: " Our Strategy", href: "/about/strategy" },
+              { label: " Our Strategy", href: "/OurStrategy" },
               {
                 label: "Board of Directors",
                 href: "/about/board-of-directors",
@@ -192,19 +192,15 @@ function Header({
     <header
       className={`w-full fixed top-0 left-0 right-0 z-[100] transition-all duration-300 ${
         isScrolled || forceWhiteBackground
-          ? "md:bg-white bg-transparent"
+          ? "md:bg-white/90 bg-transparent backdrop-blur-sm shadow-sm"
           : "bg-transparent"
       }`}
     >
       {/* Desktop Header */}
-      <nav className="hidden md:block w-full max-w-7xl mx-auto px-6 lg:px-8 py-4">
-        <div
-          className={`flex items-center justify-between ${
-            isScrolled || forceWhiteBackground ? "space-x-2" : "space-x-1"
-          }`}
-        >
+      <nav className="hidden md:block w-full max-w-7xl mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-20 py-3">
+        <div className="flex items-center justify-between gap-6">
           {/* Logo */}
-          <Link href="/" className="flex items-center space-x-3 sm:space-x-4">
+          <Link href="/" className="flex items-center gap-3">
             {logo ? (
               <img
                 src={
@@ -212,7 +208,7 @@ function Header({
                 }
                 alt={logoText}
                 className={`w-auto transition-all duration-300 ${
-                  isScrolled || forceWhiteBackground ? "h-12" : "h-16"
+                  isScrolled || forceWhiteBackground ? "h-12" : "h-14"
                 }`}
               />
             ) : (
@@ -227,25 +223,16 @@ function Header({
               </span>
             )}
 
-            {/* Very thin divider */}
-            <div
-              className={`h-10 sm:h-12 w-px transition-all duration-300 ${
-                isScrolled || forceWhiteBackground
-                  ? "bg-gray-300"
-                  : "bg-white/30"
-              }`}
-            />
-
             {/* 50 Years Anniversary Logo */}
-            <div className="relative flex items-center justify-center">
+            <div className="relative flex items-center justify-center -ml-2">
               {/* Container for smooth transition */}
-              <div className="relative w-auto h-10 sm:h-12 flex items-center justify-center">
+              <div className="relative w-16 sm:w-20 h-10 sm:h-12 flex items-center justify-center">
                 {/* White version (shown when not scrolled) */}
                 {isMounted ? (
                   <motion.img
                     src="/image/50.png"
                     alt="50 Years"
-                    className="w-auto h-full object-contain"
+                    className="w-full h-full object-contain"
                     initial={{ opacity: 1, scale: 1 }}
                     animate={{
                       opacity: isScrolled || forceWhiteBackground ? 0 : 1,
@@ -261,7 +248,7 @@ function Header({
                   <img
                     src="/image/50.png"
                     alt="50 Years"
-                    className="w-auto h-full object-contain"
+                    className="w-full h-full object-contain"
                     style={{
                       filter: "drop-shadow(0 2px 4px rgba(255, 255, 255, 0.2))",
                       opacity: isScrolled || forceWhiteBackground ? 0 : 1,
@@ -274,7 +261,7 @@ function Header({
                   <motion.img
                     src="/image/50_gold.png"
                     alt="50 Years Gold"
-                    className="absolute inset-0 w-auto h-7 sm:h-10 object-contain"
+                    className="absolute inset-0 w-full h-full object-contain"
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{
                       opacity: isScrolled || forceWhiteBackground ? 1 : 0,
@@ -293,7 +280,7 @@ function Header({
                   <img
                     src="/image/50_gold.png"
                     alt="50 Years Gold"
-                    className="absolute inset-0 w-auto h-7 sm:h-10 object-contain"
+                    className="absolute inset-0 w-full h-full object-contain"
                     style={{
                       filter:
                         isScrolled || forceWhiteBackground
@@ -305,151 +292,141 @@ function Header({
                 )}
               </div>
 
-              {/* Animated glow effect when scrolled */}
-              {isMounted && (isScrolled || forceWhiteBackground) ? (
-                <motion.div
-                  className="absolute inset-0 pointer-events-none"
-                  initial={{ opacity: 0 }}
-                  animate={{
-                    opacity: [0.3, 0.6, 0.3],
-                  }}
-                  transition={{
-                    duration: 2.5,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                  }}
-                >
-                  <div className="absolute inset-0 bg-gradient-radial from-yellow-400/30 via-yellow-500/20 to-transparent rounded-full blur-2xl scale-150" />
-                </motion.div>
-              ) : null}
+              {/* Glow removed for cleaner header */}
             </div>
           </Link>
 
-          {/* Desktop Navigation */}
-          {defaultNavItems.map((item) => (
-            <div
-              key={item.href}
-              className="relative"
-              onMouseEnter={() => item.children && setOpenDropdown(item.href)}
-              onMouseLeave={() => setOpenDropdown(null)}
-            >
-              {item.children ? (
-                <span
-                  className={`hover:bg-[#EC601B] font-normal transition-all duration-300 flex items-center cursor-pointer px-3 py-1 whitespace-nowrap ${
-                    openDropdown === item.href
-                      ? "bg-[#EC601B] text-white"
-                      : isScrolled || forceWhiteBackground
-                      ? "text-black hover:text-white"
-                      : "text-white/90 hover:text-white"
-                  } ${
-                    isScrolled || forceWhiteBackground
-                      ? "text-[15px]"
-                      : "text-base"
-                  }`}
+          <div className="flex items-center gap-3 lg:gap-4">
+            {/* Desktop Navigation */}
+            <div className="flex items-center gap-0.5 lg:gap-1">
+              {defaultNavItems.map((item) => (
+                <div
+                  key={item.href}
+                  className="relative"
+                  onMouseEnter={() =>
+                    item.children && setOpenDropdown(item.href)
+                  }
+                  onMouseLeave={() => setOpenDropdown(null)}
                 >
-                  {item.label}
-                  <svg
-                    className={`ml-1 transition-all duration-300 ${
-                      isScrolled || forceWhiteBackground ? "w-3 h-3" : "w-4 h-4"
-                    }`}
-                    fill="none"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path d="M19 9l-7 7-7-7" />
-                  </svg>
-                </span>
-              ) : (
-                <Link
-                  href={item.href}
-                  className={`hover:bg-[#EC601B] font-normal transition-all duration-300 px-6 py-1 whitespace-nowrap ${
-                    isScrolled
-                      ? "text-[15px] text-black hover:text-white"
-                      : "text-base text-white/90 hover:text-white"
-                  }`}
-                >
-                  {item.label}
-                </Link>
-              )}
-              {item.children && openDropdown === item.href && (
-                <div className="absolute top-full left-0 mt-0 bg-[#EC601B] shadow-lg py-4 min-w-[280px] z-50">
-                  {item.children.map((child, index) => (
-                    <Link
-                      key={child.href}
-                      href={child.href}
-                      className={`block px-6 py-3 text-white hover:bg-white/20 transition-colors whitespace-nowrap ${
-                        index < (item.children?.length ?? 0) - 1
-                          ? "border-b border-white/50"
-                          : ""
+                  {item.children ? (
+                    <span
+                      className={`hover:bg-[#EC601B] font-normal transition-all duration-300 flex items-center cursor-pointer px-3 py-1 whitespace-nowrap ${
+                        openDropdown === item.href
+                          ? "bg-[#EC601B] text-white"
+                          : isScrolled || forceWhiteBackground
+                          ? "text-black hover:text-white"
+                          : "text-white/90 hover:text-white"
+                      } ${
+                      isScrolled || forceWhiteBackground ? "text-sm" : "text-sm"
                       }`}
                     >
-                      {child.label}
+                      {item.label}
+                      <svg
+                        className={`ml-1 transition-all duration-300 ${
+                          isScrolled || forceWhiteBackground
+                            ? "w-3 h-3"
+                            : "w-4 h-4"
+                        }`}
+                        fill="none"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path d="M19 9l-7 7-7-7" />
+                      </svg>
+                    </span>
+                  ) : (
+                    <Link
+                      href={item.href}
+                      className={`hover:bg-[#EC601B] font-normal transition-all duration-300 px-5 py-1 whitespace-nowrap ${
+                        isScrolled
+                          ? "text-sm text-black hover:text-white"
+                          : "text-sm text-white/90 hover:text-white"
+                      }`}
+                    >
+                      {item.label}
                     </Link>
-                  ))}
+                  )}
+                  {item.children && openDropdown === item.href && (
+                    <div className="absolute top-full left-0 mt-0 bg-[#EC601B] shadow-lg py-4 min-w-[280px] z-50">
+                      {item.children.map((child, index) => (
+                        <Link
+                          key={child.href}
+                          href={child.href}
+                          className={`block px-6 py-3 text-white hover:bg-white/20 transition-colors whitespace-nowrap ${
+                            index < (item.children?.length ?? 0) - 1
+                              ? "border-b border-white/50"
+                              : ""
+                          }`}
+                        >
+                          {child.label}
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+
+            {/* Language Switcher */}
+            <div className="relative language-switcher">
+              <button
+                onClick={() => setIsLangDropdownOpen(!isLangDropdownOpen)}
+                className={`flex items-center space-x-1 transition-colors ${
+                  isScrolled
+                    ? "text-black hover:text-gray-700"
+                    : "text-white/90 hover:text-white"
+                }`}
+                aria-label="Change language"
+              >
+                <span
+                  className={`uppercase transition-all duration-300 ${
+                    isScrolled || forceWhiteBackground ? "text-xs" : "text-sm"
+                  }`}
+                >
+                  {currentLanguage}
+                </span>
+                <svg
+                  className={`ml-1 transition-all duration-300 ${
+                    isScrolled || forceWhiteBackground ? "w-3 h-3" : "w-4 h-4"
+                  }`}
+                  fill="none"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+              {isLangDropdownOpen && (
+                <div className="absolute right-0 top-full mt-0 bg-[#EC601B] shadow-lg py-4 min-w-[200px] z-50">
+                  <button
+                    onClick={() => {
+                      setCurrentLanguage("en");
+                      setIsLangDropdownOpen(false);
+                    }}
+                    className="w-full text-left px-6 py-3 text-white hover:bg-white/20 transition-colors flex items-center space-x-2 border-b border-white/50"
+                  >
+                    <span>🇬🇧</span>
+                    <span>English</span>
+                  </button>
+                  <button
+                    onClick={() => {
+                      setCurrentLanguage("ar");
+                      setIsLangDropdownOpen(false);
+                    }}
+                    className="w-full text-left px-6 py-3 text-white hover:bg-white/20 transition-colors flex items-center space-x-2"
+                  >
+                    <span>🇰🇼</span>
+                    <span>العربية</span>
+                  </button>
                 </div>
               )}
             </div>
-          ))}
-
-          {/* Language Switcher */}
-          <div className="relative language-switcher">
-            <button
-              onClick={() => setIsLangDropdownOpen(!isLangDropdownOpen)}
-              className={`flex items-center space-x-1 transition-colors ${
-                isScrolled
-                  ? "text-black hover:text-gray-700"
-                  : "text-white/90 hover:text-white"
-              }`}
-              aria-label="Change language"
-            >
-              <span
-                className={`uppercase transition-all duration-300 ${
-                  isScrolled || forceWhiteBackground ? "text-xs" : "text-sm"
-                }`}
-              >
-                {currentLanguage}
-              </span>
-              <svg
-                className={`ml-1 transition-all duration-300 ${
-                  isScrolled || forceWhiteBackground ? "w-3 h-3" : "w-4 h-4"
-                }`}
-                fill="none"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path d="M19 9l-7 7-7-7" />
-              </svg>
-            </button>
-            {isLangDropdownOpen && (
-              <div className="absolute right-0 top-full mt-0 bg-[#EC601B] shadow-lg py-4 min-w-[200px] z-50">
-                <button
-                  onClick={() => {
-                    setCurrentLanguage("en");
-                    setIsLangDropdownOpen(false);
-                  }}
-                  className="w-full text-left px-6 py-3 text-white hover:bg-white/20 transition-colors flex items-center space-x-2 border-b border-white/50"
-                >
-                  <span>🇬🇧</span>
-                  <span>English</span>
-                </button>
-                <button
-                  onClick={() => {
-                    setCurrentLanguage("ar");
-                    setIsLangDropdownOpen(false);
-                  }}
-                  className="w-full text-left px-6 py-3 text-white hover:bg-white/20 transition-colors flex items-center space-x-2"
-                >
-                  <span>🇰🇼</span>
-                  <span>العربية</span>
-                </button>
-              </div>
-            )}
           </div>
         </div>
       </nav>
