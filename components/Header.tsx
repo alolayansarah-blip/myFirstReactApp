@@ -198,9 +198,12 @@ function Header({
     >
       {/* Desktop Header */}
       <nav className="hidden md:block w-full max-w-7xl mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-20 py-3">
-        <div className="flex items-center justify-between gap-6">
+        <div className="flex items-center gap-6">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-3">
+          <Link
+            href="/"
+            className="flex items-center gap-3 shrink-0 min-w-[220px]"
+          >
             {logo ? (
               <img
                 src={
@@ -296,7 +299,7 @@ function Header({
             </div>
           </Link>
 
-          <div className="flex items-center gap-3 lg:gap-4">
+          <div className="flex-1 flex items-center justify-end gap-3 lg:gap-4 min-w-0">
             {/* Desktop Navigation */}
             <div className="flex items-center gap-0.5 lg:gap-1">
               {defaultNavItems.map((item) => (

@@ -361,7 +361,7 @@ export default function OurStrategyPage() {
                   initial={{ opacity: 0, y: 12 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ duration: 0.5 }}
+                  transition={{ duration: 0.4 }}
                 >
                   Vision
                 </motion.h3>
@@ -376,7 +376,7 @@ export default function OurStrategyPage() {
                   initial={{ opacity: 0, y: 12 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: 0.05 }}
+                  transition={{ duration: 0.6, delay: 0.1 }}
                 >
                   Mission
                 </motion.h3>
@@ -429,7 +429,7 @@ export default function OurStrategyPage() {
                 initial={{ opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.6 }}
+                transition={{ duration: 0.75 }}
               >
                 <img
                   src="/image/steam_photo.jpg"
@@ -438,6 +438,16 @@ export default function OurStrategyPage() {
                 />
               </motion.div>
             </div>
+          </div>
+        </section>
+
+        {/* Strategy Map */}
+        <section className="py-16 bg-white" id="strategy-map">
+          <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+            <h2 className="text-2xl sm:text-3xl font-montserrat font-bold text-gray-900">
+              Strategy Map
+            </h2>
+            <div className="mt-10"></div>
           </div>
         </section>
 
