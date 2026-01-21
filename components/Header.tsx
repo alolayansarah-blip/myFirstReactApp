@@ -29,6 +29,10 @@ function Header({
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  useEffect(() => {
     let ticking = false;
     const handleScroll = () => {
       if (!ticking) {
@@ -71,14 +75,14 @@ function Header({
             href: "/about",
             children: [
               { label: "Who We Are", href: "/AboutKfas" },
-              { label: " Our History", href: "/OurHistory" },
-              { label: " Our Strategy", href: "/OurStrategy" },
+              { label: "Our History", href: "/OurHistory" },
+              { label: "Our Strategy", href: "/OurStrategy" },
               {
                 label: "Board of Directors",
                 href: "/about/board-of-directors",
               },
               {
-                label: "Execute Management ",
+                label: "Execute Management",
                 href: "/about/execute-management",
               },
             ],
@@ -104,19 +108,19 @@ function Header({
             ],
           },
           {
-            label: "Technology and Innovation",
+            label: "Tech & Innovation",
             href: "/technology-and-innovation",
             children: [
               {
-                label: "Technology Deploiment",
+                label: "Technology Deployment",
                 href: "/technology-and-innovation/technology-deploiment",
               },
               {
-                label: "R&B in Private Sector",
+                label: "R&D in Private Sector",
                 href: "/technology-and-innovation/RB-in-Private-Sector",
               },
               {
-                label: "R&B in Public Sector",
+                label: "R&D in Public Sector",
                 href: "/technology-and-innovation/technology-deploiment",
               },
               {
@@ -126,7 +130,7 @@ function Header({
             ],
           },
           {
-            label: "Learning and Development",
+            label: "Learning & Development",
             href: "/Learning-and-Development",
             children: [
               {
@@ -197,12 +201,12 @@ function Header({
       }`}
     >
       {/* Desktop Header */}
-      <nav className="hidden md:block w-full max-w-7xl mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-20 py-3">
-        <div className="flex items-center gap-6">
-          {/* Logo */}
+      <nav className="hidden md:block w-full max-w-[1600px] mx-auto px-4 lg:px-6 xl:px-8 py-3">
+        <div className="flex items-center justify-between gap-4">
+          {/* Logo Section - Fixed Width */}
           <Link
             href="/"
-            className="flex items-center gap-3 shrink-0 min-w-[220px]"
+            className="flex items-center gap-2 shrink-0"
           >
             {logo ? (
               <img
@@ -226,11 +230,9 @@ function Header({
               </span>
             )}
 
-            {/* 50 Years Anniversary Logo */}
-            <div className="relative flex items-center justify-center -ml-2">
-              {/* Container for smooth transition */}
-              <div className="relative w-16 sm:w-20 h-10 sm:h-12 flex items-center justify-center">
-                {/* White version (shown when not scrolled) */}
+            {/* 50 Years Anniversary Logo - Smaller on desktop */}
+            <div className="relative flex items-center justify-center">
+              <div className="relative w-16 h-12 flex items-center justify-center">
                 {isMounted ? (
                   <motion.img
                     src="/image/50.png"
@@ -240,9 +242,8 @@ function Header({
                     animate={{
                       opacity: isScrolled || forceWhiteBackground ? 0 : 1,
                       scale: isScrolled || forceWhiteBackground ? 0.8 : 1,
-                      y: isScrolled || forceWhiteBackground ? -5 : 0,
                     }}
-                    transition={{ duration: 0.5, ease: "easeInOut" }}
+                    transition={{ duration: 0.3, ease: "easeInOut" }}
                     style={{
                       filter: "drop-shadow(0 2px 4px rgba(255, 255, 255, 0.2))",
                     }}
@@ -259,7 +260,6 @@ function Header({
                   />
                 )}
 
-                {/* Gold version (shown when scrolled) - smaller size */}
                 {isMounted ? (
                   <motion.img
                     src="/image/50_gold.png"
@@ -269,15 +269,8 @@ function Header({
                     animate={{
                       opacity: isScrolled || forceWhiteBackground ? 1 : 0,
                       scale: isScrolled || forceWhiteBackground ? 1 : 0.8,
-                      y: isScrolled || forceWhiteBackground ? 0 : 5,
                     }}
-                    transition={{ duration: 0.5, ease: "easeInOut" }}
-                    style={{
-                      filter:
-                        isScrolled || forceWhiteBackground
-                          ? "brightness(1.1)"
-                          : "none",
-                    }}
+                    transition={{ duration: 0.3, ease: "easeInOut" }}
                   />
                 ) : (
                   <img
@@ -285,23 +278,18 @@ function Header({
                     alt="50 Years Gold"
                     className="absolute inset-0 w-full h-full object-contain"
                     style={{
-                      filter:
-                        isScrolled || forceWhiteBackground
-                          ? "brightness(1.1)"
-                          : "none",
                       opacity: isScrolled || forceWhiteBackground ? 1 : 0,
                     }}
                   />
                 )}
               </div>
-
-              {/* Glow removed for cleaner header */}
             </div>
           </Link>
 
-          <div className="flex-1 flex items-center justify-end gap-3 lg:gap-4 min-w-0">
-            {/* Desktop Navigation */}
-            <div className="flex items-center gap-0.5 lg:gap-1">
+          {/* Navigation Section - Flexible */}
+          <div className="flex items-center justify-end gap-2 flex-1 min-w-0">
+            {/* Desktop Navigation - Compact spacing */}
+            <div className="flex items-center gap-0">
               {defaultNavItems.map((item) => (
                 <div
                   key={item.href}
@@ -313,23 +301,17 @@ function Header({
                 >
                   {item.children ? (
                     <span
-                      className={`hover:bg-[#EC601B] font-normal transition-all duration-300 flex items-center cursor-pointer px-3 py-1 whitespace-nowrap ${
+                      className={`hover:bg-[#EC601B] font-normal transition-all duration-300 flex items-center cursor-pointer px-2 lg:px-2.5 py-1.5 whitespace-nowrap text-xs lg:text-sm ${
                         openDropdown === item.href
                           ? "bg-[#EC601B] text-white"
                           : isScrolled || forceWhiteBackground
                           ? "text-black hover:text-white"
                           : "text-white/90 hover:text-white"
-                      } ${
-                      isScrolled || forceWhiteBackground ? "text-sm" : "text-sm"
                       }`}
                     >
                       {item.label}
                       <svg
-                        className={`ml-1 transition-all duration-300 ${
-                          isScrolled || forceWhiteBackground
-                            ? "w-3 h-3"
-                            : "w-4 h-4"
-                        }`}
+                        className="ml-0.5 w-3 h-3"
                         fill="none"
                         strokeLinecap="round"
                         strokeLinejoin="round"
@@ -343,10 +325,10 @@ function Header({
                   ) : (
                     <Link
                       href={item.href}
-                      className={`hover:bg-[#EC601B] font-normal transition-all duration-300 px-5 py-1 whitespace-nowrap ${
-                        isScrolled
-                          ? "text-sm text-black hover:text-white"
-                          : "text-sm text-white/90 hover:text-white"
+                      className={`hover:bg-[#EC601B] font-normal transition-all duration-300 px-2 lg:px-2.5 py-1.5 whitespace-nowrap text-xs lg:text-sm ${
+                        isScrolled || forceWhiteBackground
+                          ? "text-black hover:text-white"
+                          : "text-white/90 hover:text-white"
                       }`}
                     >
                       {item.label}
@@ -373,28 +355,22 @@ function Header({
               ))}
             </div>
 
-            {/* Language Switcher */}
-            <div className="relative language-switcher">
+            {/* Language Switcher - Compact */}
+            <div className="relative language-switcher ml-1">
               <button
                 onClick={() => setIsLangDropdownOpen(!isLangDropdownOpen)}
-                className={`flex items-center space-x-1 transition-colors ${
-                  isScrolled
+                className={`flex items-center space-x-1 transition-colors px-2 py-1.5 ${
+                  isScrolled || forceWhiteBackground
                     ? "text-black hover:text-gray-700"
                     : "text-white/90 hover:text-white"
                 }`}
                 aria-label="Change language"
               >
-                <span
-                  className={`uppercase transition-all duration-300 ${
-                    isScrolled || forceWhiteBackground ? "text-xs" : "text-sm"
-                  }`}
-                >
+                <span className="uppercase text-xs lg:text-sm">
                   {currentLanguage}
                 </span>
                 <svg
-                  className={`ml-1 transition-all duration-300 ${
-                    isScrolled || forceWhiteBackground ? "w-3 h-3" : "w-4 h-4"
-                  }`}
+                  className="w-3 h-3"
                   fill="none"
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -460,7 +436,6 @@ function Header({
 
           {/* Hamburger Menu on Right */}
           <div className="flex-1 flex items-center justify-end">
-            {/* Hamburger Button */}
             <button
               className="p-2.5 rounded-lg text-gray-600 hover:text-gray-700 hover:bg-gray-50 transition-all duration-300 active:scale-95"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -496,7 +471,7 @@ function Header({
               className="bg-white border-t border-gray-100 shadow-lg"
             >
               <div className="px-5 py-4 space-y-1">
-                {defaultNavItems.map((item, index) => (
+                {defaultNavItems.map((item) => (
                   <div key={item.href}>
                     {item.children ? (
                       <>
