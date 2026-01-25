@@ -41,17 +41,17 @@ export default function LogoShowcase() {
       logo: "/image/logo6.png",
       name: "SABAH AL-AHMAD Center for Giftedness and Creativity",
       description:
-        "The Sabah Al-Ahmad Center for Giftedness and Creativity (SACGC) is a leading non-profit organization established by the Kuwait Foundation for the Advancement of Sciences (KFAS). The center is dedicated to identifying, nurturing, and supporting gifted and creative individuals in Kuwait, particularly among the youth.",
+        "The Sabah Al-Ahmad Center for Giftedness and Creativity (SACGC) is a leading non-profit organization established by the Kuwait Foundation for the Advancement of Sciences (KFAS).",
     },
     {
       image: "/image/sc.jpg",
       logo: "/image/logo3.png",
       name: "The Scientific Center of Kuwait",
       description:
-        "The Scientific Center of Kuwait (TSCK) is one of the country’s leading educational and cultural landmarks, dedicated to promoting science, environmental awareness, and marine conservation. Located on the waterfront in Salmiya, the center features a world-class aquarium showcasing native marine life from the Arabian Gulf, an IMAX® theater that presents educational and documentary films, and the Discovery Place, an interactive zone designed to engage children with hands-on science activities.",
+        "The Scientific Center of Kuwait (TSCK) is one of the country's leading educational and cultural landmarks, dedicated to promoting science, environmental awareness, and marine conservation.",
     },
     {
-      image: "/image/banner3.webp",
+      image: "/image/aspd.jpg",
       logo: "/image/logo4.png",
       name: "Research Center",
       description: "Advanced research and development",
@@ -65,133 +65,130 @@ export default function LogoShowcase() {
     },
   ];
 
-  // Get the current background image (hovered takes priority, then active)
   const currentBgIndex = hoveredIndex !== null ? hoveredIndex : activeIndex;
-
-  const nextSlide = () => {
-    setActiveIndex((prev) => (prev + 1) % partners.length);
-  };
-
-  const prevSlide = () => {
-    setActiveIndex((prev) => (prev - 1 + partners.length) % partners.length);
-  };
 
   return (
     <section
       ref={sectionRef}
-      className="relative overflow-hidden py-20 lg:py-28 min-h-[650px] bg-[#1D2D44]"
+      className="relative overflow-hidden py-20 lg:py-32 bg-gray-50"
     >
-      {/* Dynamic Background Image - Changes on Hover */}
-      <AnimatePresence>
+      {/* Background Image */}
+      <AnimatePresence mode="wait">
         <motion.div
           key={currentBgIndex}
           className="absolute inset-0"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.2 }}
+          transition={{ duration: 0.6 }}
         >
           <img
             src={partners[currentBgIndex].image}
             alt="Background"
-            className="w-full h-full object-cover object-top"
+            className="w-full h-full object-cover"
           />
-          {/* Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-r from-[#102033]/95 via-[#1D2D44]/85 to-[#1D2D44]/70"></div>
+          <div
+            className={`absolute inset-0 transition-colors duration-300 ${
+              hoveredIndex !== null ? "bg-white/70" : "bg-white/90"
+            }`}
+          ></div>
         </motion.div>
       </AnimatePresence>
 
-      {/* Content Container */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full">
-        <div className="grid lg:grid-cols-[1.05fr_0.95fr] gap-12 lg:gap-16 items-center min-h-[550px]">
-          {/* Left Side - Title & Info */}
+      {/* Content */}
+      <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8">
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ duration: 0.6 }}
+          className="text-center max-w-3xl mx-auto mb-16"
+        >
+          <div className="inline-block mb-4">
+            <span className="text-sm font-semibold text-gray-500 uppercase tracking-widest">
+              Our Centers
+            </span>
+            <div className="h-0.5 w-16 bg-gradient-to-r from-[#7DC0F1] to-[#EC601B] mx-auto mt-2"></div>
+          </div>
+          
+          <h2 className="text-3xl lg:text-4xl xl:text-5xl font-bold text-gray-900 mb-4">
+            Building the Future Together
+          </h2>
+          
+          <p className="text-lg text-gray-600">
+            Explore KFAS centers and partners shaping Kuwait's science, technology, and innovation ecosystem.
+          </p>
+        </motion.div>
+
+        {/* Logo Grid */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-5xl mx-auto"
+        >
+          {partners.map((partner, index) => (
+             <motion.button
+              key={index}
+              onClick={() => setActiveIndex(index)}
+              onMouseEnter={() => setHoveredIndex(index)}
+              onMouseLeave={() => setHoveredIndex(null)}
+               className={`relative aspect-square bg-white rounded-2xl p-8 transition-all duration-300 ${
+                 activeIndex === index
+                   ? index % 2 === 0
+                     ? "shadow-xl ring-2 ring-[#7DC0F1] ring-offset-2 ring-offset-gray-50"
+                     : "shadow-xl ring-2 ring-[#EC601B] ring-offset-2 ring-offset-gray-50"
+                   : "shadow-md hover:shadow-lg"
+               }`}
+              whileHover={{ y: -8 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <div className="w-full h-full flex items-center justify-center">
+                <img
+                  src={partner.logo}
+                  alt={partner.name}
+                  className="w-full h-full object-contain"
+                />
+              </div>
+            </motion.button>
+          ))}
+        </motion.div>
+
+        {/* Active Center Info */}
+        <AnimatePresence mode="wait">
           <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            animate={isVisible ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-white"
+            key={activeIndex}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.4 }}
+            className="mt-12 max-w-3xl mx-auto text-center"
           >
-            {/* Label */}
-            <div className="inline-flex items-center gap-3 mb-6">
-              <div className="w-10 h-[2px] bg-[#EC601B]"></div>
-              <span className="text-sm font-semibold text-[#BBDEFB] uppercase tracking-wider">
-                Our Centers
-              </span>
-            </div>
-
-            {/* Main Title */}
-            <h2 className="font-montserrat text-4xl lg:text-5xl xl:text-6xl font-bold text-white mb-6 leading-tight">
-              Building the <span className="text-[#EC601B]">Future</span>{" "}
-              Together
-            </h2>
-            <p className="text-white/75 text-base lg:text-lg max-w-xl leading-relaxed">
-              Explore KFAS centers and partners shaping Kuwait’s science,
-              technology, and innovation ecosystem.
-            </p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <button className="px-5 py-2 rounded-full bg-white text-[#1D2D44] text-sm font-semibold hover:bg-white/90 transition-colors">
-                Explore Centers
-              </button>
-              <button className="px-5 py-2 rounded-full border border-white/30 text-white text-sm font-semibold hover:bg-white/10 transition-colors">
-                View Partnerships
-              </button>
-            </div>
-          </motion.div>
-
-          {/* Right Side - Logos & Image Preview */}
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            animate={isVisible ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            className="relative"
-          >
-            {/* 4 Logos Grid */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-              {partners.map((partner, index) => (
-                <motion.button
-                  key={index}
-                  onClick={() => setActiveIndex(index)}
-                  onMouseEnter={() => setHoveredIndex(index)}
-                  onMouseLeave={() => setHoveredIndex(null)}
-                  className={`relative p-4 rounded-xl transition-all duration-300 ${
-                    activeIndex === index
-                      ? "bg-white/20 shadow-xl shadow-[#EC601B]/30 border-2 border-[#EC601B]"
-                      : "bg-white/10 border-2 border-white/20 hover:bg-white/15"
-                  }`}
-                  whileHover={{ y: -8 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  {/* Logo */}
-                  <motion.div
-                    className="aspect-square flex items-center justify-center"
-                    whileHover={{ scale: 1.2 }}
-                    transition={{ type: "spring", stiffness: 400, damping: 15 }}
-                  >
-                    <img
-                      src={partner.logo}
-                      alt={`${partner.name} logo`}
-                      className="w-full h-full object-contain brightness-0 invert opacity-90 hover:opacity-100 transition-opacity duration-300"
-                    />
-                  </motion.div>
-
-                  {/* Active Indicator */}
-                  {activeIndex === index && (
-                    <motion.div
-                      className="absolute -top-1 -right-1 w-4 h-4 bg-[#EC601B] rounded-full border-2 border-white"
-                      initial={{ scale: 0 }}
-                      animate={{ scale: 1 }}
-                      transition={{ type: "spring", stiffness: 500 }}
-                    />
-                  )}
-                </motion.button>
-              ))}
-            </div>
-
-            {/* Hint Text */}
-            <p className="text-center text-white/50 text-xs mt-4">
-              Tap a logo to highlight the center
+            <h3 className="text-2xl font-bold text-gray-900 mb-3">
+              {partners[activeIndex].name}
+            </h3>
+            <p className="text-gray-600 leading-relaxed">
+              {partners[activeIndex].description}
             </p>
           </motion.div>
+        </AnimatePresence>
+
+        {/* Dots Indicator */}
+        <div className="flex justify-center gap-2 mt-10">
+          {partners.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => setActiveIndex(index)}
+              className={`h-2 rounded-full transition-all duration-300 ${
+                activeIndex === index
+                  ? "w-8"
+                  : "w-2 bg-gray-300 hover:bg-gray-400"
+              }`}
+              style={{
+                backgroundColor: activeIndex === index ? (index % 2 === 0 ? '#7DC0F1' : '#EC601B') : undefined
+              }}
+            />
+          ))}
         </div>
       </div>
     </section>

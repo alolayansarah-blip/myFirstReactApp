@@ -7,6 +7,7 @@ export default function MinimalCounterSection() {
   const [counts, setCounts] = useState([0, 0, 0, 0, 0, 0, 0]);
   const [hasAnimated, setHasAnimated] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
+  const timersRef = useRef<NodeJS.Timeout[]>([]);
 
   const stats = [
     {
@@ -127,6 +128,8 @@ export default function MinimalCounterSection() {
   ];
 
   useEffect(() => {
+    const currentSection = sectionRef.current;
+    
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -145,7 +148,7 @@ export default function MinimalCounterSection() {
                   const newCounts = [...prev];
                   if (newCounts[index] < stat.value) {
                     newCounts[index] = Math.min(
-                      newCounts[index] + increment,
+                      Math.round(newCounts[index] + increment),
                       stat.value
                     );
                   }
@@ -161,6 +164,8 @@ export default function MinimalCounterSection() {
                   });
                 }
               }, stepDuration);
+
+              timersRef.current.push(timer);
             });
           }
         });
@@ -171,16 +176,21 @@ export default function MinimalCounterSection() {
       }
     );
 
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
+    if (currentSection) {
+      observer.observe(currentSection);
     }
 
     return () => {
-      if (sectionRef.current) {
-        observer.unobserve(sectionRef.current);
+      // Clear all timers on unmount
+      timersRef.current.forEach(timer => clearInterval(timer));
+      timersRef.current = [];
+      
+      // Unobserve using the saved reference
+      if (currentSection) {
+        observer.unobserve(currentSection);
       }
     };
-  }, [hasAnimated]);
+  }, [hasAnimated]); // Removed stats from dependencies as it's constant
 
   const formatNumber = (num: number) => {
     return Math.round(num).toLocaleString();
@@ -195,7 +205,6 @@ export default function MinimalCounterSection() {
       <div className="absolute inset-0 bg-[url('/image/benduluim.png')] bg-cover bg-center bg-fixed" />
       {/* Orange gradient overlay */}
       <div className="absolute inset-0 bg-[#EC601B]/90" />
-      {/* Corner logo */}
 
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 relative z-10">
         {/* Header */}
