@@ -290,30 +290,32 @@ export default function MinimalCounterSection() {
         entries.forEach((entry) => {
           if (entry.isIntersecting && !hasAnimated) {
             setHasAnimated(true);
+            
+            // Start counting animation
             stats.forEach((stat, index) => {
               const duration = 2000;
               const steps = 50;
-              const increment = stat.value / steps;
               const stepDuration = duration / steps;
 
-              let currentStep = 0;
+              let currentCount = 0;
+              const increment = stat.value / steps;
+              
               const timer = setInterval(() => {
-                currentStep++;
+                currentCount += increment;
+                
                 setCounts((prev) => {
                   const newCounts = [...prev];
-                  if (currentStep < steps) {
-                    newCounts[index] = Math.min(
-                      Math.round(increment * currentStep),
-                      stat.value
-                    );
-                  } else {
-                    newCounts[index] = stat.value;
-                  }
+                  newCounts[index] = Math.min(Math.round(currentCount), stat.value);
                   return newCounts;
                 });
 
-                if (currentStep >= steps) {
+                if (currentCount >= stat.value) {
                   clearInterval(timer);
+                  setCounts((prev) => {
+                    const newCounts = [...prev];
+                    newCounts[index] = stat.value;
+                    return newCounts;
+                  });
                 }
               }, stepDuration);
 
@@ -323,7 +325,7 @@ export default function MinimalCounterSection() {
         });
       },
       {
-        threshold: 0.2,
+        threshold: 0.1,
         rootMargin: "0px",
       }
     );
@@ -340,7 +342,7 @@ export default function MinimalCounterSection() {
         observer.unobserve(currentSection);
       }
     };
-  }, [hasAnimated]);
+  }, []); // Empty dependency array - only run once
 
   const formatNumber = (num: number) => {
     return Math.round(num).toLocaleString();
@@ -357,30 +359,8 @@ export default function MinimalCounterSection() {
       <div className="absolute inset-0 bg-[#EC601B]/90" />
 
       <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center max-w-4xl mx-auto mb-16"
-        >
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="inline-block mb-4"
-          >
-            <div className="flex items-center justify-center gap-3 px-6 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20">
-              <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
-              <span className="text-sm font-semibold text-white uppercase tracking-widest">
-                Our Impact
-              </span>
-            </div>
-          </motion.div>
-          
-          <motion.h2
+        <div className="text-center max-w-4xl mx-auto mb-16">
+            <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -401,7 +381,7 @@ export default function MinimalCounterSection() {
           >
             Advancing Kuwait's Future Through Research and Development
           </motion.p>
-        </motion.div>
+        </div>
 
         {/* Stats Grid - Creative Layout */}
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4 md:gap-6">
@@ -409,12 +389,11 @@ export default function MinimalCounterSection() {
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{ 
-                duration: 0.5, 
+              animate={hasAnimated ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+              transition={{
+                duration: 0.5,
                 delay: index * 0.08,
-                ease: "easeOut" 
+                ease: "easeOut",
               }}
               whileHover={{ y: -8, scale: 1.05 }}
               className="group relative bg-white/10 backdrop-blur-md rounded-2xl p-6 text-center transition-all duration-300 border border-white/20 hover:bg-white/15 hover:border-white/40 cursor-default"
@@ -423,7 +402,7 @@ export default function MinimalCounterSection() {
               <div className="absolute top-0 right-0 w-8 h-8 border-t-2 border-r-2 border-white/30 rounded-tr-2xl group-hover:border-white/50 transition-colors duration-300"></div>
               
               {/* Number */}
-              <div className="text-4xl lg:text-5xl font-bold text-white mb-3 group-hover:scale-110 transition-transform duration-300">
+              <div className="text-3xl lg:text-4xl font-bold text-white mb-3 group-hover:scale-110 transition-transform duration-300">
                 {formatNumber(counts[index])}
               </div>
               

@@ -112,14 +112,12 @@ function CardItem({ title, index }: Card & { index: number }) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.1 }}
-      transition={{ 
-        duration: 0.5, 
+      animate={{ opacity: 1, y: 0 }}
+      transition={{
+        duration: 0.5,
         delay: index * 0.1,
-        ease: "easeOut"
+        ease: "easeOut",
       }}
-      whileHover={{ y: -6 }}
       className={`group relative ${bgColor} ${hoverBgColor} transition-all duration-300 cursor-pointer shadow-md hover:shadow-xl`}
     >
       <div className="flex flex-col h-full p-6 md:p-8 text-center justify-center items-center min-h-[160px] md:min-h-[200px]">
