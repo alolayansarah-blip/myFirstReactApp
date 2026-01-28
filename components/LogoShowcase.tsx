@@ -1,194 +1,218 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function LogoShowcase() {
-  const [isVisible, setIsVisible] = useState(false);
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-  const sectionRef = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setIsVisible(true);
-          }
-        });
-      },
-      {
-        threshold: 0.2,
-        rootMargin: "0px",
-      }
-    );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    return () => {
-      if (sectionRef.current) {
-        observer.unobserve(sectionRef.current);
-      }
-    };
-  }, []);
+  const [hoveredIndex, setHoveredIndex] = React.useState<number | null>(null);
+  const [imageErrors, setImageErrors] = React.useState<Set<string>>(new Set());
 
   const partners = [
     {
       image: "/image/ImpactStory2.png",
       logo: "/image/logo6.png",
       name: "SABAH AL-AHMAD Center for Giftedness and Creativity",
+      link: "https://linktr.ee/sacgc_kw",
       description:
-        "The Sabah Al-Ahmad Center for Giftedness and Creativity (SACGC) is a leading non-profit organization established by the Kuwait Foundation for the Advancement of Sciences (KFAS).",
+        "Sabah Al-Ahmad Center for Giftedness and Creativity (SACGC) is a center under the Kuwait Foundation for the Advancement of Sciences dedicated to nurturing talent and creativity in young individuals. SACGC provides programs, competitions, and enrichment opportunities that support skill development, academic excellence, and innovation for students in Kuwait.",
     },
     {
       image: "/image/sc.jpg",
       logo: "/image/logo3.png",
       name: "The Scientific Center of Kuwait",
+      link:"https://tsck.org.kw/",
       description:
-        "The Scientific Center of Kuwait (TSCK) is one of the country's leading educational and cultural landmarks, dedicated to promoting science, environmental awareness, and marine conservation.",
+        "The Scientific Center of Kuwait (TSCK), is a leading science and discovery destination. Through interactive exhibits, immersive experiences, and educational programs, TSCK inspires curiosity, promotes scientific learning, and engages visitors of all ages.",
     },
     {
       image: "/image/aspd.jpg",
       logo: "/image/logo4.png",
-      name: "Research Center",
-      description: "Advanced research and development",
+      name: "Advancement of Sciences Publishing and Distribution Co.",
+      link:"https://www.aspdkw.com/",
+      description: "Advanced research and development center focused on innovation and scientific excellence.",
     },
     {
       image: "/image/DDI.jpg",
       logo: "/image/logo5.png",
       name: "Dasman Diabetes Institute",
+      link:"https://www.dasmaninstitute.org/",
       description:
-        "A leading research and treatment center dedicated to diabetes prevention and care in Kuwait.",
+        "At Dasman Diabetes Institute (DDI), they aim to benefit their community by developing research projects, educational programs, and awareness-raising initiatives that improve society and make a difference in the healthcare system.",
     },
   ];
 
-  const currentBgIndex = hoveredIndex !== null ? hoveredIndex : activeIndex;
+  const handleImageError = (imagePath: string) => {
+    setImageErrors((prev) => new Set(prev).add(imagePath));
+  };
+
+  const handleCardInteraction = (index: number) => {
+    setHoveredIndex(hoveredIndex === index ? null : index);
+  };
+
+  const handleMouseEnter = (index: number) => {
+    setHoveredIndex(index);
+  };
+
+  const handleMouseLeave = () => {
+    setHoveredIndex(null);
+  };
+
+  const currentBgIndex = hoveredIndex ?? 0;
 
   return (
-    <section
-      ref={sectionRef}
-      className="relative overflow-hidden py-20 lg:py-32 bg-gray-50"
-    >
-      {/* Background Image */}
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={currentBgIndex}
-          className="absolute inset-0"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.6 }}
-        >
+    <section className="relative py-20 lg:py-28 bg-white overflow-hidden">
+      {/* Background image for section on hover */}
+      <AnimatePresence>  
+  <motion.div
+    key={currentBgIndex}
+    className="absolute inset-0"
+    initial={{ opacity: 0 }}
+    animate={{ opacity: 1 }}
+    exit={{ opacity: 0 }}
+    transition={{ duration: 0.5 }}
+  >
           <img
             src={partners[currentBgIndex].image}
-            alt="Background"
+            alt={`${partners[currentBgIndex].name} background`}
             className="w-full h-full object-cover"
           />
-          <div
-            className={`absolute inset-0 transition-colors duration-300 ${
-              hoveredIndex !== null ? "bg-white/70" : "bg-white/90"
-            }`}
-          ></div>
+          <div className="absolute inset-0 bg-white/75" />
         </motion.div>
       </AnimatePresence>
-
-      {/* Content */}
-      <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8">
-        {/* Header */}
+      {/* Subtle background elements */}
+      <div className="absolute inset-0 opacity-5">
+        <div className="absolute top-0 left-0 w-96 h-96 bg-gray-300 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-gray-300 rounded-full blur-3xl" />
+      </div>
+      
+      <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+        {/* Header Text - Centered */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
-          animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center max-w-3xl mx-auto mb-16"
+          className="text-gray-900 text-center mb-12"
         >
-          <div className="inline-block mb-4">
-            <span className="text-sm font-semibold text-gray-500 uppercase tracking-widest">
-              Our Centers
-            </span>
-            <div className="h-0.5 w-16 bg-gradient-to-r from-[#7DC0F1] to-[#EC601B] mx-auto mt-2"></div>
-          </div>
-          
-          <h2 className="text-3xl lg:text-4xl xl:text-5xl font-bold text-gray-900 mb-4">
-            Building the Future Together
+          <span className="text-sm font-semibold uppercase tracking-widest text-[#EC601B]">
+            Our Centers
+          </span>
+          <div className="h-0.5 w-16 bg-[#EC601B] mt-3 mb-6 mx-auto" />
+          <h2 className="text-4xl lg:text-5xl font-bold leading-tight text-gray-900">
+            Build the Future
+            <span className="block">Together</span>
           </h2>
-          
-          <p className="text-lg text-gray-600">
-            Explore KFAS centers and partners shaping Kuwait's science, technology, and innovation ecosystem.
-          </p>
         </motion.div>
 
-        {/* Logo Grid */}
+        {/* Logos in one line */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-5xl mx-auto"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.1 }}
+          className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6"
         >
-          {partners.map((partner, index) => (
-             <motion.button
-              key={index}
-              onClick={() => setActiveIndex(index)}
-              onMouseEnter={() => setHoveredIndex(index)}
-              onMouseLeave={() => setHoveredIndex(null)}
-               className={`relative aspect-square bg-white rounded-2xl p-8 transition-all duration-300 ${
-                 activeIndex === index
-                   ? index % 2 === 0
-                     ? "shadow-xl ring-2 ring-[#7DC0F1] ring-offset-2 ring-offset-gray-50"
-                     : "shadow-xl ring-2 ring-[#EC601B] ring-offset-2 ring-offset-gray-50"
-                   : "shadow-md hover:shadow-lg"
-               }`}
-              whileHover={{ y: -8 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <div className="w-full h-full flex items-center justify-center">
-                <img
-                  src={partner.logo}
-                  alt={partner.name}
-                  className="w-full h-full object-contain"
-                />
-              </div>
-            </motion.button>
-          ))}
-        </motion.div>
+            {partners.map((partner, index) => {
+              const cardContent = (
+                <>
+                  {/* Logo */}
+                  {!imageErrors.has(partner.logo) ? (
+                    <img
+                      src={partner.logo}
+                      alt={`${partner.name} logo`}
+                      onError={() => handleImageError(partner.logo)}
+                      className="w-full h-32 md:h-36 lg:h-40 object-contain transition-all duration-300"
+                    />
+                  ) : (
+                    <div className="w-full h-32 md:h-36 lg:h-40 flex items-center justify-center bg-gray-100 rounded">
+                      <span className="text-gray-400 text-xs">Logo unavailable</span>
+                    </div>
+                  )}
 
-        {/* Active Center Info */}
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={activeIndex}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.4 }}
-            className="mt-12 max-w-3xl mx-auto text-center"
-          >
-            <h3 className="text-2xl font-bold text-gray-900 mb-3">
-              {partners[activeIndex].name}
-            </h3>
-            <p className="text-gray-600 leading-relaxed">
-              {partners[activeIndex].description}
-            </p>
+                  {/* Hover overlay */}
+                  <div
+                    className={`absolute inset-0 transition-opacity duration-300 ${
+                      hoveredIndex === index ? "opacity-100" : "opacity-0"
+                    }`}
+                  >
+                    {/* Background image */}
+                    {!imageErrors.has(partner.image) ? (
+                      <img
+                        src={partner.image}
+                        alt={`${partner.name} background`}
+                        onError={() => handleImageError(partner.image)}
+                        className="absolute inset-0 w-full h-full object-cover scale-[1.08] group-hover:scale-100 transition-transform duration-500"
+                      />
+                    ) : (
+                      <div className="absolute inset-0 bg-gradient-to-br from-[#7DC0F1] to-[#5BA3D8]" />
+                    )}
+
+                    {/* Pretty overlay: soft gradient + tint */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-[#7DC0F1]/85 via-[#7DC0F1]/70 to-[#5BA3D8]/80" />
+                    <div className="absolute inset-0 bg-white/10" />
+
+                    {/* Text content */}
+                    <div className="relative z-10 p-4 flex items-center justify-center h-full">
+                      <h4 className="text-sm md:text-base font-semibold text-white text-center leading-snug">
+                        {partner.name}
+                      </h4>
+                    </div>
+                  </div>
+                </>
+              );
+
+              const commonProps = {
+                onMouseEnter: () => handleMouseEnter(index),
+                onMouseLeave: handleMouseLeave,
+                onClick: () => handleCardInteraction(index),
+                onKeyDown: (e: React.KeyboardEvent) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    handleCardInteraction(index);
+                  }
+                },
+                tabIndex: 0,
+                role: "button" as const,
+                "aria-label": `View details about ${partner.name}`,
+                "aria-expanded": hoveredIndex === index,
+                className:
+                  "group relative bg-white backdrop-blur-sm rounded-xl p-8 md:p-10 shadow-md hover:shadow-xl focus:shadow-xl focus:outline-none focus:ring-2 focus:ring-[#EC601B]/30 transition-all duration-300 overflow-hidden cursor-pointer border border-gray-200",
+              };
+
+              return partner.link ? (
+                <a
+                  key={index}
+                  href={partner.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  {...commonProps}
+                >
+                  {cardContent}
+                </a>
+              ) : (
+                <div key={index} {...commonProps}>
+                  {cardContent}
+                </div>
+              );
+            })}
           </motion.div>
-        </AnimatePresence>
 
-        {/* Dots Indicator */}
-        <div className="flex justify-center gap-2 mt-10">
-          {partners.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => setActiveIndex(index)}
-              className={`h-2 rounded-full transition-all duration-300 ${
-                activeIndex === index
-                  ? "w-8"
-                  : "w-2 bg-gray-300 hover:bg-gray-400"
-              }`}
-              style={{
-                backgroundColor: activeIndex === index ? (index % 2 === 0 ? '#7DC0F1' : '#EC601B') : undefined
-              }}
-            />
-          ))}
+        {/* Description below grid - Fixed height container to prevent layout shift */}
+        <div className="mt-6 min-h-[60px] md:min-h-[48px] flex items-center justify-center">
+          <AnimatePresence mode="wait">
+            {hoveredIndex !== null && (
+              <motion.p
+                key={hoveredIndex}
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8 }}
+                transition={{ duration: 0.25 }}
+                className="text-center text-gray-700 max-w-2xl mx-auto text-sm md:text-base"
+              >
+                {partners[hoveredIndex].description}
+              </motion.p>
+            )}
+          </AnimatePresence>
         </div>
       </div>
     </section>

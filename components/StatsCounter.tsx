@@ -266,7 +266,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 
-export default function MinimalCounterSection() {
+export default function CounterSection() {
   const [counts, setCounts] = useState([0, 0, 0, 0, 0, 0, 0]);
   const [hasAnimated, setHasAnimated] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
@@ -359,7 +359,7 @@ export default function MinimalCounterSection() {
       <div className="absolute inset-0 bg-[#EC601B]/90" />
 
       <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
-        <div className="text-center max-w-4xl mx-auto mb-16">
+        <div className="text-left max-w-4xl mb-16">
             <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}

@@ -19,7 +19,7 @@ const placeholderPosts: InstagramPost[] = [
     media_type: "IMAGE",
     media_url: "/image/instagram2.webp",
     permalink: "https://www.instagram.com/kfasinfo/",
-    timestamp: new Date().toISOString(),
+    timestamp: "2025-01-10T00:00:00.000Z",
     caption:
       "KFAS continues to support scientific research and innovation in Kuwait. Follow us for the latest updates on our programs and initiatives. #KFAS #Science #Innovation",
   },
@@ -28,7 +28,7 @@ const placeholderPosts: InstagramPost[] = [
     media_type: "IMAGE",
     media_url: "/image/Scientific.png",
     permalink: "https://www.instagram.com/kfasinfo/",
-    timestamp: new Date(Date.now() - 86400000).toISOString(),
+    timestamp: "2025-01-09T00:00:00.000Z",
     caption:
       "Empowering researchers and scientists to tackle national challenges through cutting-edge research programs. #Research #Kuwait #Technology",
   },
@@ -37,7 +37,7 @@ const placeholderPosts: InstagramPost[] = [
     media_type: "IMAGE",
     media_url: "/image/InstagramPost2.jpg",
     permalink: "https://www.instagram.com/kfasinfo/",
-    timestamp: new Date(Date.now() - 172800000).toISOString(),
+    timestamp: "2025-01-08T00:00:00.000Z",
     caption:
       "Building a sustainable future through science, technology, and innovation. Join us in our mission. #Sustainability #Future #KFAS",
   },
@@ -46,7 +46,7 @@ const placeholderPosts: InstagramPost[] = [
     media_type: "IMAGE",
     media_url: "/image/InstagramPost.png",
     permalink: "https://www.instagram.com/kfasinfo/",
-    timestamp: new Date(Date.now() - 259200000).toISOString(),
+    timestamp: "2025-01-07T00:00:00.000Z",
     caption:
       "Science Directors Program 2022 - Empowering the next generation of science leaders in Kuwait. #ScienceDirectors #Leadership #KFAS",
   },

@@ -22,12 +22,9 @@ const StatsCounter = dynamic(() => import("@/components/StatsCounter"), {
 const LogoShowcase = dynamic(() => import("@/components/LogoShowcase"), {
   loading: () => <div className="min-h-[200px]" />,
 });
-const OurImpactStories = dynamic(
-  () => import("@/components/OurImpactStories"),
-  {
-    loading: () => <div className="min-h-[400px]" />,
-  }
-);
+const LatestNews = dynamic(() => import("@/components/LatestNews"), {
+  loading: () => <div className="min-h-[400px]" />,
+});
 const InstagramFeed = dynamic(() => import("@/components/InstagramFeed"), {
   loading: () => <div className="min-h-[400px]" />,
 });
@@ -51,7 +48,7 @@ export default function Home() {
 
         <WhoWeAre />
         <StatsCounter />
-        <OurImpactStories />
+        <LatestNews />
         <LogoShowcase />
         <InstagramFeed />
 
