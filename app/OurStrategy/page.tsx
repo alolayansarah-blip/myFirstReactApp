@@ -83,7 +83,7 @@ export default function OurStrategyPage() {
 
   return (
     <>
-      <Header logo="/image/logo2.png" forceWhiteBackground={true} />
+      <Header logo="/image/logo_c.png" forceWhiteBackground={true} />
       <main className="min-h-screen bg-white pt-20">
         {/* Hero Section with Banner */}
         <motion.section
@@ -521,7 +521,7 @@ export default function OurStrategyPage() {
           </div>
         </section>
       </main>
-      <Footer logo="/image/logo.png" logoText="KFAS" />
+      <Footer logo="/image/logo_white.png" logoText="KFAS" />
     </>
   );
 }

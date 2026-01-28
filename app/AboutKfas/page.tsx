@@ -23,7 +23,7 @@ export default function AboutKfasPage() {
 
   return (
     <>
-      <Header logo="/image/logo2.png" forceWhiteBackground={true} />
+      <Header logo="/image/logo_c.png" forceWhiteBackground={true} />
       <main className="min-h-screen bg-white pt-20">
         {/* Hero Section with Banner */}
         <motion.section

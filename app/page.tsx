@@ -33,7 +33,7 @@ const SocialShareMenu = dynamic(() => import("@/components/SocialShareMenu"));
 export default function Home() {
   return (
     <>
-      <Header logo="/image/logo.png" logoText="KFastest" />
+      <Header logo="/image/logo_white.png" logoText="KFastest" />
       <SocialShareMenu />
       <main>
         <Hero
@@ -54,7 +54,7 @@ export default function Home() {
 
         {/* <StatsCounter /> */}
       </main>
-      <Footer logo="/image/logo.png" logoText="KFAS" />
+      <Footer logo="/image/logo_white.png" logoText="KFAS" />
     </>
   );
 }

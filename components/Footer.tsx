@@ -10,7 +10,7 @@ interface FooterProps {
   logoText?: string;
 }
 
-function Footer({ logo = "/image/logo.png", logoText = "KFAS" }: FooterProps) {
+function Footer({ logo = "/image/logo_white.png", logoText = "KFAS" }: FooterProps) {
   const currentYear = new Date().getFullYear();
 
   const footerLinks = [

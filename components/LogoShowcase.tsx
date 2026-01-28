@@ -61,24 +61,20 @@ export default function LogoShowcase() {
 
   return (
     <section className="relative py-20 lg:py-28 bg-white overflow-hidden">
-      {/* Background image for section on hover */}
-      <AnimatePresence>  
-  <motion.div
-    key={currentBgIndex}
-    className="absolute inset-0"
-    initial={{ opacity: 0 }}
-    animate={{ opacity: 1 }}
-    exit={{ opacity: 0 }}
-    transition={{ duration: 0.5 }}
-  >
-          <img
-            src={partners[currentBgIndex].image}
-            alt={`${partners[currentBgIndex].name} background`}
-            className="w-full h-full object-cover"
-          />
+      {/* Background tint for section on hover */}
+      <AnimatePresence>
+        <motion.div
+          key={currentBgIndex}
+          className="absolute inset-0"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.5 }}
+        >
           <div className="absolute inset-0 bg-white/75" />
         </motion.div>
       </AnimatePresence>
+      
       {/* Subtle background elements */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute top-0 left-0 w-96 h-96 bg-gray-300 rounded-full blur-3xl" />
@@ -92,12 +88,12 @@ export default function LogoShowcase() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-gray-900 text-center mb-12"
+          className="text-gray-900 text-left mb-12"
         >
           <span className="text-sm font-semibold uppercase tracking-widest text-[#EC601B]">
             Our Centers
           </span>
-          <div className="h-0.5 w-16 bg-[#EC601B] mt-3 mb-6 mx-auto" />
+          <div className="h-0.5 w-16 bg-[#EC601B] mt-3 mb-6" />
           <h2 className="text-4xl lg:text-5xl font-bold leading-tight text-gray-900">
             Build the Future
             <span className="block">Together</span>
@@ -112,93 +108,93 @@ export default function LogoShowcase() {
           transition={{ duration: 0.6, delay: 0.1 }}
           className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6"
         >
-            {partners.map((partner, index) => {
-              const cardContent = (
-                <>
-                  {/* Logo */}
-                  {!imageErrors.has(partner.logo) ? (
+          {partners.map((partner, index) => {
+            const cardContent = (
+              <>
+                {/* Logo */}
+                {!imageErrors.has(partner.logo) ? (
+                  <img
+                    src={partner.logo}
+                    alt={`${partner.name} logo`}
+                    onError={() => handleImageError(partner.logo)}
+                    className="w-full h-32 md:h-36 lg:h-40 object-contain transition-all duration-300"
+                  />
+                ) : (
+                  <div className="w-full h-32 md:h-36 lg:h-40 flex items-center justify-center bg-gray-100 rounded">
+                    <span className="text-gray-400 text-xs">Logo unavailable</span>
+                  </div>
+                )}
+
+                {/* Hover overlay */}
+                <div
+                  className={`absolute inset-0 transition-opacity duration-300 ${
+                    hoveredIndex === index ? "opacity-100" : "opacity-0"
+                  }`}
+                >
+                  {/* Background image */}
+                  {!imageErrors.has(partner.image) ? (
                     <img
-                      src={partner.logo}
-                      alt={`${partner.name} logo`}
-                      onError={() => handleImageError(partner.logo)}
-                      className="w-full h-32 md:h-36 lg:h-40 object-contain transition-all duration-300"
+                      src={partner.image}
+                      alt={`${partner.name} background`}
+                      onError={() => handleImageError(partner.image)}
+                      className="absolute inset-0 w-full h-full object-cover scale-[1.08] group-hover:scale-100 transition-transform duration-500"
                     />
                   ) : (
-                    <div className="w-full h-32 md:h-36 lg:h-40 flex items-center justify-center bg-gray-100 rounded">
-                      <span className="text-gray-400 text-xs">Logo unavailable</span>
-                    </div>
+                    <div className="absolute inset-0 bg-gradient-to-br from-[#7DC0F1] to-[#5BA3D8]" />
                   )}
 
-                  {/* Hover overlay */}
-                  <div
-                    className={`absolute inset-0 transition-opacity duration-300 ${
-                      hoveredIndex === index ? "opacity-100" : "opacity-0"
-                    }`}
-                  >
-                    {/* Background image */}
-                    {!imageErrors.has(partner.image) ? (
-                      <img
-                        src={partner.image}
-                        alt={`${partner.name} background`}
-                        onError={() => handleImageError(partner.image)}
-                        className="absolute inset-0 w-full h-full object-cover scale-[1.08] group-hover:scale-100 transition-transform duration-500"
-                      />
-                    ) : (
-                      <div className="absolute inset-0 bg-gradient-to-br from-[#7DC0F1] to-[#5BA3D8]" />
-                    )}
+                  {/* Pretty overlay: soft gradient + tint */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-[#7DC0F1]/85 via-[#7DC0F1]/70 to-[#5BA3D8]/80" />
+                  <div className="absolute inset-0 bg-white/10" />
 
-                    {/* Pretty overlay: soft gradient + tint */}
-                    <div className="absolute inset-0 bg-gradient-to-br from-[#7DC0F1]/85 via-[#7DC0F1]/70 to-[#5BA3D8]/80" />
-                    <div className="absolute inset-0 bg-white/10" />
-
-                    {/* Text content */}
-                    <div className="relative z-10 p-4 flex items-center justify-center h-full">
-                      <h4 className="text-sm md:text-base font-semibold text-white text-center leading-snug">
-                        {partner.name}
-                      </h4>
-                    </div>
+                  {/* Text content */}
+                  <div className="relative z-10 p-4 flex items-center justify-center h-full">
+                    <h4 className="text-sm md:text-base font-semibold text-white text-center leading-snug">
+                      {partner.name}
+                    </h4>
                   </div>
-                </>
-              );
-
-              const commonProps = {
-                onMouseEnter: () => handleMouseEnter(index),
-                onMouseLeave: handleMouseLeave,
-                onClick: () => handleCardInteraction(index),
-                onKeyDown: (e: React.KeyboardEvent) => {
-                  if (e.key === "Enter" || e.key === " ") {
-                    e.preventDefault();
-                    handleCardInteraction(index);
-                  }
-                },
-                tabIndex: 0,
-                role: "button" as const,
-                "aria-label": `View details about ${partner.name}`,
-                "aria-expanded": hoveredIndex === index,
-                className:
-                  "group relative bg-white backdrop-blur-sm rounded-xl p-8 md:p-10 shadow-md hover:shadow-xl focus:shadow-xl focus:outline-none focus:ring-2 focus:ring-[#EC601B]/30 transition-all duration-300 overflow-hidden cursor-pointer border border-gray-200",
-              };
-
-              return partner.link ? (
-                <a
-                  key={index}
-                  href={partner.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  {...commonProps}
-                >
-                  {cardContent}
-                </a>
-              ) : (
-                <div key={index} {...commonProps}>
-                  {cardContent}
                 </div>
-              );
-            })}
-          </motion.div>
+              </>
+            );
+
+            const commonProps = {
+              onMouseEnter: () => handleMouseEnter(index),
+              onMouseLeave: handleMouseLeave,
+              onClick: () => handleCardInteraction(index),
+              onKeyDown: (e: React.KeyboardEvent) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  handleCardInteraction(index);
+                }
+              },
+              tabIndex: 0,
+              role: "button" as const,
+              "aria-label": `View details about ${partner.name}`,
+              "aria-expanded": hoveredIndex === index,
+              className:
+                "group relative bg-white backdrop-blur-sm rounded-xl p-8 md:p-10 shadow-md hover:shadow-xl focus:shadow-xl focus:outline-none focus:ring-2 focus:ring-[#EC601B]/30 transition-all duration-300 overflow-hidden cursor-pointer border border-gray-200",
+            };
+
+            return partner.link ? (
+              <a
+                key={index}
+                href={partner.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                {...commonProps}
+              >
+                {cardContent}
+              </a>
+            ) : (
+              <div key={index} {...commonProps}>
+                {cardContent}
+              </div>
+            );
+          })}
+        </motion.div>
 
         {/* Description below grid - Fixed height container to prevent layout shift */}
-        <div className="mt-6 min-h-[60px] md:min-h-[48px] flex items-center justify-center">
+        <div className="mt-6 h-[120px] md:h-[80px] lg:h-[64px] flex items-center justify-center overflow-hidden">
           <AnimatePresence mode="wait">
             {hoveredIndex !== null && (
               <motion.p
@@ -207,7 +203,7 @@ export default function LogoShowcase() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -8 }}
                 transition={{ duration: 0.25 }}
-                className="text-center text-gray-700 max-w-2xl mx-auto text-sm md:text-base"
+                className="text-center text-gray-700 max-w-2xl mx-auto text-sm md:text-base px-4 line-clamp-4 md:line-clamp-3"
               >
                 {partners[hoveredIndex].description}
               </motion.p>
